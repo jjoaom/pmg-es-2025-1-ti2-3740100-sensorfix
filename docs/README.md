@@ -39,39 +39,61 @@ mostrar algum resultado relevante do trabalho (até 10 linhas)._
 
 ## 1. Introdução
 
-_Apresente uma frase introdutória definindo o que será apresentado._
+- Nesse projeto apresentaremos uma solução web somada a aprimoração dos processos voltados para a gestão de uma empresa IOT que realiza a manufatura e manutenção de sensores de segurança em campo.
 
 ### 1.1 Contextualização
 
-_Na **contextualização**, o aluno deve dizer do que se trata o trabalho, em que área ou contexto se insere.
-A **contextualização** deve ser desenvolvida de algo mais genérico para algo mais específico. 
-A citação de pesquisas quantitativas é bem aceita aqui (corretamente referenciadas)._
+- A SensorFix atua no ramo de IOT como uma terceira que presta serviço para empresas que atuam na gestão da segurança de galpões empregando sensores que, instalados em um equipamento que oferecem risco a segurança em caso de operação, emitem sinais sonoros e luminosos buscando evitar colisões ou danos físicos a outros colaboradores ou estruturas. Uma vez que os equipamentos estão em campo, em caso de danos ou necessidade de manutenção a nível de mau funcionamento ou troca, como também a necessidade de produção de equipamentos novos, a SensorFix atuará realizando a avaliação primária do equipamento, catalogando seu dano, movimentando o mesmo para o deposito de origem para que volte para produção e posteriormente envio. Em caso de equipamentos novos, faremos toda a busca de insumos no estoque e a produção entregará o equipamento finalizado.
 
 ### 1.2 Problema
 
-_Em seguida o aluno deve caminhar a contextualização para descrever o **problema** que o trabalho trata. 
-O **problema** pode ser algo vivido em uma empresa específica. Neste caso, o aluno deve rapidamente apresentar 
-o cenário de problema da empresa. A empresa só deve ser citada explicitamente se o aluno tiver autorização 
-para tal._
+- Hoje os equipamentos de segurança em campo apresentam tecnologias em hardware e firmware muito desenvolvidas, com isso atribuindo a estes equipamentos um alto valor de custo e também o emprego de peças e componentes elétricos delicados e complexos.  
+- Atualmente tendo em vista seu alto valor de mercado, não se observa uma gestão de ponta a ponta nos processos de produção, faturamento, estocagem, gestão de depósitos e envios como também não apresentam uma logística eficaz no que tangem a reutilização dos equipamentos que retornam de campo tendo em vista que a prática de reuso e recuperação dos dispositivos de retorno seriam fonte de lucro e indicadores importantes. 
 
 ### 1.3 Objetivo geral
 
-_O aluno deve escrever um pequeno parágrafo ou frase com o **objetivo geral** do trabalho. 
-O objetivo deve ser bem direto, específico e definido com verbos de ação (elaborar, propor, avaliar, comparar, desenvolver, etc.). No caso específico deste projeto, o objetivo deste trabalho é desenvolver um sistema para automação de processos para um problema específico._
+- Desenvolver uma solução web para otimizar a gestão de manufatura e manutenção de sensores de segurança, garantindo um controle eficiente sobre os processos de produção, estocagem, envio e reutilização dos equipamentos, melhorando a rastreabilidade e a eficiência logística da empresa. 
 
 #### 1.3.1 Objetivos específicos
 
-_Apresente também alguns (pelo menos 2) **objetivos específicos** dependendo de onde você vai querer 
-concentrar sua prática investigativa, ou como você irá aprofundar seu trabalho._
+- Integrar um sistema de controle de estoque para monitoramento dos insumos necessários para a produção e manutenção dos sensores e que também notifique quando insumos chegarem em estoque mínimo, tendo em vista prazos de solicitação, importação e envio. 
+
+- Desenvolver o controle de depósitos para que os equipamentos sejam movimentados para cada deposito e tenhamos controle melhor do estado real em que cada um se encontra. Depósitos de ativação (quando estiver com o cliente), manutenção (assim que retornar do cliente ele será direcionado para tal), adquiridos (equipamentos novos ou que saíram de manutenção e foram para produção) e danificados (equipamentos que saíram do depósito de manutenção e aguardam descarte ou reaproveitamento de peça). 
+
+- Implementar um ambiente de análise dos equipamentos que chegam de retorno do cliente. Esse ambiente permitirá que o usuário faça análise primária do equipamento e registre qual o dano principal, danos secundários e sua necessidade de manutenção. Com isso movimentará o equipamento para o deposito correto juntamente com a orientação.
 
 ### 1.4 Justificativas
 
-_Mostre também as **justificativas** para o 
-desenvolvimento do seu trabalho e, caso deseje, destaque alguma contribuição do trabalho._
+- O trabalho se faz muito útil no momento em que temos o emprego de um estoque com uma diversidade grande de insumos. No contexto de dispositivos eletrônicos IOT, os mesmos apresentam circuitos que empregam componentes pequenos e com especificações técnicas características. Portanto é necessário que a gestão do estoque de insumos para produção e manutenção seja bem desenvolvida em função da dificuldade de controlar previsão e demanda de toda produção. Vale ressaltar as consequências da quebra desse processo como a possibilidade de cancelamento de envios ao cliente devido à falta de algum insumo da demanda solicitada. 
+ 
+- Se faz muito válido a criação de depósitos para alocação dos equipamentos produzidos e os que retornam de campo. Com isso teremos uma noção maior da quantidade de equipamentos que estão em cada etapa do processo geral, absorvendo indicadores importantes como a necessidade de manter o número de equipamentos do deposito de manutenção e adquiridos maior que o número de equipamentos no deposito de danificados. A divisão da frota de equipamentos de maneira modular permite a noção maior de identificação de problemas nos equipamentos em sí como também falhas no processo. 
+
+- O ambiente de análise de equipamentos de retorno empregará o registro no sistema somado a avaliação física do equipamento. Neste momento saberemos o porquê exato o equipamento retornou do cliente, além do depoimento do mesmo em função da solicitação da troca. A análise contará com a catalogação do que o equipamento em função de seu dano, teremos a padronização do campo de danos onde o usuário selecionará qual o problema, a ideia é usar caixas de seleção do problema principal e um campo de detalhamento se for o caso, para que futuramente seja possível aplicar filtros e obter indicadores para investigarmos por exemplo qual o problema principal de equipamentos que retornam de campo. 
 
 ## 2. Participantes do processo
 
-_Apresente aqui os perfis dos usuários-chave do sistema. Diversas são as informações que podem ser relevantes para a definição dos perfis dos usuários, tais como idade, gênero, aspectos culturais, nível de educação, entre outros. A pesquisa de mercado pode ser uma ferramenta poderosa para se identificar e caracterizar os perfis de usuários. Apresente claramente o papel a ser desempenhado por cada usuário._
+- Os participantes do processo em nosso sistema web são os principais usuários do sistema, cada um com um perfil específico que determina sua função dentro da solução. Cada usuário desempenha um papel essencial, acessando informações relevantes e realizando tarefas que garantem o funcionamento eficiente do sistema (o que cada um faz, quais funcionalidades precisa acessar, quais informações precisa registrar). 
+
+- Para definir esses perfis, podemos responder às seguintes perguntas: 
+  - Quais são as responsabilidades de cada usuário no sistema? 
+
+  - Que tipo de informações cada usuário precisa acessar e registrar? 
+
+  - De que forma o sistema pode facilitar suas atividades diárias? 
+
+- Inicialmente identificamos 6 participantes sendo eles: 
+
+  - Gestor de Manufatura e Manutenção 
+
+  - Técnico de Manutenção 
+
+  - Operador de Estoque 
+
+  - Gestor de Logística 
+
+  - Cliente/Empresa Contratante 
+
+  - Equipe de TI e Desenvolvedores do Sistema
 
 ## 3. Modelagem do processo de negócio
 
