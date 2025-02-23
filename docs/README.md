@@ -1,6 +1,7 @@
-# TITULO DO PROJETO
+# SENSORFIX
 
 
+<<<<<<< HEAD
 **Caio Gabriel de Lima Leal, cllima3753@gmail.com**
 
 **Erick Guedes de Carvalho, erickguedes0515@gmail.com**
@@ -12,16 +13,37 @@
 **João Vitor Tolentino, email do aluno 5**
 
 **Luiz Gustavo Fagundes Teixeira, luizagustinho032@gmail.com**
+=======
+**Caio Gabriel de Lima Leal, 1498306@sga.pucminas.br **
+
+**Erick Guedes de Carvalho, 1450737@sga.pucminas.br **
+
+**Ian Nycolas Fernandes Costa, 1494000@sga.pucminas.br**
+
+**João Marcos de Aquino Gonçalves, 1336608@sga.pucminas.br**
+
+**João Vitor Tolentino, 1464913@sga.pucminas.br**
+
+**Luiz Gustavo Fagundes Teixeira, 1254357@sga.pucminas.br**
+>>>>>>> 769bc5a9dcec632087be6cc2968be3085fbdbdf8
 
 ---
 
 Professores:
 
+<<<<<<< HEAD
 ** Danilo De Quadros Maia Filho**
 
 ** Prof. Nome do Prof 2 **
 
 ** Michelle Hanne Soares De Andrade**
+=======
+** Danilo De Quadros Maia Filho **
+
+** Prof. Nome do Prof 2 **
+
+** Michelle Hanne Soares De Andrade **
+>>>>>>> 769bc5a9dcec632087be6cc2968be3085fbdbdf8
 
 ---
 

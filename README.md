@@ -1,6 +1,6 @@
-# Nome do projeto
+# SensorFix
 
-Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
+A SensorFix oferece uma solução web inovadora voltada para a gestão de processos logísticos de empresas que desenvolvem e distribuem soluções IoT. A empresa foca no controle de estoque, classificação de equipamentos para manutenção e agilidade no gerenciamento de depósitos. 
 
 ## Integrantes
 
