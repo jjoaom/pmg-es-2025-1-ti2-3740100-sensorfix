@@ -1,9 +1,9 @@
 # SENSORFIX
 
 
-**Caio Gabriel de Lima Leal, 1498306@sga.pucminas.br **
+**Caio Gabriel de Lima Leal, 1498306@sga.pucminas.br**
 
-**Erick Guedes de Carvalho, 1450737@sga.pucminas.br **
+**Erick Guedes de Carvalho, 1450737@sga.pucminas.br**
 
 **Ian Nycolas Fernandes Costa, 1494000@sga.pucminas.br**
 
