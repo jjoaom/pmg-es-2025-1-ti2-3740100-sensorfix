@@ -1,6 +1,19 @@
 # SENSORFIX
 
 
+<<<<<<< HEAD
+**Caio Gabriel de Lima Leal, cllima3753@gmail.com**
+
+**Erick Guedes de Carvalho, erickguedes0515@gmail.com**
+
+**Ian Nycolas Fernandes Costa, email do aluno 3**
+
+**João Marcos de Aquino Gonçalves, email do aluno 4**
+
+**João Vitor Tolentino, email do aluno 5**
+
+**Luiz Gustavo Fagundes Teixeira, luizagustinho032@gmail.com**
+=======
 **Caio Gabriel de Lima Leal, 1498306@sga.pucminas.br **
 
 **Erick Guedes de Carvalho, 1450737@sga.pucminas.br **
@@ -12,16 +25,25 @@
 **João Vitor Tolentino, 1464913@sga.pucminas.br**
 
 **Luiz Gustavo Fagundes Teixeira, 1254357@sga.pucminas.br**
+>>>>>>> 769bc5a9dcec632087be6cc2968be3085fbdbdf8
 
 ---
 
 Professores:
 
+<<<<<<< HEAD
+** Danilo De Quadros Maia Filho**
+
+** Prof. Nome do Prof 2 **
+
+** Michelle Hanne Soares De Andrade**
+=======
 ** Danilo De Quadros Maia Filho **
 
 ** Prof. Nome do Prof 2 **
 
 ** Michelle Hanne Soares De Andrade **
+>>>>>>> 769bc5a9dcec632087be6cc2968be3085fbdbdf8
 
 ---
 
@@ -38,12 +60,21 @@ mostrar algum resultado relevante do trabalho (até 10 linhas)._
 
 
 ## 1. Introdução
+ - Equipamentos IoT (Internet das Coisas) são dispositivos conectados à internet que coletam, processam e transmitem dados automaticamente. Eles podem incluir sensores, câmeras, eletrodomésticos inteligentes, dispositivos industriais e equipamentos médicos, permitindo automação, monitoramento remoto e tomada de decisões baseada em dados em diversos setores.
 
-- Nesse projeto apresentaremos uma solução web somada a aprimoração dos processos voltados para a gestão de uma empresa IOT que realiza a manufatura e manutenção de sensores de segurança em campo.
+- A Internet das Coisas (IoT) tem se destacado como um componente vital na transformação digital do Brasil, impulsionando avanços em diversos setores, como agricultura, saúde e manufatura. Estudos indicam que o mercado brasileiro de IoT movimenta aproximadamente R$ 8,5 bilhões anualmente, refletindo um crescimento significativo e contínuo. Além disso, a América do Sul, com o Brasil à frente, é a terceira maior região no mercado global de IoT, projetando um crescimento anual composto (CAGR) de 24,3% até 2030. Esse cenário evidencia a crescente importância da IoT no desenvolvimento econômico e tecnológico do país. 
+
+- Nesse projeto apresentaremos a SensorFix uma solução web somada a aprimoração dos processos voltados para a gestão de uma empresa IOT que realiza a manufatura e manutenção de sensores de segurança em campo.  
+
+- Atualmente, empresas que utilizam ou comercializam equipamentos eletrônicos com tecnologia IoT enfrentam carência de técnicas logísticas que otimizem seus processos. Para aumentar a lucratividade e reduzir o descarte desnecessário de componentes reutilizáveis, essas empresas buscam cada vez mais o reuso de tecnologias e estruturas de hardware. No entanto, esse objetivo apresenta desafios, como a estocagem eficiente dos equipamentos em manutenção, a classificação precisa dos dispositivos danificados para agilizar a identificação e resolução de problemas, além do controle detalhado do fluxo dos equipamentos ao longo do processo. O uso de depósitos fictícios permite um melhor rastreamento, possibilitando a coleta de indicadores que aprimoram a eficiência operacional, reduzindo o tempo de resposta e facilitando a identificação de falhas. Esses obstáculos ressaltam a necessidade de investimentos em infraestrutura tecnológica e parcerias estratégicas para superar as barreiras existentes e promover o crescimento sustentável do setor de IoT no país.
+
+ 
+
+- A SensorFix apresenta uma solução web inovadora voltada para os processos logísticos de empresas que desenvolvem e distribuem soluções IoT para clientes em escala mundial. Nossa plataforma aprimora a gestão de estocagem, a classificação de equipamentos destinados à manutenção e o controle de depósitos onde os dispositivos estão localizados, além de oferecer outras ferramentas para agilizar a logística. Atualmente, somos uma empresa terceirizada que absorve a tecnologia de nossos clientes e se empenha em garantir o controle de qualidade e a manutenção dos equipamentos IoT. Estamos fortemente presentes no setor de manutenção de sensores de segurança para ambientes industriais e galpões.
 
 ### 1.1 Contextualização
 
-- A SensorFix atua no ramo de IOT como uma terceira que presta serviço para empresas que atuam na gestão da segurança de galpões empregando sensores que, instalados em um equipamento que oferecem risco a segurança em caso de operação, emitem sinais sonoros e luminosos buscando evitar colisões ou danos físicos a outros colaboradores ou estruturas. Uma vez que os equipamentos estão em campo, em caso de danos ou necessidade de manutenção a nível de mau funcionamento ou troca, como também a necessidade de produção de equipamentos novos, a SensorFix atuará realizando a avaliação primária do equipamento, catalogando seu dano, movimentando o mesmo para o deposito de origem para que volte para produção e posteriormente envio. Em caso de equipamentos novos, faremos toda a busca de insumos no estoque e a produção entregará o equipamento finalizado.
+- A SensorFix atua no setor de IoT como uma empresa terceirizada que presta serviços para companhias focadas na gestão da segurança de galpões. Empregamos sensores instalados em equipamentos que oferecem risco à segurança durante a operação, emitindo sinais sonoros e luminosos para evitar colisões ou danos físicos a colaboradores e estruturas. Uma vez que os equipamentos estão em campo, em caso de danos, necessidade de manutenção devido a mau funcionamento ou reposição, bem como na fabricação de novos dispositivos, a SensorFix realiza a avaliação primária do equipamento, cataloga seu dano e movimenta-o para o depósito de origem, permitindo seu retorno à produção e posterior envio. No caso de novos equipamentos, gerenciamos a busca de insumos no estoque e acompanhamos a produção até a entrega do equipamento finalizado.
 
 ### 1.2 Problema
 
@@ -55,12 +86,12 @@ mostrar algum resultado relevante do trabalho (até 10 linhas)._
 - Desenvolver uma solução web para otimizar a gestão de manufatura e manutenção de sensores de segurança, garantindo um controle eficiente sobre os processos de produção, estocagem, envio e reutilização dos equipamentos, melhorando a rastreabilidade e a eficiência logística da empresa. 
 
 #### 1.3.1 Objetivos específicos
-
+##### 1.3.1.1 Controle de estoque
 - Integrar um sistema de controle de estoque para monitoramento dos insumos necessários para a produção e manutenção dos sensores e que também notifique quando insumos chegarem em estoque mínimo, tendo em vista prazos de solicitação, importação e envio. 
-
+##### 1.3.1.2 Movimentação de depositos
 - Desenvolver o controle de depósitos para que os equipamentos sejam movimentados para cada deposito e tenhamos controle melhor do estado real em que cada um se encontra. Depósitos de ativação (quando estiver com o cliente), manutenção (assim que retornar do cliente ele será direcionado para tal), adquiridos (equipamentos novos ou que saíram de manutenção e foram para produção) e danificados (equipamentos que saíram do depósito de manutenção e aguardam descarte ou reaproveitamento de peça). 
-
-- Implementar um ambiente de análise dos equipamentos que chegam de retorno do cliente. Esse ambiente permitirá que o usuário faça análise primária do equipamento e registre qual o dano principal, danos secundários e sua necessidade de manutenção. Com isso movimentará o equipamento para o deposito correto juntamente com a orientação.
+##### 1.3.1.3 Manutenção de ponta a ponta
+- Implementar um ambiente de análise dos equipamentos que chegam de retorno do cliente. Esse ambiente permitirá que o usuário faça análise primária do equipamento e registre qual o dano principal, danos secundários e sua necessidade de manutenção. Com isso movimentará o equipamento para o deposito correto juntamente com a orientação. Com esse resgistro no sistema o time de produção pode atuar de maneira cada vez mais eficaz uma vez que sabendo do problema principal, em caso de alta demanda e necessidade de reuso, podem atacar por exemplo o grupo de equipamentos que tem problemas mais simples de resolver. 
 
 ### 1.4 Justificativas
 
@@ -81,19 +112,10 @@ mostrar algum resultado relevante do trabalho (até 10 linhas)._
 
   - De que forma o sistema pode facilitar suas atividades diárias? 
 
-- Inicialmente identificamos 6 participantes sendo eles: 
-
-  - Gestor de Manufatura e Manutenção 
-
-  - Técnico de Manutenção 
-
-  - Operador de Estoque 
-
-  - Gestor de Logística 
-
-  - Cliente/Empresa Contratante 
-
-  - Equipe de TI e Desenvolvedores do Sistema
+- Inicialmente identificamos 3 participantes sendo eles: 
+  - Técnico de manutenção
+  - Gestor de logísica
+  - Administrador Geral
 
 ## 3. Modelagem do processo de negócio
 
