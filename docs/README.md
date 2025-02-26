@@ -11,7 +11,7 @@
 
 **João Marcos de Aquino Gonçalves, 1336608@sga.pucminas.br**
 
-**João Vitor Tolentino, 1464913@sga.pucminas.br**
+**João Vitor Tolentino, joaovitornll@gmail.com**
 
 **Luiz Gustavo Fagundes Teixeira, 1254357@sga.pucminas.br**
 
