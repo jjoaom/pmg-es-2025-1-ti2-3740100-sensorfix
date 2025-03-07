@@ -23,7 +23,7 @@ Professores:
 
 **Danilo De Quadros Maia Filho**
 
-**Prof. Nome do Prof 2**
+**Joana Gabriela Ribeiro de Souza**
 
 **Michelle Hanne Soares De Andrade**
 
@@ -102,8 +102,36 @@ mostrar algum resultado relevante do trabalho (até 10 linhas)._
 ## 3. Modelagem do processo de negócio
 
 ### 3.1. Análise da situação atual
+Atualmente, as empresas que atuam no setor de IoT e lidam com sensores de segurança enfrentam desafios significativos na gestão logística e na manutenção dos equipamentos. O processo de gerenciamento desses dispositivos é frequentemente descentralizado, com muitas etapas sendo conduzidas manualmente ou por meio de sistemas desconectados, o que resulta em ineficiências e dificuldades na rastreabilidade dos equipamentos.
 
-_Apresente uma descrição textual de como os sistemas atuais resolvem o problema que se propõe a resolver.  Caso sua proposta seja inovadora e não existam processos claramente definidos, **apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente**, mesmo que não se utilize tecnologia computacional._
+Os principais problemas enfrentados incluem:
+
+1. **Falta de controle integrado de estoque:**
+   - A gestão dos insumos para produção e manutenção dos sensores é feita sem um monitoramento automatizado, o que pode levar a faltas inesperadas de componentes essenciais ou a desperdícios devido a compras excessivas.
+   - Não há um sistema eficiente para prever a demanda e planejar reabastecimentos de forma otimizada.
+
+2. **Gestão ineficaz da movimentação dos equipamentos:**
+   - Atualmente, não existe um controle eficiente da movimentação dos sensores entre os diferentes estágios, como ativação (com o cliente), manutenção (retornando do cliente), aquisição (novos ou recuperados) e danificados.
+   - A ausência de uma categorização clara dos dispositivos impacta diretamente na velocidade da tomada de decisão sobre reuso, manutenção ou descarte.
+
+3. **Falta de um processo estruturado para manutenção e reuso:**
+   - O diagnóstico de falhas é realizado de maneira pouco padronizada, muitas vezes dependendo da experiência individual do técnico e sem um sistema que registre e categorize os danos de maneira sistemática.
+   - O reuso de componentes é dificultado pela falta de dados históricos sobre os equipamentos e a ausência de uma metodologia clara para identificar quais peças podem ser reaproveitadas.
+
+4. **Dificuldade na rastreabilidade e análise de indicadores:**
+   - A falta de um sistema integrado impossibilita o monitoramento detalhado dos equipamentos ao longo de seu ciclo de vida, dificultando a obtenção de indicadores sobre taxas de falha, tempo médio de manutenção e taxa de reaproveitamento de componentes.
+   - Sem esses dados, torna-se difícil otimizar processos e implementar melhorias contínuas na gestão dos sensores.
+
+### Comparação com o modelo proposto
+
+Diante dessas dificuldades, a SensorFix surge como uma solução inovadora ao oferecer uma plataforma web integrada que otimiza a gestão da manufatura e manutenção de sensores de segurança. A proposta inclui funcionalidades como:
+
+- **Controle automatizado de estoque** com alertas para níveis críticos de insumos.
+- **Gestão centralizada da movimentação dos equipamentos** entre diferentes depósitos.
+- **Sistema de análise padronizada de equipamentos retornados**, permitindo diagnósticos mais rápidos e precisos.
+- **Rastreamento detalhado dos sensores** e coleta de indicadores para melhoria contínua dos processos.
+
+Com essa abordagem, a SensorFix não apenas resolve os problemas enfrentados atualmente, mas também proporciona maior eficiência operacional e redução de custos para as empresas do setor de IoT.
 
 ### 3.2. Descrição geral da proposta de solução
 
