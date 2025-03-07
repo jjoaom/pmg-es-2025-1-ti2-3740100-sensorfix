@@ -133,9 +133,31 @@ Diante dessas dificuldades, a SensorFix surge como uma solução inovadora ao of
 
 Com essa abordagem, a SensorFix não apenas resolve os problemas enfrentados atualmente, mas também proporciona maior eficiência operacional e redução de custos para as empresas do setor de IoT.
 
-### 3.2. Descrição geral da proposta de solução
+### **3.2. Descrição Geral da Proposta de Solução**  
 
-_Apresente aqui uma descrição da sua proposta abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente aqui as oportunidades de melhorias._
+A **SensorFix** é uma plataforma web que tem como objetivo otimizar a gestão logística e a manutenção de sensores de segurança no setor de IoT. A solução busca resolver a qualidade de operação, oferecendo uma abordagem centralizada e automatizada para o controle de estoque, rastreamento de equipamentos e análise de indicadores operacionais.
+
+A proposta da SensorFix se concentra na digitalização e automação dos processos relacionados à manufatura, movimentação e manutenção de sensores e equipamentos eletrônicos. 
+
+#### Objetivos do Negócio
+- Reduz desperdícios ao oferecer um controle automatizado de estoque, minizando o risco de compras excessivas e a falta de insumos críticos.
+- Com um sistema padronizado de diagnóstico, é possível reduzir o tempo médio de reparo e melhorar o reaproveitamento de componentes.
+- O monitoramento detalhado do ciclo de vida dos sensores permite identificar padrões de falhas e prever demandas futuras.
+- Centralização dos dados operacionais, visando facilitar a análise de indicadores-chave, possibilitando ajustes estratégicos em tempo real.
+- A plataforma facilita a identificação e categorização de falhas e defeitos, direcionando o reparo para a equipe técnica responsável.
+- A plataforma oferece ferramentas a gestão, mas não interfere diretamente na logística física de transporte. 
+- 
+#### Oportunidade de Melhoria
+A implementação da SensorFix abre espaço para diversas melhorias nos processos das empresas, incluindo:
+
+- **Automação de processos manuais**
+- **Aprimoramento da análise preditiva**
+- **Integração futura com IoT e Machine Learning**
+- **Expansão para outros setores**
+Com essa proposta, a SensorFix se posiciona como uma solução moderna e estratégica para empresas do setor de IoT, promovendo agilidade, eficiência, inovação e sustentabilidade na gestão de sensores e reparos técnicos.
+#### Limites do Negócio 
+- A SensorFix oferece ferramentas para otimizar a gestão, mas não interfere diretamente na logística física de transporte dos sensores 
+- A compatibilidade com softwares já utilizados pelas empresas dependerá da viabilidade técnica e das necessidades específicas de cada cliente.
 
 ### 3.3. Modelagem dos processos
 
