@@ -37,32 +37,23 @@ _* **Link** - campo que armazena uma URL_
 
 _* **Tabela** - campo formado por uma matriz de valores_
 
-**Nome da atividade 1**
+**Preencher demanda de Produção**
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-| ***Exemplo:***  |                  |                |                   |
-| login           | Caixa de Texto   | formato de e-mail |                |
-| senha           | Caixa de Texto   | mínimo de 8 caracteres |           |
+| Limpeza realizada?    | Seleção única | Formato Radio | false   |
+| QtdPeçasDefeituosas   | número    | ---            | 0  |
+| Peças com defeito  | Tabela    | Tabela gerada de acordo com QtdPeçasDefeituosas |   |
+| Observações | Área de texto  |      none          |                  |
+| Relatório de testes          | Área de texto   | formato de e-mail |                |
+| Teste bem sucedido?           | Seleção única | Formato Radio |  false|
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                            | ---               |
 | [Nome do botão/link] | Atividade/processo de destino  | (default/cancel  ) |
 | ***Exemplo:***       |                                |                   |
-| entrar               | Fim do Processo 1              | default           |
-| cadastrar            | Início do proceso de cadastro  |                   |
+| Abrir demanda   | Inicio do processo de produção             | default           |
+| Teste realizado            | Realização do teste  | (sucedido/falha)    |
+| Produto defeituoso?           | Encaminhar produto para setor de descarte/reciclagem  |  (confirmar/cancelar)     |
+| Finalizar produto            | Fim do processo/Liberação para envio  | (confirmar/cancelar|
 
-
-**Nome da atividade 2**
-
-| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
-| ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-|  exemple        |                  |                |                   |
-| exemole 2       |                  |                |                   |
-
-| **Comandos**         |  **Destino**                   | **Tipo**          |
-| ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel/  ) |
-|                      |                                |                   |
