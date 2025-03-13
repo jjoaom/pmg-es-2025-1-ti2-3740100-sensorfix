@@ -161,13 +161,11 @@ Com essa proposta, a SensorFix se posiciona como uma solução moderna e estrat�
 
 ### 3.3. Modelagem dos processos
 
-[PROCESSO 1 - Nome do Processo](processo-1-nome-do-processo.md "Detalhamento do Processo 1.")
+- [PROCESSO 1 - Gestão de Estoque](Processo%20de%20Gestão%20de%20Estoque.md "Detalhamento do Processo 1 - Gestão de Estoque")
+- [PROCESSO 2 - Produção](Processo%20de%20Produção.md "Detalhamento do Processo 2 - Produção")
+- [PROCESSO 3 - Movimentação de Depósitos](Processo%20de%20Movimentação%20de%20Depósitos.md "Detalhamento do Processo 3 - Movimentação de Depósitos")
+- [PROCESSO 4 - Manutenção](Processo%20de%20Manutenção.md "Detalhamento do Processo 4 - Manutenção")
 
-[PROCESSO 2 - Nome do Processo](processo-2-nome-do-processo.md "Detalhamento do Processo 2.")
-
-[PROCESSO 3 - Nome do Processo](processo-3-nome-do-processo.md "Detalhamento do Processo 3.")
-
-[PROCESSO 4 - Nome do Processo](processo-4-nome-do-processo.md "Detalhamento do Processo 4.")
 
 ## 4. Projeto da solução
 
