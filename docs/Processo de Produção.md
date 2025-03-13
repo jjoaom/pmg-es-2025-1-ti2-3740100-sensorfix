@@ -59,7 +59,8 @@ _* **Tabela** - campo formado por uma matriz de valores_
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | [Nome do campo] | [tipo de dados]  |                |                   |
-|                 |                  |                |                   |
+|  exemple        |                  |                |                   |
+| exemole 2       |                  |                |                   |
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
 | ---                  | ---                            | ---               |
