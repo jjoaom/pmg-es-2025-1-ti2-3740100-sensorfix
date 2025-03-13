@@ -23,7 +23,7 @@ Professores:
 
 **Danilo De Quadros Maia Filho**
 
-**Prof. Nome do Prof 2**
+**Joana Gabriela Ribeiro de Souza**
 
 **Michelle Hanne Soares De Andrade**
 
@@ -102,12 +102,62 @@ mostrar algum resultado relevante do trabalho (até 10 linhas)._
 ## 3. Modelagem do processo de negócio
 
 ### 3.1. Análise da situação atual
+Atualmente, as empresas que atuam no setor de IoT e lidam com sensores de segurança enfrentam desafios significativos na gestão logística e na manutenção dos equipamentos. O processo de gerenciamento desses dispositivos é frequentemente descentralizado, com muitas etapas sendo conduzidas manualmente ou por meio de sistemas desconectados, o que resulta em ineficiências e dificuldades na rastreabilidade dos equipamentos.
 
-_Apresente uma descrição textual de como os sistemas atuais resolvem o problema que se propõe a resolver.  Caso sua proposta seja inovadora e não existam processos claramente definidos, **apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente**, mesmo que não se utilize tecnologia computacional._
+Os principais problemas enfrentados incluem:
 
-### 3.2. Descrição geral da proposta de solução
+1. **Falta de controle integrado de estoque:**
+   - A gestão dos insumos para produção e manutenção dos sensores é feita sem um monitoramento automatizado, o que pode levar a faltas inesperadas de componentes essenciais ou a desperdícios devido a compras excessivas.
+   - Não há um sistema eficiente para prever a demanda e planejar reabastecimentos de forma otimizada.
 
-_Apresente aqui uma descrição da sua proposta abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente aqui as oportunidades de melhorias._
+2. **Gestão ineficaz da movimentação dos equipamentos:**
+   - Atualmente, não existe um controle eficiente da movimentação dos sensores entre os diferentes estágios, como ativação (com o cliente), manutenção (retornando do cliente), aquisição (novos ou recuperados) e danificados.
+   - A ausência de uma categorização clara dos dispositivos impacta diretamente na velocidade da tomada de decisão sobre reuso, manutenção ou descarte.
+
+3. **Falta de um processo estruturado para manutenção e reuso:**
+   - O diagnóstico de falhas é realizado de maneira pouco padronizada, muitas vezes dependendo da experiência individual do técnico e sem um sistema que registre e categorize os danos de maneira sistemática.
+   - O reuso de componentes é dificultado pela falta de dados históricos sobre os equipamentos e a ausência de uma metodologia clara para identificar quais peças podem ser reaproveitadas.
+
+4. **Dificuldade na rastreabilidade e análise de indicadores:**
+   - A falta de um sistema integrado impossibilita o monitoramento detalhado dos equipamentos ao longo de seu ciclo de vida, dificultando a obtenção de indicadores sobre taxas de falha, tempo médio de manutenção e taxa de reaproveitamento de componentes.
+   - Sem esses dados, torna-se difícil otimizar processos e implementar melhorias contínuas na gestão dos sensores.
+
+### Comparação com o modelo proposto
+
+Diante dessas dificuldades, a SensorFix surge como uma solução inovadora ao oferecer uma plataforma web integrada que otimiza a gestão da manufatura e manutenção de sensores de segurança. A proposta inclui funcionalidades como:
+
+- **Controle automatizado de estoque** com alertas para níveis críticos de insumos.
+- **Gestão centralizada da movimentação dos equipamentos** entre diferentes depósitos.
+- **Sistema de análise padronizada de equipamentos retornados**, permitindo diagnósticos mais rápidos e precisos.
+- **Rastreamento detalhado dos sensores** e coleta de indicadores para melhoria contínua dos processos.
+
+Com essa abordagem, a SensorFix não apenas resolve os problemas enfrentados atualmente, mas também proporciona maior eficiência operacional e redução de custos para as empresas do setor de IoT.
+
+### **3.2. Descrição Geral da Proposta de Solução**  
+
+A **SensorFix** é uma plataforma web que tem como objetivo otimizar a gestão logística e a manutenção de sensores de segurança no setor de IoT. A solução busca resolver a qualidade de operação, oferecendo uma abordagem centralizada e automatizada para o controle de estoque, rastreamento de equipamentos e análise de indicadores operacionais.
+
+A proposta da SensorFix se concentra na digitalização e automação dos processos relacionados à manufatura, movimentação e manutenção de sensores e equipamentos eletrônicos. 
+
+#### Objetivos do Negócio
+- Reduz desperdícios ao oferecer um controle automatizado de estoque, minizando o risco de compras excessivas e a falta de insumos críticos.
+- Com um sistema padronizado de diagnóstico, é possível reduzir o tempo médio de reparo e melhorar o reaproveitamento de componentes.
+- O monitoramento detalhado do ciclo de vida dos sensores permite identificar padrões de falhas e prever demandas futuras.
+- Centralização dos dados operacionais, visando facilitar a análise de indicadores-chave, possibilitando ajustes estratégicos em tempo real.
+- A plataforma facilita a identificação e categorização de falhas e defeitos, direcionando o reparo para a equipe técnica responsável.
+- A plataforma oferece ferramentas a gestão, mas não interfere diretamente na logística física de transporte. 
+- 
+#### Oportunidade de Melhoria
+A implementação da SensorFix abre espaço para diversas melhorias nos processos das empresas, incluindo:
+
+- **Automação de processos manuais**
+- **Aprimoramento da análise preditiva**
+- **Integração futura com IoT e Machine Learning**
+- **Expansão para outros setores**
+Com essa proposta, a SensorFix se posiciona como uma solução moderna e estratégica para empresas do setor de IoT, promovendo agilidade, eficiência, inovação e sustentabilidade na gestão de sensores e reparos técnicos.
+#### Limites do Negócio 
+- A SensorFix oferece ferramentas para otimizar a gestão, mas não interfere diretamente na logística física de transporte dos sensores 
+- A compatibilidade com softwares já utilizados pelas empresas dependerá da viabilidade técnica e das necessidades específicas de cada cliente.
 
 ### 3.3. Modelagem dos processos
 
