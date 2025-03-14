@@ -25,23 +25,11 @@ _* **Caixa de texto** - campo texto de uma linha_
 
 _* **Número** - campo numérico_
 
-_* **Data** - campo do tipo data (dd-mm-aaaa)_
-
-_* **Hora** - campo do tipo hora (hh:mm:ss)_
-
-_* **Data e Hora** - campo do tipo data e hora (dd-mm-aaaa, hh:mm:ss)_
-
-_* **Imagem** - campo contendo uma imagem_
-
 _* **Seleção única** - campo com várias opções de valores que são mutuamente exclusivas (tradicional radio button ou combobox)_
 
-_* **Seleção múltipla** - campo com várias opções que podem ser selecionadas mutuamente (tradicional checkbox ou listbox)_
 
-_* **Arquivo** - campo de upload de documento_
 
-_* **Link** - campo que armazena uma URL_
 
-_* **Tabela** - campo formado por uma matriz de valores_
 
 
 **Escolher uma opção dos serviços de Gestão de Estoque**
@@ -66,8 +54,8 @@ _* **Tabela** - campo formado por uma matriz de valores_
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| Digitar o ID | Caixa de Texto|     Apenas número            |    "Digite o id do equipamento"               |
-| Dgitar o endereço físico|         Seguir padrão "letra+num+num+num+num"| endereços que não existem no estoque |  "Digite o endereço"|
+| Digitar o ID      | Caixa de Texto|     Apenas número            |    "Digite o id do equipamento"               |
+| Dgitar o endereço físico| Seguir padrão "letra+num+num+num+num"| endereços que não existem no estoque |  "Digite o endereço"|
 | Descrição           | Caixa de Texto   |String |"Descrição"  |             
 | Estoque mínimo           | Caixa de Texto   | valores inteiros |      "Est.Min"     |
 | Componentes         | CheckBox  | Ao cadastrar um equipamento é necessáriocolocar seus insumos |           |
