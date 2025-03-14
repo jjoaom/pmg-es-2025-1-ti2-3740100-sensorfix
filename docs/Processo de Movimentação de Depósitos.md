@@ -1,8 +1,14 @@
 ## **Processo 3 – Movimentação de Depósitos**  
 
+### **Descrição das Atividades** 
+
+O fluxo descreve a movimentação dos sensores em diferentes estados: Ativo, Ativação, Estoque, Manutenção e Danificado.
+Cada atividade do processo tem seus campos e comandos definidos abaixo.
+
 ![image](https://github.com/user-attachments/assets/0da4901b-e4be-4384-aa69-efbc073cde1f)
 
-### **📌 Nome da atividade 1: Registrar Movimentação do Equipamento**  
+
+### **Registrar Movimentação do Equipamento**  
 
 #### **Campos:**  
 ```plaintext
@@ -23,7 +29,7 @@
 
 ---
 
-### **📌 Nome da atividade 2: Produzir Sensor (Ativação)**  
+### **Produzir Sensor (Ativação)**  
 
 #### **Campos:**  
 ```plaintext
@@ -44,7 +50,7 @@
 
 ---
 
-### **📌 Nome da atividade 3: Realizar Diagnóstico (Manutenção)**  
+### ** Realizar Diagnóstico (Manutenção)**  
 
 #### **Campos:**  
 ```plaintext
@@ -65,7 +71,7 @@
 
 ---
 
-### **📌 Nome da atividade 4: Separar Componentes Reutilizáveis (Danificado)**  
+### **Separar Componentes Reutilizáveis (Danificado)**  
 
 #### **Campos:**  
 ```plaintext
