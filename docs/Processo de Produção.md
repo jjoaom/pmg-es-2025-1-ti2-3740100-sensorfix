@@ -7,9 +7,15 @@ Em seguida, apresente o modelo do processo 2, descrito no padrão BPMN._
 
 
 #### Detalhamento das atividades
+O processo de produção se inicia com a chegada de um pedido, onde é necessário gerar uma nova demanda de produção. Para isso, o sistema permite a criação automática de uma demanda, gerando um número único para identificação. O responsável pela produção clica no botão "Gerar demanda", registrando a solicitação no sistema e permitindo o acompanhamento das próximas etapas. Em seguida, o usuário deve abrir a demanda para análise e execução, clicando no botão "Abrir demanda", o que possibilita a verificação dos detalhes da solicitação e a preparação para a próxima fase.  
 
-_Descreva aqui cada uma das propriedades das atividades do processo 2. 
-Devem estar relacionadas com o modelo de processo apresentado anteriormente._
+Após a abertura da demanda, ocorre a verificação do processo da demanda, onde a equipe responsável inspeciona o equipamento para avaliar se ele precisa passar por limpeza e recuperação antes da continuidade do processo. Se não houver problemas, a demanda segue normalmente, mas caso sejam identificadas falhas ou necessidade de reparos, o sistema indicará os próximos passos para recuperação.  
+
+Se o equipamento precisar de recuperação, ele passará pelo processo de limpeza e troca de peças defeituosas. A equipe realiza a limpeza necessária e, caso existam peças defeituosas, elas serão substituídas por novas. No sistema, o responsável marca na demanda que a limpeza foi realizada. Caso o produto não possa ser recuperado, ele será encaminhado para descarte conforme os protocolos internos.  
+
+Após a recuperação do equipamento, é necessário registrar as informações da manutenção no sistema, preenchendo a documentação associada à demanda. Esse registro é essencial para controle interno e rastreamento do processo de produção. Com o equipamento limpo e recuperado, inicia-se a fase de testes, cujo objetivo é garantir que o produto esteja funcionando corretamente. O responsável realiza os testes conforme os critérios estabelecidos, e caso sejam bem-sucedidos, a demanda avança para a finalização do processo. Se os testes falharem, o produto será transferido para o setor de defeituosos, onde será analisado para reaproveitamento de peças ou descarte.  
+
+Caso os testes sejam aprovados, o processo de produção é finalizado. O responsável dá baixa no sistema, confirmando que o equipamento está pronto para uso. O produto é então transferido para o departamento de estoque, onde ficará disponível para envio ou utilização. Com isso, a demanda é encerrada e registrada como concluída no sistema, garantindo que o processo foi finalizado corretamente.
 
 _Os tipos de dados a serem utilizados são:_
 
@@ -37,23 +43,43 @@ _* **Link** - campo que armazena uma URL_
 
 _* **Tabela** - campo formado por uma matriz de valores_
 
-**Preencher demanda de Produção**
 
-| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
-| ---             | ---              | ---            | ---               |
-| Limpeza realizada?    | Seleção única | Formato Radio | false   |
-| QtdPeçasDefeituosas   | número    | ---            | 0  |
-| Peças com defeito  | Tabela    | Tabela gerada de acordo com QtdPeçasDefeituosas |   |
-| Observações | Área de texto  |      none          |                  |
-| Relatório de testes          | Área de texto   | formato de e-mail |                |
-| Teste bem sucedido?           | Seleção única | Formato Radio |  false|
 
-| **Comandos**         |  **Destino**                   | **Tipo** |
-| ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel  ) |
-| ***Exemplo:***       |                                |                   |
-| Abrir demanda   | Inicio do processo de produção             | default           |
-| Teste realizado            | Realização do teste  | (sucedido/falha)    |
-| Produto defeituoso?           | Encaminhar produto para setor de descarte/reciclagem  |  (confirmar/cancelar)     |
-| Finalizar produto            | Fim do processo/Liberação para envio  | (confirmar/cancelar|
+
+
+**Preencher Demanda de Produção**  
+
+| **Campo**                 | **Tipo**        | **Restrições**                                    | **Valor default**        |  
+|----------------|-----------------|---------------------------|--------------------|  
+| Numero da Demanda       | Número         | Obrigatório            | Gerado automaticamente  |  
+| Data e Hora da Criação  | Data/Hora      | Automático              | Gerado automaticamente |  
+| Setor Responsável       | Seleção Única  | "Produção"/"Manutenção" | -                      |  
+| ID do Insumo            | Número         | Obrigatório            | -                       |  
+| Descrição do Item       | Texto          | -                      | -                       |  
+| Limpeza realizada?      | Seleção Única  | Formato Radio          | false                   |  
+| QtdPeçasDefeituosas     | Número         | -                       | 0                      |  
+| Peças com defeito       | Tabela         | Baseada em QtdPeçasDefeituosas | -               |  
+| Produto recuperado?     | Seleção Única  | Sim/Não                 | false                  |  
+| Observações             | Área de texto  | Nome                    | -                      |  
+| Relatório de testes     | Área de texto  | Formato de e-mail       | -                      |  
+| Teste bem sucedido?     | Seleção Única  | Formato Radio           | false                  |  
+| Status da Demanda       | Seleção Única  | Em andamento/Finalizado | -                      |  
+
+---
+
+| **Comandos**               | **Destino**                                | **Tipo**             |  
+| ------------------------- | -------------------------------- |----------------------|  
+| **[Nome do botão/link]**  | Atividade/processo de destino       | (default/cancel)  |  
+
+**_Exemplo:_**  
+
+| **Comandos**              | **Destino**                                | **Tipo**          |  
+|--------------------------|--------------------------------|----------------|  
+| Abrir demanda           | Início do processo de produção     | default |  
+| Registrar limpeza       | Confirma a higienização            | confirmar/cancelar |  
+| Registrar recuperação   | Confirma recuperação do equipamento| confirmar/cancelar |  
+| Teste realizado        | Realização do teste                | (sucedido/falha) |  
+| Produto defeituoso?     | Encaminhar para descarte/reciclagem | confirmar/cancelar |  
+| Transferir para Estoque | Conclui e destina ao estoque       | confirmar/cancelar |  
+| Finalizar produto       | Fim do processo/Liberação para envio | confirmar/cancelar |  
 
