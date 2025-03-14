@@ -83,3 +83,6 @@ _* **Tabela** - campo formado por uma matriz de valores_
 | Transferir para Estoque | Conclui e destina ao estoque       | confirmar/cancelar |  
 | Finalizar produto       | Fim do processo/Liberação para envio | confirmar/cancelar |  
 
+### Protótipo da tela
+
+![Protótipo de tela de Produção](images/prototipoTelaProducao.png "Protótipo de tela de Produção")
