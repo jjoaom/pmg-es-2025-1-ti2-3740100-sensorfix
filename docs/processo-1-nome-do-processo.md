@@ -44,20 +44,39 @@ _* **Link** - campo que armazena uma URL_
 _* **Tabela** - campo formado por uma matriz de valores_
 
 
-**Nome da atividade 1**
+**Escolher uma opção dos serviços de Gestão de Estoque**
+
+
+| **Comandos**         |  **Destino**                   | **Tipo** |
+| ---                  | ---                           | ---               |
+| Btn Realizar Entrada de insumos| Inicia subprocesso de entarda de inusmos | redirecionador |
+| Btn Realizar pedido de compra|Inicia subprocesso de solicitação de compras                                |    redirecionador               |
+| Btn Fast In/Out               | Incia processo de entrada ou saída de insumo             |redirecionador  |
+
+
+
+
+
+
+
+
+
+
+**Realziar entrada de insumos**
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-| ***Exemplo:***  |                  |                |                   |
-| login           | Caixa de Texto   | formato de e-mail |                |
-| senha           | Caixa de Texto   | mínimo de 8 caracteres |           |
+| Digitar o ID | Caixa de Texto|     Apenas número            |    "Digite o id do equipamento"               |
+| Dgitar o endereço físico|         Seguir padrão "letra+num+num+num+num"| endereços que não existem no estoque |  "Digite o endereço"|
+| Descrição           | Caixa de Texto   |String |"Descrição"  |             
+| Estoque mínimo           | Caixa de Texto   | valores inteiros |      "Est.Min"     |
+| Componentes         | CheckBox  | Ao cadastrar um equipamento é necessáriocolocar seus insumos |           |
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel  ) |
-| ***Exemplo:***       |                                |                   |
-| entrar               | Fim do Processo 1              | default           |
+| Btn Consultar o ID | Busca o id do equipamento  | botão |
+| Btn Cadastrar um insumo| Abre a aba de cadastro de um insumo/equipamento|botão    |
+| Btn Salvar Cadstro               | Finaliza o cadastro| botão|
 | cadastrar            | Início do proceso de cadastro  |                   |
 
 
