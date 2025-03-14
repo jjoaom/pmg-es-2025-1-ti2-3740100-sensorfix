@@ -1,10 +1,15 @@
 ### 3.3.4 Processo 4 – Manutenção 
 
-_Apresente aqui o nome e as oportunidades de melhoria para o processo 4. 
-Em seguida, apresente o modelo do processo 4, descrito no padrão BPMN._
+### Nome do Processo
+Manutenção de Equipamentos
 
-![Exemplo de um Modelo BPMN do PROCESSO 4](images/process.png "Modelo BPMN do Processo 4.")
-
+### Oportunidades de Melhoria
+- Melhor rastreamento de equipamentos que retornam para manutenção múltiplas vezes.
+- Redução do tempo de diagnóstico e encaminhamento para manutenção.
+- Registro mais detalhado dos problemas identificados para análise de recorrência.
+- Automatização da identificação do depósito de destino.
+  
+![Exemplo de um Modelo BPMN do PROCESSO 4](images/modelagemmanutencao.svg "Modelo BPMN do Processo 4.")
 
 #### Detalhamento das atividades
 
@@ -37,21 +42,20 @@ _* **Link** - campo que armazena uma URL_
 
 _* **Tabela** - campo formado por uma matriz de valores_
 
-**Nome da atividade 1**
+**Identificação do Equipamento**
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | [Nome do campo] | [tipo de dados]  |                |                   |
-| ***Exemplo:***  |                  |                |                   |
-| login           | Caixa de Texto   | formato de e-mail |                |
-| senha           | Caixa de Texto   | mínimo de 8 caracteres |           |
+| **ID do equipamento**  |  Número   | Obrigatório    |    -               |
+| **Número de série**    | Caixa de Texto   | Alfanumérico, obrigatório |                |
+| **Imagem do equipamento**          | Imagem   | Opções: Sim/Não |           |
+| **Equipamento já teve retorno antes?**  |  Seleção única   | Opções: Sim/Não    |    -               |
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                            | ---               |
 | [Nome do botão/link] | Atividade/processo de destino  | (default/cancel  ) |
-| ***Exemplo:***       |                                |                   |
-| entrar               | Fim do Processo 1              | default           |
-| cadastrar            | Início do proceso de cadastro  |                   |
+| ***Próximo***       |    Identificação do Problema    | default            |
 
 
 **Nome da atividade 2**
