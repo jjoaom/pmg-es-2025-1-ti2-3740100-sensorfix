@@ -71,23 +71,52 @@ _* **Tabela** - campo formado por uma matriz de valores_
 | Descrição           | Caixa de Texto   |String |"Descrição"  |             
 | Estoque mínimo           | Caixa de Texto   | valores inteiros |      "Est.Min"     |
 | Componentes         | CheckBox  | Ao cadastrar um equipamento é necessáriocolocar seus insumos |           |
+| Quantidade de entrada         | Caixa de Texto  | valores Inteiros |          |
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                            | ---               |
 | Btn Consultar o ID | Busca o id do equipamento  | botão |
 | Btn Cadastrar um insumo| Abre a aba de cadastro de um insumo/equipamento|botão    |
 | Btn Salvar Cadstro               | Finaliza o cadastro| botão|
-| cadastrar            | Início do proceso de cadastro  |                   |
+|             |   |                   |
 
 
-**Nome da atividade 2**
+**Solicitação de Compra **
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-|                 |                  |                |                   |
+| Descrição | String  |      "Nome do equipamento"       |             "Digite a descrição do insumo  que deseja"      |
+| Digitar o ID | Caixa de Texto|      Seguir padrão "letra+num+num+num+num"           |    "Digite o id do equipamento"               |
+| Digitar o nome do fonecedor | Caixa de Texto|     String           |    "Nome"               |
+| Digitar o numero do Fornecedor | String|     Teremos uma mascara para num"| ""
+|
+| Digitar o numero do Fornecedor | String|     Teremos uma mascara para num"| ""
+
+
+
+
+
+
+
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
 | ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel/  ) |
-|                      |                                |                   |
+| Btn Adiciona insumo | Abre campo para buscar o insumo/equipamento que deseja  | botão |
+| Btn Confirma insumo |Confirmar entarda do insumo no pedido de compra|botão|
+| Btn Atrela Fornecedor |Permite ao pedido de compra atrelar um forncedor |botão|
+
+
+**Fast In/Out**
+
+| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
+| ---             | ---              | ---            | ---               |
+| Digitar o ID | Caixa de Texto|      Seguir padrão "letra+num+num+num+num"           |    "Digite o id do equipamento"               |
+| Digitar a quantidade que deseja | Int |     Valores Lierais           |    "-"               |
+| Digitar o comentárioda retirada | String|  100 caractéres | "-"|
+
+
+| **Comandos**         |  **Destino**                   | **Tipo**          |
+| ---                  | ---                            | ---               |
+| Btn salvar | Salva o valor de saída ou entgarda  | botão |
+| CheckBox Saída |Cnfirma que o ato em função do valor será de retida |botão|
+| CheckBox Entrada |Cnfirma que o ato em função do valor será reposto |botão|
