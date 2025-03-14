@@ -58,14 +58,41 @@ _* **Tabela** - campo formado por uma matriz de valores_
 | ***Próximo***       |    Identificação do Problema    | default            |
 
 
-**Nome da atividade 2**
+**Identificação do Problema**
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-|                 |                  |                |                   |
+| Componente danificado | Caixa de texto  | Obrigatório  |                   |
+| Detalhamento do problema | Área de texto | Mínimo 10 caracteres |                   |
+| Necessário detalhamento adicional? | Seleção única | Opções Sim/Não |                   |
+| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |            |
+| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |            |
+
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
 | ---                  | ---                            | ---               |
 | [Nome do botão/link] | Atividade/processo de destino  | (default/cancel/  ) |
-|                      |                                |                   |
+| Próximo              |  Encaminhamento para Manutenção | default                  |
+| Voltar  |  Encaminhamento para Manutenção | default                  |
+
+
+**Encaminhamento para Manutenção**
+
+| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
+| ---             | ---              | ---            | ---               |
+| Data de encaminhamento | Data e hora  | Automático  |  Data/Hora atual  |
+| Técnico responsável | Seleção única | Lista de técnicos cadastrados |    -               |
+| Depósito de destino | Seleção única | Lista de depósitos cadastrados | -                  |
+| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |            |
+| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |            |
+
+
+| **Comandos**         |  **Destino**                   | **Tipo**          |
+| ---                  | ---                            | ---               |
+| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel/  ) |
+| Finalizar |  Fim do Processo | default                |
+| Voltar  |  Identificação do Problema | cancel    |
+
+
+
+
