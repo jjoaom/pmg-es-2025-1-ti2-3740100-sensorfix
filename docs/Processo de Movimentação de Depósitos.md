@@ -1,68 +1,90 @@
-### 3.3.3 Processo 3 – Movimentação de Depósitos 
-
-_Apresente aqui o nome e as oportunidades de melhoria para o processo 3. 
-Em seguida, apresente o modelo do processo 3, descrito no padrão BPMN._
+## **Processo 3 – Movimentação de Depósitos**  
 
 ![image](https://github.com/user-attachments/assets/0da4901b-e4be-4384-aa69-efbc073cde1f)
 
+### **📌 Nome da atividade 1: Registrar Movimentação do Equipamento**  
+
+#### **Campos:**  
+```plaintext
+| Nome do Campo        | Tipo            | Restrições         | Valor Padrão  |
+|----------------------|----------------|--------------------|---------------|
+| Tipo de Movimentação | Caixa de Seleção | Obrigatório       | -             |
+| Cliente             | Caixa de Texto  | Obrigatório       | -             |
+| Data da Movimentação | Campo de Data  | Obrigatório       | Data Atual    |
+```
+
+#### **Comandos:**  
+```plaintext
+| Nome do Botão  | Destino                  | Tipo    |
+|---------------|-------------------------|--------|
+| Salvar        | Próxima Atividade        | Default |
+| Cancelar      | Retorna ao Processo Anterior | Default |
+```
+
+---
+
+### **📌 Nome da atividade 2: Produzir Sensor (Ativação)**  
+
+#### **Campos:**  
+```plaintext
+| Nome do Campo      | Tipo            | Restrições         | Valor Padrão  |
+|--------------------|----------------|--------------------|---------------|
+| Número do Pedido  | Caixa de Texto  | Obrigatório       | -             |
+| Quantidade        | Campo Numérico  | Obrigatório, mínimo 1 | -          |
+| Prioridade        | Caixa de Seleção | Baixa, Média, Alta | Média         |
+```
+
+#### **Comandos:**  
+```plaintext
+| Nome do Botão         | Destino                      | Tipo    |
+|----------------------|----------------------------|--------|
+| Enviar para Produção | Inicia o Processo de Produção | Default |
+| Cancelar             | Retorna ao Processo Anterior | Default |
+```
+
+---
+
+### **📌 Nome da atividade 3: Realizar Diagnóstico (Manutenção)**  
+
+#### **Campos:**  
+```plaintext
+| Nome do Campo       | Tipo            | Restrições         | Valor Padrão  |
+|---------------------|----------------|--------------------|---------------|
+| Código do Equipamento | Caixa de Texto | Obrigatório       | -             |
+| Diagnóstico        | Caixa de Seleção | Reparável, Não Reparável | -   |
+| Observações        | Caixa de Texto   | Opcional          | -             |
+```
+
+#### **Comandos:**  
+```plaintext
+| Nome do Botão          | Destino                                | Tipo    |
+|-----------------------|-------------------------------------|--------|
+| Enviar para Reparo   | Caso reparável, segue para manutenção | Default |
+| Marcar como Danificado | Caso não seja reparável, segue para descarte | Default |
+```
+
+---
+
+### **📌 Nome da atividade 4: Separar Componentes Reutilizáveis (Danificado)**  
+
+#### **Campos:**  
+```plaintext
+| Nome do Campo               | Tipo                    | Restrições         | Valor Padrão  |
+|-----------------------------|------------------------|--------------------|---------------|
+| Código do Equipamento       | Caixa de Texto        | Obrigatório       | -             |
+| Componentes Aproveitáveis   | Caixa de Seleção Múltipla | Obrigatório       | -             |
+| Destino dos Componentes     | Caixa de Seleção      | Reuso Interno, Venda, Descarte | - |
+```
+
+#### **Comandos:**  
+```plaintext
+| Nome do Botão       | Destino                                   | Tipo    |
+|--------------------|-----------------------------------------|--------|
+| Enviar para Reuso | Caso tenha componentes reutilizáveis   | Default |
+| Enviar para Descarte | Caso não tenha peças aproveitáveis | Default |
+```
+
+---
 
 
-#### Detalhamento das atividades
 
-_Descreva aqui cada uma das propriedades das atividades do processo 3. 
-Devem estar relacionadas com o modelo de processo apresentado anteriormente._
-
-_Os tipos de dados a serem utilizados são:_
-
-_* **Área de texto** - campo texto de múltiplas linhas_
-
-_* **Caixa de texto** - campo texto de uma linha_
-
-_* **Número** - campo numérico_
-
-_* **Data** - campo do tipo data (dd-mm-aaaa)_
-
-_* **Hora** - campo do tipo hora (hh:mm:ss)_
-
-_* **Data e Hora** - campo do tipo data e hora (dd-mm-aaaa, hh:mm:ss)_
-
-_* **Imagem** - campo contendo uma imagem_
-
-_* **Seleção única** - campo com várias opções de valores que são mutuamente exclusivas (tradicional radio button ou combobox)_
-
-_* **Seleção múltipla** - campo com várias opções que podem ser selecionadas mutuamente (tradicional checkbox ou listbox)_
-
-_* **Arquivo** - campo de upload de documento_
-
-_* **Link** - campo que armazena uma URL_
-
-_* **Tabela** - campo formado por uma matriz de valores_
-
-**Nome da atividade 1**
-
-| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
-| ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-| ***Exemplo:***  |                  |                |                   |
-| login           | Caixa de Texto   | formato de e-mail |                |
-| senha           | Caixa de Texto   | mínimo de 8 caracteres |           |
-
-| **Comandos**         |  **Destino**                   | **Tipo** |
-| ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel  ) |
-| ***Exemplo:***       |                                |                   |
-| entrar               | Fim do Processo 1              | default           |
-| cadastrar            | Início do proceso de cadastro  |                   |
-
-
-**Nome da atividade 2**
-
-| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
-| ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
-|                 |                  |                |                   |
-
-| **Comandos**         |  **Destino**                   | **Tipo**          |
-| ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel/  ) |
-|                      |                                |                   |
