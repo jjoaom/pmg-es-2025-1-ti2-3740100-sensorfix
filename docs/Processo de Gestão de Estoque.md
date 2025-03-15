@@ -3,7 +3,7 @@
 _Apresente aqui o nome e as oportunidades de melhoria para o processo 1. 
 Em seguida, apresente o modelo do processo 1, descrito no padrão BPMN._
 
-![Exemplo de um Modelo BPMN do PROCESSO 1](images/modelagemGestãoEstoque.svg "Modelo BPMN do Processo 1.")
+![Modelagem : Processo de Gestão de Estoque](images/modelagemGestaoEstoque.svg)
 
 #### Detalhamento das atividades
 
@@ -58,8 +58,8 @@ _* **Seleção única** - campo com várias opções de valores que são mutuame
 | Dgitar o endereço físico| Seguir padrão "letra+num+num+num+num"| endereços que não existem no estoque |  "Digite o endereço"|
 | Descrição           | Caixa de Texto   |String |"Descrição"  |             
 | Estoque mínimo           | Caixa de Texto   | valores inteiros |      "Est.Min"     |
-| Componentes         | CheckBox  | Ao cadastrar um equipamento é necessáriocolocar seus insumos |           |
-| Quantidade de entrada         | Caixa de Texto  | valores Inteiros |          |
+| Componentes         | CheckBox  | Ao cadastrar um equipamento é necessáriocolocar seus insumos |     Nada marcado      |
+| Quantidade de entrada         | Caixa de Texto  | valores Inteiros |      Vazio    |
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                            | ---               |
@@ -76,15 +76,7 @@ _* **Seleção única** - campo com várias opções de valores que são mutuame
 | Descrição | String  |      "Nome do equipamento"       |             "Digite a descrição do insumo  que deseja"      |
 | Digitar o ID | Caixa de Texto|      Seguir padrão "letra+num+num+num+num"           |    "Digite o id do equipamento"               |
 | Digitar o nome do fonecedor | Caixa de Texto|     String           |    "Nome"               |
-| Digitar o numero do Fornecedor | String|     Teremos uma mascara para num"| ""
-|
-| Digitar o numero do Fornecedor | String|     Teremos uma mascara para num"| ""
-
-
-
-
-
-
+| Digitar o numero do Fornecedor | String|     Teremos uma mascara para num"| "() -"
 
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
