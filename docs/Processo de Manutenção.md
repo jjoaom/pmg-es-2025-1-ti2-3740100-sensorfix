@@ -54,7 +54,6 @@ _* **Tabela** - campo formado por uma matriz de valores_
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| [Nome do campo] | [tipo de dados]  |                |                   |
 | **ID do equipamento**  |  Número   | Obrigatório    |    -               |
 | **Número de série**    | Caixa de Texto   | Alfanumérico, obrigatório |                |
 | **Imagem do equipamento**          | Imagem   | Formato PDF, JPG, PNG |           |
@@ -62,7 +61,6 @@ _* **Tabela** - campo formado por uma matriz de valores_
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel  ) |
 | ***Próximo***       |    Identificação do Problema    | default            |
 
 
@@ -79,7 +77,6 @@ _* **Tabela** - campo formado por uma matriz de valores_
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
 | ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel/  ) |
 | Próximo              |  Encaminhamento para Manutenção | default                  |
 | Voltar  |  Encaminhamento para Manutenção | default                  |
 
@@ -97,7 +94,6 @@ _* **Tabela** - campo formado por uma matriz de valores_
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
 | ---                  | ---                            | ---               |
-| [Nome do botão/link] | Atividade/processo de destino  | (default/cancel/  ) |
 | Finalizar |  Fim do Processo | default                |
 | Voltar  |  Identificação do Problema | cancel    |
 
