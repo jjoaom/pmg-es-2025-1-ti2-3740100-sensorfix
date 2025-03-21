@@ -57,7 +57,7 @@ _* **Tabela** - campo formado por uma matriz de valores_
 | [Nome do campo] | [tipo de dados]  |                |                   |
 | **ID do equipamento**  |  Número   | Obrigatório    |    -               |
 | **Número de série**    | Caixa de Texto   | Alfanumérico, obrigatório |                |
-| **Imagem do equipamento**          | Imagem   | Opções: Sim/Não |           |
+| **Imagem do equipamento**          | Imagem   | Formato PDF, JPG, PNG |           |
 | **Equipamento já teve retorno antes?**  |  Seleção única   | Opções: Sim/Não    |    -               |
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
