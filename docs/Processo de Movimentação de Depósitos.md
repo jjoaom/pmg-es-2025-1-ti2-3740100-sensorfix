@@ -8,6 +8,12 @@ Cada atividade do processo tem seus campos e comandos definidos abaixo.
 ![image](https://github.com/user-attachments/assets/1e7ceb99-3dff-4b56-a385-30e183208eed)
 
 
+
+
+## Protótipo tela Movimentação de depósitos
+
+![image](https://github.com/user-attachments/assets/59779c03-9d89-4f0d-b15d-f5576d9cb12d)
+
 Detalhamento das atividades: 
 
 ## Fluxo de Registro e Manutenção de Equipamentos
