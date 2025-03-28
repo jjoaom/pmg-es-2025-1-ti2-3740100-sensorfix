@@ -1,5 +1,5 @@
 ### 3.3.1 Processo 1 – Gestão de Estoque
-**Vizualzie nossas telas de Gestão de Estoque** : https://www.figma.com/design/Vkmkji04iF8n2CzsODUhaR/Gest%C3%A3o-de-estoque?node-id=0-1&t=TWNfgPBcTlsB8Ig7-1
+**Visualize nossas telas de Gestão de Estoque** : https://www.figma.com/design/Vkmkji04iF8n2CzsODUhaR/Gest%C3%A3o-de-estoque?node-id=0-1&t=TWNfgPBcTlsB8Ig7-1
 
 
 ![Modelagem : Processo de Gestão de Estoque](images/modelagemGestaoEstoque.svg)
