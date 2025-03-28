@@ -1,7 +1,6 @@
 ### 3.3.1 Processo 1 – Gestão de Estoque
+**Vizualzie nossas telas de Gestão de Estoque** : https://www.figma.com/design/Vkmkji04iF8n2CzsODUhaR/Gest%C3%A3o-de-estoque?node-id=0-1&t=TWNfgPBcTlsB8Ig7-1
 
-_Apresente aqui o nome e as oportunidades de melhoria para o processo 1. 
-Em seguida, apresente o modelo do processo 1, descrito no padrão BPMN._
 
 ![Modelagem : Processo de Gestão de Estoque](images/modelagemGestaoEstoque.svg)
 
@@ -37,26 +36,32 @@ _* **Classes** - Modelagem para objetos_
 
 
 **Escolher uma opção dos serviços de Gestão de Estoque**
-
+![v](image.png)
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                           | ---               |
-| Btn Realizar Entrada de insumos| Inicia subprocesso de entarda de inusmos | redirecionador |
-| Btn Realizar pedido de compra|Inicia subprocesso de solicitação de compras                                |    redirecionador               |
-| Btn Fast In/Out               | Incia processo de entrada ou saída de insumo             |redirecionador  |
+| Btn Realizar Entrada de insumos| Inicia subprocesso de entarda de inusmos. | redirecionador |
+| Btn FAST IN /OUT |Página de Saída e entrada rápida.                             |    redirecionador               |
+| Cadastro de insumo             | Incia processo de cadastro de insumo.             |redirecionador  |
+| Cadastro de equipamento              | Incia processo de cadastro de equipamento.             |redirecionador  |
+| Editar             | Dirteciona o usuário  para uma aba em que ele pode editar um insumo ou equipamento.             |redirecionador  |
+| Compras             | Inicia um pedido de compra            |redirecionador  |
+
+
 
 
 **Realziar entrada de insumos**
+![alt text](image-1.png)
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | Digitar o ID    | Caixa de Texto   |Apenas número   |    "Digite o id do equipamento"|
 | Quantidade de entrada|Caixa de Texto|valores Inteiros |Vazio|
-|Descrição|Caixa de Texto|String |Preenchimento automático|
-|Peso|Caixa de Texto|String |Preenchimento automático|
-|Quantidade em estoque |Caixa de Texto|String |Preenchimento automático|
-|Endereço|Caixa de Texto|String |Preenchimento automático|
-|Estoque Minimo|Caixa de Texto|String |Preenchimento automático|
+|Descrição|Caixa de Texto|Apenas caracteres|Preenchimento automático|
+|Peso|Caixa de Texto|Apenas caracteres |Preenchimento automático|
+|Quantidade em estoque |Caixa de Texto|Apenas caracteres |Preenchimento automático|
+|Endereço|Caixa de Texto|Apenas caracteres |Preenchimento automático|
+|Estoque Minimo|Caixa de Texto|Apenas caracteres |Preenchimento automático|
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                            | ---               |
@@ -67,17 +72,17 @@ _* **Classes** - Modelagem para objetos_
 
 
 **Solicitação de Compra**
-
+![alt text](image-3.png)
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | Busca o ID            | String              | Int e String            | "Digite o ID"               |
 |Descrição|Caixa de Texto|String |Preenchimento automático|
-|Peso|Caixa de Texto|String |Preenchimento automático|
-|Quantidade em estoque |Caixa de Texto|String |Preenchimento automático|
-|Endereço|Caixa de Texto|String |Preenchimento automático|
-|Estoque Minimo|Caixa de Texto|String |Preenchimento automático|
-|Descrição de insumo |Caixa de Texto|String |"Descreva os deatlhes do insumo/equipamento"|
-|Fornecedor |Caixa de Texto|String |"Dados do fornecedor"|
+|Peso|Caixa de Texto|Apenas numeros |Preenchimento automático|
+|Quantidade em estoque |Caixa de Texto|Apenas numeros |Preenchimento automático|
+|Endereço|Caixa de Texto|Alfanumérico|Preenchimento automático|
+|Estoque Minimo|Caixa de Texto|Apenas números |Preenchimento automático|
+|Descrição de insumo |Caixa de Texto|Apenas caracteres |"Descreva os deatlhes do insumo/equipamento"|
+|Fornecedor |Caixa de Texto|Apenas caracteres |"Dados do fornecedor"|
 
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
@@ -88,7 +93,7 @@ _* **Classes** - Modelagem para objetos_
 | Btn Produto Desconhecido |Direciona para dar a descrição do produto para compra |botão|
 
 **Fast In/Out**
-
+![alt text](image-2.png)
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | Digitar o ID | Caixa de Texto|      Seguir padrão "letra+num+num+num+num"           |    "Digite o id do equipamento"               |
@@ -103,3 +108,51 @@ _* **Classes** - Modelagem para objetos_
 | Btn salvar | Salva o valor de saída ou entgarda  | botão |
 | CheckBox Saída |Cnfirma que o ato em função do valor será de retida |botão|
 | CheckBox Entrada |Cnfirma que o ato em função do valor será reposto |botão|
+
+
+**Cadastro de inusmo / equipamento**
+
+![alt text](image-5.png)
+
+![alt text](image-6.png)
+
+| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
+| ---             | ---              | ---            | ---               |
+| Digitar o ID    | Caixa de Texto   |Apenas número   |    "Digite o id do equipamento"|
+| Quantidade de entrada|Caixa de Texto|valores Inteiros |Vazio|
+|Descrição|Caixa de Texto|Apenas caracteres|Preenchimento automático|
+|Peso|Caixa de Texto|Apenas caracteres |Preenchimento automático|
+|Quantidade em estoque |Caixa de Texto|Apenas caracteres |Preenchimento automático|
+|Endereço|Caixa de Texto|Apenas caracteres |Preenchimento automático|
+|Estoque Minimo|Caixa de Texto|Apenas caracteres |Preenchimento automático|
+
+
+| **Comandos**         |  **Destino**                   | **Tipo**          |
+| ---                  | ---                            | ---               |
+| Btn Cadastrar | Salva as alterações feitas  | botão |
+| Btn Agregar|Atrela a aquele equipamento um novo inusmo |botão|
+
+
+**Edição de inusmo / equipamento**
+
+![alt text](image-7.png)
+
+![alt text](image-8.png)
+
+| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
+| ---             | ---              | ---            | ---               |
+| Digitar o ID    | Caixa de Texto   |Apenas número   |    "Digite o id do equipamento"|
+| Quantidade de entrada|Caixa de Texto|valores Inteiros |Vazio|
+|Descrição|Caixa de Texto|Apenas caracteres|Preenchimento automático|
+|Peso|Caixa de Texto|Apenas caracteres |Preenchimento automático|
+|Quantidade em estoque |Caixa de Texto|Apenas caracteres |Preenchimento automático|
+|Endereço|Caixa de Texto|Apenas caracteres |Preenchimento automático|
+|Estoque Minimo|Caixa de Texto|Apenas caracteres |Preenchimento automático|
+
+
+| **Comandos**         |  **Destino**                   | **Tipo**          |
+| ---                  | ---                            | ---               |
+| Btn Buscar | Buscar ID e puxa informações  | botão |
+| Btn Agregar|Atrela a aquele equipamento um novo inusmo |botão|
+| Btn check |Busca insumo para análise do usuário |botão|
+| Btn Salvar |Salva alterações realizadas |botão|
