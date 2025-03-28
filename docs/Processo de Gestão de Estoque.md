@@ -36,6 +36,7 @@ _* **Classes** - Modelagem para objetos_
 
 
 **Escolher uma opção dos serviços de Gestão de Estoque**
+
 ![v](image.png)
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
@@ -51,6 +52,7 @@ _* **Classes** - Modelagem para objetos_
 
 
 **Realziar entrada de insumos**
+
 ![alt text](image-1.png)
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
@@ -72,6 +74,7 @@ _* **Classes** - Modelagem para objetos_
 
 
 **Solicitação de Compra**
+
 ![alt text](image-3.png)
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
