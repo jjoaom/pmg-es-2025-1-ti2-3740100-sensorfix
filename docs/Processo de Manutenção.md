@@ -50,6 +50,11 @@ _* **Link** - campo que armazena uma URL_
 
 _* **Tabela** - campo formado por uma matriz de valores_
 
+**Escolher uma opção dos serviços de Manutenção**
+
+![tela manutenção](https://github.com/user-attachments/assets/44ad6e8a-aa11-42bf-b1e8-8cd701d27739)
+
+
 **Identificação do Equipamento**
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
