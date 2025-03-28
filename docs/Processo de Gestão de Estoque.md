@@ -76,6 +76,7 @@ _* **Classes** - Modelagem para objetos_
 **Solicitação de Compra**
 
 ![alt text](image-3.png)
+
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | Busca o ID            | String              | Int e String            | "Digite o ID"               |
@@ -96,7 +97,9 @@ _* **Classes** - Modelagem para objetos_
 | Btn Produto Desconhecido |Direciona para dar a descrição do produto para compra |botão|
 
 **Fast In/Out**
+
 ![alt text](image-2.png)
+
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | Digitar o ID | Caixa de Texto|      Seguir padrão "letra+num+num+num+num"           |    "Digite o id do equipamento"               |
