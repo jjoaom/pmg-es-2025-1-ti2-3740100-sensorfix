@@ -14,7 +14,7 @@ A SensorFix oferece uma solução web inovadora voltada para a gestão de proces
 ## Professor
 
 * Danilo De Quadros Maia Filho
-* Nome completo do professor 2
+* Joana Gabriela Ribeiro de Souza
 * Michelle Hanne Soares De Andrade
 
 ## Instruções de utilização
