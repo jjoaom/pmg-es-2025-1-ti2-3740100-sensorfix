@@ -37,7 +37,7 @@ _* **Classes** - Modelagem para objetos_
 
 **Escolher uma opção dos serviços de Gestão de Estoque**
 
-![alt text](image-9.png)
+![alt text](images/image-9.png)
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                           | ---               |
@@ -53,7 +53,7 @@ _* **Classes** - Modelagem para objetos_
 
 **Realziar entrada de insumos**
 
-![alt text](image-11.png)
+![alt text](images/image-11.png)
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
@@ -75,7 +75,7 @@ _* **Classes** - Modelagem para objetos_
 
 **Solicitação de Compra**
 
-![alt text](image-12.png)
+![alt text](images/image-12.png)
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
@@ -93,7 +93,7 @@ _* **Classes** - Modelagem para objetos_
 
 **Fast In/Out**
 
-![alt text](image-13.png)
+![alt text](images/image-13.png)
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
@@ -116,9 +116,9 @@ _* **Classes** - Modelagem para objetos_
 
 **Cadastro de inusmo / equipamento**
 
-![alt text](image-16.png)
+![alt text](images/image-16.png)
 
-![alt text](image-15.png)
+![alt text](images/image-15.png)
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
@@ -139,9 +139,9 @@ _* **Classes** - Modelagem para objetos_
 
 **Edição de inusmo / equipamento**
 
-![alt text](image-18.png)
+![alt text](images/image-18.png)
 
-![alt text](image-17.png)
+![alt text](images/image-17.png)
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
