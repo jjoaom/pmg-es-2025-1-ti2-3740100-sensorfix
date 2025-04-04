@@ -2,7 +2,7 @@
 
 ### 4.1. Modelo de dados
 
-![alt text](banco_dados_sensor_fix.png)
+![alt text](./images/banco_dados_sensor_fix-2.png)
 
 ### 4.2. Tecnologias
 
