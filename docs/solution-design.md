@@ -2,8 +2,7 @@
 
 ### 4.1. Modelo de dados
 
-**Acesse nosso modelo de dados:**https://drive.google.com/file/d/1AgCDW0NWFsyeuemdmtoZiSsBEbUDzHIZ/view?usp=sharing
----
+![alt text](banco_dados_sensor_fix.png)
 
 ### 4.2. Tecnologias
 
