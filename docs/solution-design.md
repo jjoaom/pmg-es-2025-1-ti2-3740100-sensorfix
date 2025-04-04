@@ -11,7 +11,7 @@ _Descreva qual(is) tecnologias você vai usar para resolver o seu problema, ou s
 | **Dimensão**   | **Tecnologia**  |
 | ---            | ---             |
 | SGBD           | MySQL           |
-| Front end      | HTML+CSS+JS     |
+| Front end      | HTML+CSS+JS+REACT    |
 | Back end       | Java SpringBoot |
-| Deploy         | Github Pages    |
+| Deploy         | Github Pages ou Vercel   |
 
