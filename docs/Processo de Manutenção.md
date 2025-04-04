@@ -13,16 +13,17 @@ Manutenção de Equipamentos
 
 #### Detalhamento das atividades
 
-O processo de manutenção tem como objetivo garantir que os equipamentos defeituosos sejam identificados, analisados e reparados de forma eficiente, assegurando sua disponibilidade e funcionamento adequado. Esse processo é composto por três principais atividades: **Identificação do Equipamento, Identificação do Problema e Encaminhamento para Manutenção.**
+O processo de manutenção tem como objetivo identificar, registrar e reparar equipamentos danificados, garantindo que todas as informações sejam devidamente documentadas. Caso o reparo não seja viável, o equipamento é encaminhado para descarte.
 
-Quando um equipamento com defeito chega para manutenção, o primeiro passo é sua identificação e registro no sistema. Com o sistema aberto, o técnico deve clicar na opção "Registrar Equipamento", que abrirá uma tela para preenchimento das informações básicas. O técnico deve inserir o ID do equipamento ou, caso não esteja cadastrado, adicionar manualmente os dados necessários.
-Caso o equipamento já tenha passado por manutenções anteriores, essa informação será exibida automaticamente, facilitando a análise de problemas recorrentes. Além disso, pode ser anexada uma imagem do equipamento para melhor documentação do processo.
+O processo se inicia com a chegada do equipámento danificado, momento em que o técnico responsável realiza a identificação do ID do produto. Este ID é registrado no sistema para rastreio e consulta do histórico de manutenção anteriores. Se necessário, o técnico pode anexar imagens do equipamento como evidência do dano.
 
-Após a identificação do equipamento, o técnico inicia a análise do problema. Para isso, deve clicar no botão "Registrar Problema", onde será aberto um formulário para detalhamento da falha. O técnico deve descrever qual componente está danificado, fornecer um detalhamento da falha e indicar se há necessidade de informações adicionais.
-Caso o problema seja recorrente, será exibida uma lista de falhas semelhantes registradas anteriormente, permitindo a identificação de padrões. Também será possível anexar evidências visuais do defeito, como imagens ou relatórios técnicos.
+Após a identificação, segue-se a análise do defeito, na qual o técnico descreve o problema encontrado e registra a provável causa. Se necessário, podem ser adicionadas evidências adicionais, como imagens ou documentos. Em seguida, é feita a descrição sobre a possibilidade de reparo, onde o técnico avalia se o equipamento pode ser consertado ou se deve ser descartado.
 
-Após o registro do problema, o equipamento deve ser encaminhado para reparo. Para isso, o técnico deve clicar em "Encaminhar para Manutenção", o que abrirá um campo para definir quem será o responsável pelo reparo e o local onde o equipamento será armazenado temporariamente.
-O sistema registrará automaticamente a data e a hora do encaminhamento, garantindo um controle preciso do fluxo de manutenção. Além disso, o técnico pode selecionar o setor responsável e o técnico designado para o serviço.
+Caso o equipamento for reparável, o técnico registrará os detalhes dos reparos necessários, incluindo a descrição das ações a serem realizadas, o responsável pelo serviço e a previsão de conclusão. O equipamento é então encaminhado à equipe técnica para manutenção, onde os procedimentos necessários serão executados.
+
+Caso o equipamento não possa ser reparado, ele é encaminhado ao depósito de descarte para o devido processamento.
+
+Independente do caminho que será seguido, quando chegarem ao final do processo, as informações são registradas e armazenadas no sistema, garantindo assim a rastreabilidade da manutenção e permitindo consultas futuras. Isso possibilita um controle eficiente sobre os equipamentos, otimizando assim a gestão da manutenção e tomada ded decisões.
 
 _Os tipos de dados a serem utilizados são:_
 
