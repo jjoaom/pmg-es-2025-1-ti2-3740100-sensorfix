@@ -13,7 +13,7 @@ Manutenção de Equipamentos
 
 #### Detalhamento das atividades
 
-O processo de manutenção tem como objetivo identificar, registrar e reparar equipamentos danificados, garantindo que todas as informações sejam devidamente documentadas. Caso o reparo não seja viável, o equipamento é encaminhado para descarte.
+O processo de manutenção tem como objetivo identificar, registrar os defeitos encontrados nos equipamentos e buscar um meio para recuperá-los, garantindo que todas as informações sejam devidamente documentadas. Caso o reparo não seja viável, o equipamento é encaminhado para descarte.
 
 O processo se inicia com a chegada do equipámento danificado, momento em que o técnico responsável realiza a identificação do ID do produto. Este ID é registrado no sistema para rastreio e consulta do histórico de manutenção anteriores. Se necessário, o técnico pode anexar imagens do equipamento como evidência do dano.
 
