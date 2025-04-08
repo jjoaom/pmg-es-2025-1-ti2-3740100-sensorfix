@@ -3,3 +3,4 @@
 -Implementação do Front End dos processos 02,03 e04
 -Capacitação do grupo no framwaork SpringBoot
 -Criar banco de dados em nuvem utilizando Azure Data Studio 
+-Fazer Deploy da primeira versão do Sistema. 
