@@ -7,4 +7,13 @@
 
 -Criar banco de dados em nuvem utilizando Azure Data Studio 
 
--Fazer Deploy da primeira versão do Sistema. 
+-Fazer Deploy da primeira versão do Sistema. ( https://sensorfix.netlify.app )
+
+##Tarefas em subequipes
+-Erick e João : Revisão da documentação e implementação do Front (Produção).
+
+-Caio e Tolentino : Revisão da documentação e implementação do Front (Manutenção).
+
+-Ian : Revisão da documentação e implementação do Front(Movimentação).
+
+-Luiz : Revisão da documentação e implementação do Front e Back(Gestão de Estoque).
