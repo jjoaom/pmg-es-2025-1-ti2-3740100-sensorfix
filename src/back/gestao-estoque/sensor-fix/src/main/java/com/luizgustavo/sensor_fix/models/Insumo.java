@@ -13,6 +13,14 @@ import java.util.Objects;
 @Entity //quando falo que é uma entidade significa que esse cara sera uma tabela do banco de dados 
 @Table (name = Insumo.TABLE_NAME)//nome da tabela
 public class Insumo {
+
+    public interface CreateInsumo {
+
+    }
+
+    public interface UpdateInsumo {
+        
+    }
    public static final String TABLE_NAME = "insumo"; //variavel para usar o nome da tabela
 
    @Id
