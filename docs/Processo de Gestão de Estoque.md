@@ -2,7 +2,7 @@
 **Visualize nossas telas de Gestão de Estoque** : https://www.figma.com/design/Vkmkji04iF8n2CzsODUhaR/Gest%C3%A3o-de-estoque?node-id=0-1&t=TWNfgPBcTlsB8Ig7-1
 
 
-![Modelagem : Processo de Gestão de Estoque](images/modelagemGestaoDeEstoque.svg)
+![Modelagem : Processo de Gestão de Estoque](images/modelagemGestaoEstoque.svg)
 
 #### Detalhamento das atividades
 
@@ -41,12 +41,12 @@ _* **Classes** - Modelagem para objetos_
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                           | ---               |
-|ENTRADA DE INSUMOS| Inicia a entrada de isumos que chegaram ao estoque | redirecionador |
-| FAST IN /OUT |Direciona para a página que posssibilita a entrada e saída rápida de insumos ou queipamentos do estoque                              |    redirecionador               |
-| CADASTRO DE INSUMO            | Incia processo de cadastro de insumo.             |redirecionador  |
-| CADASTRO DE EQUIPAMENTO             | Incia processo de cadastro de equipamento.             |redirecionador  |
-| BUSCAR             | Possibilita que o usuário faça a exclusão ou a edição de um equipamento ou insumo              |redirecionador  |
-| COMPRAS             | Inicia um pedido de compra            |redirecionador  |
+|ENTRADA DE INSUMOS| Inicia a entrada de isumos que chegaram ao estoque | Botão |
+| FAST IN /OUT |Direciona para a página que posssibilita a entrada e saída rápida de insumos ou queipamentos do estoque                              |    Botão               |
+| CADASTRO DE INSUMO            | Incia processo de cadastro de insumo.             |Botão  |
+| CADASTRO DE EQUIPAMENTO             | Incia processo de cadastro de equipamento.             |Botão  |
+| BUSCAR             | Possibilita que o usuário faça a exclusão ou a edição de um equipamento ou insumo              |Botão  |
+| COMPRAS             | Inicia um pedido de compra            |Botão  |
 
 
 
@@ -57,12 +57,12 @@ _* **Classes** - Modelagem para objetos_
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| Digitar o ID    | Caixa de Texto   |Apenas números, nocaso do nosso ID serão seis números   | vazio|
+| Digitar o ID    | Caixa de Texto   |Valores inteiros, seis números   | vazio|
 | Quantidade de entrada|Caixa de Texto|valores Inteiros |Vazio|
 |Descrição|Caixa de Texto|Letras ou números|Preenchimento automático em função do ID|
 |Peso|Caixa de Texto|Apenas números |Preenchimento automático|
 |Quantidade em estoque |Caixa de Texto|Números |Preenchimento automático|
-|Endereço|Caixa de Texto|Apenas caracteres |Preenchimento automático|
+|Endereço|Caixa de Texto|letras+números |Preenchimento automático|
 |Estoque Minimo|Caixa de Texto|Números |Preenchimento automático|
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
@@ -75,12 +75,12 @@ _* **Classes** - Modelagem para objetos_
 
 **Solicitação de Compra**
 
-![alt text](images/image-12.png)
+![alt text](images/image-10.png)
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| Busca o ID            | Caixa de texto            | Seis valores inteiros            | "Digite o ID"               |
-|Descrição|Caixa de Texto|- |Preenchimento automático|
+| Busca o ID            | Caixa de texto            | Valores inteiros, seis números           | "Digite o ID"               |
+|Descrição|Caixa de Texto|Vazio|Preenchimento automático|
 
 
 
@@ -97,9 +97,9 @@ _* **Classes** - Modelagem para objetos_
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| Digitar o ID | Caixa de Texto|      Seis valores inteiros |  vazio              |
-| Quantidade| Caixa de texto|     Quantidades superiores às em estoque e valores menores que 1 |"Digite o valor de Entrada ou Saída"               |
-| Digitar o comentárioda retirada | String|  100 caractéres | "-"|
+| Digitar o ID | Caixa de Texto|Valores inteiros, seis números|  vazio              |
+| Quantidade| Caixa de texto| inteiros>0 |"Digite o valor de Entrada ou Saída"               |
+| Digitar o comentárioda retirada | String|  100 caractéres | vazio|
 | Saída | Check Box |  - | Marcada|
 | Entrada | Check Box |  - | Desmarcada|
 | Deposito | Combo box |  - | Restrito aos despositos existentes|
@@ -123,11 +123,11 @@ _* **Classes** - Modelagem para objetos_
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | Digitar o ID    | Caixa de Texto   |Apenas número   |    "Digite o id do equipamento"|
-|Descrição|Caixa de Texto|Apenas caracteres|Preenchimento automático com possibilidade de alteraçã|
-|Peso|Caixa de Texto|Apenas caracteres |Preenchimento automático com possibilidade de alteraçã|
-|Quantidade em estoque |Caixa de Texto|Apenas caracteres |Preenchimento automático com possibilidade de alteraçã|
+|Descrição|Caixa de Texto|Apenas caracteres|Preenchimento automático com possibilidade de alteração|
+|Peso|Caixa de Texto|Apenas caracteres |Preenchimento automático com possibilidade de alteração|
+|Quantidade em estoque |Caixa de Texto|Apenas caracteres |Preenchimento automático com possibilidade de alteração|
 |Endereço|Caixa de Texto|Apenas caracteres |Preenchimento automático com possibilidade de alteração|
-|Estoque Minimo|Caixa de Texto|Apenas caracteres |Preenchimento automático com possibilidade de alteraçã|
+|Estoque Minimo|Caixa de Texto|Apenas caracteres |Preenchimento automático com possibilidade de alteração|
 |Add insumo|Caixa de Texto|Seis valores inteiros |vazio|
 
 
