@@ -9,7 +9,7 @@
 
 -Fazer Deploy da primeira versão do Sistema. ( https://sensorfix.netlify.app )
 
-##Tarefas em subequipes
+## Tarefas em subequipes
 -Erick e João : Revisão da documentação e implementação do Front (Produção).
 
 -Caio e Tolentino : Revisão da documentação e implementação do Front (Manutenção).
