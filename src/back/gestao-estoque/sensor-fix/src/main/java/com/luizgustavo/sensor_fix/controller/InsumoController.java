@@ -23,7 +23,7 @@ import com.luizgustavo.sensor_fix.models.Insumo.UpdateInsumo;
 import com.luizgustavo.sensor_fix.services.InsumoService;
 
 @RestController
-@RequestMapping("/insumo/")
+@RequestMapping("/insumo")
 @Validated
 public class InsumoController {
 

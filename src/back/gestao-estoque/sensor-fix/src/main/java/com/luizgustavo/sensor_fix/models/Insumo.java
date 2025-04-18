@@ -21,6 +21,7 @@ public class Insumo {
     public interface UpdateInsumo {
         
     }
+    
    public static final String TABLE_NAME = "insumo"; //variavel para usar o nome da tabela
 
    @Id
@@ -47,7 +48,7 @@ public class Insumo {
 
    @Column(name= "deposito", nullable=false)
    @NotNull
-   @NotEmpty
+   
    private int deposito;
 
     public Insumo() {

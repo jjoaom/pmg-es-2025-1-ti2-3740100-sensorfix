@@ -11,9 +11,9 @@ import javax.validation.constraints.NotNull;
 @Table(name = Equipamento.TABLE_NAME)
 public class Equipamento {
     public static final String TABLE_NAME = "equipamento";
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name = "id", unique = true)
     private Long id;
 
