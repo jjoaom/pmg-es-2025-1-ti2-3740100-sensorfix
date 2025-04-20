@@ -12,6 +12,14 @@ import javax.validation.constraints.NotNull;
 public class Equipamento {
     public static final String TABLE_NAME = "equipamento";
     
+    public interface CreateEquipamento {
+
+    }
+
+    public interface UpdateEquipamento {
+        
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name = "id", unique = true)

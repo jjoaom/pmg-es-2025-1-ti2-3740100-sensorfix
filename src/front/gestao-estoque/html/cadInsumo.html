@@ -37,11 +37,11 @@
           <div class="detalhes">
             <div class="inputPeso">
               <label for="peso">Peso(g)</label>
-              <input type="text" id="peso">
+              <input type="number" id="peso">
             </div>
             <div class="inputEstMin">
               <label for="estMin">Estoque mínimo</label>
-              <input type="text" id="estMin">
+              <input type="number" id="estMin">
             </div>
             <div class="InputEnd">
               <label for="end">Endereço</label>
@@ -49,16 +49,17 @@
             </div>
             <div class="inputTotal">
               <label for="total">Quantidade em estoque</label>
-              <input type="text" id="total">
+              <input type="number" id="total">
             </div>
           </div>
 
           <div>
-            <button id="btnEntrar" class="btn"> Cadastrar</button>
+            <button id="btnCadastrar" class="btn"> Cadastrar</button>
+            <a href="entrada.html"><button id="btnNovaEntrada" class="btn"> Nova Entrada</button></a>
           </div>
           
         </div>
       </div>
-      
+      <script src="../js/cadInsumo.js"></script>
 </body>
 </html>

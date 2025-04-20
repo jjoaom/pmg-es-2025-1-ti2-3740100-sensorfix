@@ -155,6 +155,9 @@ input{
 
   background-color: #1EDC1E;
 }
+#btnNovaEntrada{
+  background-color: #FF6600;
+}
 
 .btn{
   border-top-left-radius: 10px;
@@ -166,6 +169,12 @@ input{
     margin: 5px;
     border: solid black 2px;
 
+}
+
+.btn:hover {
+  
+  color: white;
+  cursor: pointer;
 }
 
 
