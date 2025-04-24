@@ -38,4 +38,8 @@ public class EquipamentoInsumosService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    public List<EquipamentoInsumos> findByEquipamentoId(Long equipamentoId) {
+        return repository.findByEquipamentoId(equipamentoId);
+    }
 }

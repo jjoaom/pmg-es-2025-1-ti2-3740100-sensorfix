@@ -12,6 +12,7 @@ const inputPeso = document.getElementById('peso');
 const inputEstMin = document.getElementById('estMin');
 const inputEnd = document.getElementById('end');
 const inputEstoque = document.getElementById('total');
+const dialogOk = document.getElementById('dialogOk');
 
 const url = "http://localhost:8080/insumo"
 
@@ -48,7 +49,8 @@ async function createInsumo(url, nome, peso, estoqueMin, quantidade, endereco, d
                 console.log("Criado com sucesso, mas sem corpo na resposta.");
             }
         
-            alert("Insumo criado com sucesso!");
+            dialogOk.showModal();
+            btnNovaEntrada.style.display ="inline";
         } else {
             alert("Erro ao criar insumo. Código: " + resposta.status);
             console.error("Erro na requisição POST:", resposta.status);
@@ -63,10 +65,4 @@ async function createInsumo(url, nome, peso, estoqueMin, quantidade, endereco, d
 }
 
 
-function limparCampos() {
-    inputDescricao.value = "";
-    inputEnd.value = "";
-    inputEstMin.value = "";
-    inputEstoque.value = "";
-    inputPeso.value="";
-}
+

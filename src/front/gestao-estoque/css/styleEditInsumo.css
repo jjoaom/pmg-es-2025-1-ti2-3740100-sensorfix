@@ -157,3 +157,27 @@ input{
 
 /***********************BOTOÕES***************************/
 
+#dialogOk {
+  border: solid 1px black;
+    border-radius: 16px;
+    padding: 20px;
+    background-color: #75e77b;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Opção para escurecer o fundo ao abrir o dialog */
+::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

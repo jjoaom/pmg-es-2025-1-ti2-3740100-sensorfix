@@ -159,8 +159,24 @@ input{
 
 /***********************BOTOÕES***************************/
 
+#atualizado{
+  border: solid 1px black;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: #75e77b;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#naoCadastrado{
+  border: solid 1px black;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: #e77575;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
 
 #dialogCadastro {
+  
   border: solid 1px black;
   border-radius: 16px;
   padding: 20px;

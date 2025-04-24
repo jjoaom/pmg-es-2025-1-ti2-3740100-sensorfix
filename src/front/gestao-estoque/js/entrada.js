@@ -10,7 +10,9 @@ btnCadastro.style.display="none";//ao carregar a pagina ele não deve aparecer
 
 //////////////CAPTURANDO ELEMENTOS DA TELA///////////////////////////
 const dialogCadastro = document.getElementById('dialogCadastro');
-const inputId = document.getElementById('id');
+const naoCadastrado = document.getElementById('naoCadastrado');
+const atualizado = document.getElementById('atualizado');
+const  inputId= document.getElementById('id');
 const inputDescricao = document.getElementById('desc');
 const inputPeso = document.getElementById('peso');
 const inputEstMin = document.getElementById('estMin');
@@ -36,7 +38,9 @@ btnBuscar.addEventListener('click', () => {
 });
 
 btnEntrar.addEventListener('click', () =>{
+    
     putInsumo(url);
+    limparCampos();
 })
 
 
@@ -57,7 +61,7 @@ async function getInsumo(url, idInsumo) {
             preencheAutomatico(data.nome,data.peso,data.estoqueMin,data.endereco,data.quantidade);
         } else {
             console.error("Erro na requisição:", resposta.status);
-            alert("ID NÃO CADASTRADO");
+            naoCadastrado.showModal();
             btnCadastro.style.display = 'inline';
         }
     } catch (erro) {
@@ -82,7 +86,7 @@ async function putInsumo(url) {
 
     
     data.quantidade = valorInput + valorData;
-    alert(data.quantidade);
+    
     try {
         const resposta = await fetch(urlCompleta, {
             method: "PUT",
@@ -93,12 +97,24 @@ async function putInsumo(url) {
         });
 
         if (resposta.ok) {
-            console.log("Atualização feita com sucesso!");
+            atualizado.showModal();
+            
         } else {
             console.error("Erro na atualização:", resposta.status);
         }
     } catch (erro) {
         console.error("Erro ao tentar atualizar:", erro);
     }
+}
+
+
+function limparCampos() {
+    inputDescricao.value = "";
+    inputEnd.value = "";
+    inputEstMin.value = "";
+    inputEstoque.value = "";
+    inputPeso.value="";
+    inputQuantidadeAtualizada.value="";
+    inputId.value="";
 }
 

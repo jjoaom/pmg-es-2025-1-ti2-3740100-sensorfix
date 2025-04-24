@@ -47,4 +47,9 @@ public class EquipamentoInsumosController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/por-equipamento/{equipamentoId}")
+    public List<EquipamentoInsumos> getByEquipamentoId(@PathVariable Long equipamentoId) {
+        return service.findByEquipamentoId(equipamentoId);
+    }
 }

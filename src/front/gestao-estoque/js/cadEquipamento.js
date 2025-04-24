@@ -9,6 +9,14 @@ const inputEstoque = document.getElementById('total');
 const inputIdInsumo = document.getElementById('id');
 const inputDescInsumo = document.getElementById('insumo');
 
+const showInsumo= document.getElementById('showInsumos');
+
+const table = document.createElement('table');
+const th = document.createElement('th');
+
+
+
+
 let data;
 
 ///////////////////////BOTÕES/////////////////////////////////////
@@ -20,7 +28,7 @@ btnNovaEntrada.style.display="none";
 
 
 bntCadastra.addEventListener('click',()=>{
-    createEquipamento(url,inputDescricao.value,inputPeso.value,inputEstMin.value,inputEstoque.value,inputEnd.value,2)
+    createEquipamento(urlEquipamento,inputDescricao.value,inputPeso.value,inputEstMin.value,inputEstoque.value,inputEnd.value,2)
 })
 
 btnBuscar.addEventListener('click',() =>{
