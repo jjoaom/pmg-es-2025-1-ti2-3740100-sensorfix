@@ -61,8 +61,8 @@ _* **Tabela** - campo formado por uma matriz de valores_
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | **ID do equipamento**  |  Número   | Obrigatório    |    -               |
-| **Número de série**    | Caixa de Texto   | Alfanumérico, obrigatório |                |
-| **Imagem do equipamento**          | Imagem   | Formato PDF, JPG, PNG |           |
+| **Número de série**    | Caixa de Texto   | Alfanumérico, obrigatório |          -      |
+| **Imagem do equipamento**          | Imagem   | Formato PDF, JPG, PNG |      -     |
 | **Equipamento já teve retorno antes?**  |  Seleção única   | Opções: Sim/Não    |    -               |
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
@@ -74,11 +74,11 @@ _* **Tabela** - campo formado por uma matriz de valores_
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| Componente danificado | Caixa de texto  | Obrigatório  |                   |
-| Detalhamento do problema | Área de texto | Mínimo 10 caracteres |                   |
-| Necessário detalhamento adicional? | Seleção única | Opções Sim/Não |                   |
-| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |            |
-| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |            |
+| Componente danificado | Caixa de texto  | Obrigatório  |           -        |
+| Detalhamento do problema | Área de texto | Mínimo 10 caracteres |         -          |
+| Necessário detalhamento adicional? | Seleção única | Opções Sim/Não |            -       |
+| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |      -      |
+| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |      -      |
 
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
@@ -94,8 +94,8 @@ _* **Tabela** - campo formado por uma matriz de valores_
 | Data de encaminhamento | Data e hora  | Automático  |  Data/Hora atual  |
 | Técnico responsável | Seleção única | Lista de técnicos cadastrados |    -               |
 | Depósito de destino | Seleção única | Lista de depósitos cadastrados | -                  |
-| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |            |
-| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |            |
+| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |      -      |
+| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |       -     |
 
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
