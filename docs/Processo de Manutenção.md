@@ -53,55 +53,58 @@ _* **Tabela** - campo formado por uma matriz de valores_
 
 **Escolher uma opção dos serviços de Manutenção**
 
-![tela manutenção](https://github.com/user-attachments/assets/44ad6e8a-aa11-42bf-b1e8-8cd701d27739)
+![tela manutenção![Tela de Busca de Equipamento](https://github.com/user-attachments/assets/3108639c-c8bc-4724-acb2-99ffc2fb6c6b)
 
 
 **Identificação do Equipamento**
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| **ID do equipamento**  |  Número   | Obrigatório    |    -               |
-| **Número de série**    | Caixa de Texto   | Alfanumérico, obrigatório |          -      |
-| **Imagem do equipamento**          | Imagem   | Formato PDF, JPG, PNG |    -       |
-| **Equipamento já teve retorno antes?**  |  Seleção única   | Opções: Sim/Não    |    -               |
+| **ID do equipamento**  |  Caixa de Texto   | Obrigatório    |    "Digite o ID aqui..."         |
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
 | ---                  | ---                            | ---               |
-| ***Próximo***       |    Identificação do Problema    | default            |
+| ***Buscar Equipamento***       |    Resultado de Busca    | submit        |
 
 
-**Identificação do Problema**
-
-| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
-| ---             | ---              | ---            | ---               |
-| Componente danificado | Caixa de texto  | Obrigatório  |          -         |
-| Detalhamento do problema | Área de texto | Mínimo 10 caracteres |       -            |
-| Necessário detalhamento adicional? | Seleção única | Opções Sim/Não |          -         |
-| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |     -       |
-| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |      -      |
+![Tela de Identificação do Problema](https://github.com/user-attachments/assets/22139c62-dabf-4d17-89fc-76e4056cb4a0)
 
 
-| **Comandos**         |  **Destino**                   | **Tipo**          |
-| ---                  | ---                            | ---               |
-| Próximo              |  Encaminhamento para Manutenção | default                  |
-| Voltar  |  Encaminhamento para Manutenção | default                  |
-
-
-**Encaminhamento para Manutenção**
+**Identificação do Problema - Seção: Dados da Revisão**
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| Data de encaminhamento | Data e hora  | Automático  |  Data/Hora atual  |
-| Técnico responsável | Seleção única | Lista de técnicos cadastrados |    -               |
-| Depósito de destino | Seleção única | Lista de depósitos cadastrados | -                  |
-| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |      -      |
+| Data | Data  | Obrigatório  |          dd/mm/aaaa         |
+| Hora | Hora | Obrigatório |       --:--            |
+| Estado do Hardware | Seleção única (dropdown) | Opcional, lista pré-definida |   Sem danos físicos      |
+| Observações | Texto livre | Opcional, lista pré-definida |     Sem danos físicos      |
+
+
+**Seção: Trabalho a ser realizado**
+
+
+| **Campo**         |  **Tipo**                   | **Restrições**  | **Valor default**
+| ---                  | ---                            | ---        |                |
+| Alta     |  Caixa de Seleção | Opcional   | Não selecionado        |
+| Revisão  |  Caixa de Seleção | Opcional  |  Não Selecionado      |
+| Refuncionalização  |  Caixa de Seleção | Opcional  |  Não Selecionado      |
+
+
+**Seção: Registro de Falhas**
+
+| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
+| ---             | ---              | ---            | ---               |
+| Sintoma | Texto curto | Obrigatório |  Vazio  |
+| Falha Encontrada | Texto curto | Obrigatório | Vazio              |
+| Causa Provável | Texto curto | Obrigatório | Vazio   |
+| Ação | Texto curto / Seleção | Obrigatório |  Vazio  |
 | Evidência do problema | Arquivo | Formato PDF, JPG, PNG |        -    |
 
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
 | ---                  | ---                            | ---               |
-| Finalizar |  Fim do Processo | default                |
-| Voltar  |  Identificação do Problema | cancel    |
+| Adicionar |  Registro de Falhas (tabela abaixo) | Dinâmico   |
+| Guardar Dados  |  Salvar manutenção (provável redirecionamento ou feedback visual) | Submit  |
 
 
 
