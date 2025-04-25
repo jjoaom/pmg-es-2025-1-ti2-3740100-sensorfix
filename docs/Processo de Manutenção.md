@@ -83,9 +83,9 @@ _* **Tabela** - campo formado por uma matriz de valores_
 **Seção: Trabalho a ser realizado**
 
 
-| **Campo**         |  **Tipo**                   | **Restrições**  | **Valor default**
-| ---                  | ---                            | ---        |                |
-| Alta     |  Caixa de Seleção | Opcional   | Não selecionado        |
+| **Campo**         |  **Tipo**   | **Restrições**  | **Valor default** |
+| ---             | ---              | ---            | ---               |               
+| Alta     |  Caixa de Seleção | Opcional  | Não selecionado   |
 | Revisão  |  Caixa de Seleção | Opcional  |  Não Selecionado      |
 | Refuncionalização  |  Caixa de Seleção | Opcional  |  Não Selecionado      |
 
