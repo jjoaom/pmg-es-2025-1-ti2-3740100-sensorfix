@@ -4,9 +4,7 @@ const urlinsumo= "http://localhost:8080/insumo/"
 //BOTÕES
 const btnBuscar=document.getElementById('btnBuscar');
 const btnSalvar=document.getElementById('btnSalvar');
-const falha =document.getElementById('falha');
 
-falha.style.display="none";//ao carregar a pagina ele não deve aparecer
 //VARIAVEIS
 const inputDescricao = document.getElementById('desc');
 const inputPeso = document.getElementById('peso');
@@ -15,6 +13,7 @@ const inputEnd = document.getElementById('end');
 const inputEstoque = document.getElementById('total');
 const inputIdInsumo = document.getElementById('id');
 const dialogOk = document.getElementById('dialogOk');
+const dialogSemCad = document.getElementById('naoCadastrado');
 
 let data;
 
@@ -47,14 +46,14 @@ async function getInsumo(url, idInsumo) {
         const resposta = await fetch(urlCompleta, { method: "GET" });
 
         if (resposta.ok) {
-            falha.style.display= "none";
+            
             data = await resposta.json();
             console.log(data);
             preencheAutomatico(data.nome, data.peso, data.estoqueMin, data.endereco, data.quantidade);
 
         } else {
             console.error("Erro na requisição:", resposta.status);
-            falha.style.display= "inline";
+            dialogSemCad.showModal();
             
         }
     } catch (erro) {

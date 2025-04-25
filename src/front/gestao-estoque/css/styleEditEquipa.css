@@ -129,7 +129,7 @@ input{
 
 #showInsumos {
   width: 100%;
-  height: 150px;
+  
   background-color: #f0f0f0;
   border: 1px solid black;
   margin-top: 20px;
@@ -151,7 +151,7 @@ input{
   
 }
 
-#btnBusca, #btnCadatrar{
+#btnBusca, #btnSalvar{
 
   background-color: #1EDC1E;
 }
@@ -167,7 +167,38 @@ input{
     border: solid black 2px;
 
 }
+.btnExcluir{
+  background-color: rgba(255, 0, 0, 0.651);
+}
 
-
+input{
+  text-align: center;
+}
 /***********************BOTOÕES***************************/
 
+#naoCadastrado{
+  border: solid 1px black;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: #e77575;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+#tabelaInsumos{
+  border: 1px solid black;
+  width: 100%;
+}
+th,td {
+  border: 1px solid #070000;  /* Define bordas para as células */
+  padding: 3px;
+  text-align: left;  /* Alinha o texto à esquerda */
+  
+  text-align: center;
+}
+
+#dialogOk {
+  border: solid 1px black;
+    border-radius: 16px;
+    padding: 20px;
+    background-color: #75e77b;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
