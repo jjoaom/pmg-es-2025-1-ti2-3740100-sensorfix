@@ -5,7 +5,8 @@
 O fluxo descreve a movimentação dos sensores em diferentes estados: Ativo, Ativação, Estoque, Manutenção e Danificado.
 Cada atividade do processo tem seus campos e comandos definidos abaixo.
 
-![image](https://github.com/user-attachments/assets/1e7ceb99-3dff-4b56-a385-30e183208eed)
+
+![Movimentação de depósitos](https://github.com/user-attachments/assets/24bb96ef-d437-451e-a9a6-7f901676bec9)
 
 
 
