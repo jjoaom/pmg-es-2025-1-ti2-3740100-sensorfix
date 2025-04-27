@@ -6,11 +6,15 @@ body {
     background-color: #f9f9f9;
     text-align: center;
     height: 100vh;
+    background-image: url('../images/fundo.jpg');
+    background-size: cover; /* faz a imagem cobrir toda a tela */
+    background-position: center; /* centraliza a imagem */
+    background-repeat: no-repeat; /* evita repetir a imagem */
   }
   
   header {
-    background-color: #007bff;
-    color: white;
+    
+    color: rgb(0, 0, 0);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,9 +34,9 @@ body {
   }
   
   nav a {
-    color: white;
+    color: rgb(0, 0, 0);
     margin: 0 10px;
-    text-decoration: none;
+    
     font-weight: 500;
     transition: background-color 1.6s ease; /* tempo de saída */
   }
@@ -52,6 +56,11 @@ body {
   main h1 {
     margin: 30px 0 20px;
     font-size: 2em;
+  }
+  .btnPerfil ,.btnSair{
+    border-radius: 20px;
+    border: none;
+    background-color: #0095ff3a;
   }
   
   .painel {

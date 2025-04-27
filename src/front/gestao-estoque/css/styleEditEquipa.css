@@ -1,23 +1,20 @@
 /*ESTILO NAV BAR*/
 
 body {
-    margin: 0;
-     
-    background-color: #f9f9f9;
-    text-align: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: 'JetBrains Mono', monospace;
-    
-  }
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  background-color: #f9f9f9;
+  text-align: center;
+  height: 100vh;
+  background-image: url('../images/fundo.jpg');
+  background-size: cover; /* faz a imagem cobrir toda a tela */
+  background-position: center; /* centraliza a imagem */
+  background-repeat: no-repeat; /* evita repetir a imagem */
+}
   
   header {
-    background-color: #007bff;
-    color: white;
+    
+    color: rgb(0, 0, 0);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -37,9 +34,9 @@ body {
   }
   
   nav a {
-    color: white;
+    color: rgb(0, 0, 0);
     margin: 0 10px;
-    text-decoration: none;
+    
     font-weight: 500;
     transition: background-color 1.6s ease; /* tempo de saída */
   }
@@ -167,7 +164,7 @@ input{
     border: solid black 2px;
 
 }
-.btnExcluir{
+#btnExcluir, .btnExcluir{
   background-color: rgba(255, 0, 0, 0.651);
 }
 
@@ -176,7 +173,7 @@ input{
 }
 /***********************BOTOÕES***************************/
 
-#naoCadastrado{
+#naoCadastrado,#delete{
   border: solid 1px black;
   border-radius: 16px;
   padding: 20px;
@@ -200,5 +197,13 @@ th,td {
     border-radius: 16px;
     padding: 20px;
     background-color: #75e77b;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#avisoRelacional{
+  border: solid 1px black;
+    border-radius: 16px;
+    padding: 20px;
+    background-color: #e8e33e;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }

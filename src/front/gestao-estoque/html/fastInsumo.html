@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast in /out</title>
+    <link rel="stylesheet" href="../css/styleFast.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <img src="../images/logo.png" alt="logo SensorFix" id="logo">
+        </div>
+        <nav>
+          <a href="#">Home</a>
+          <a href="#">Produção</a>
+          <a href="estoque.html">Estoque</a>
+          <a href="#">Manutenção</a>
+          <a href="#">Movimentação</a>
+        </nav>
+        <div class="icons">
+          <button class="btnPerfil"> <img src="../images/usuario-de-perfil.png" alt="botão perfil"></button>
+          <button class="btnSair"><img src="../images/sair.png" alt="botão sair"></button>
+        </div>
+      </header>
+
+      
+      <div id="container">
+        <div> <!-- essa div ajuda a controlar o conteúdo interno -->
+          <div>
+            <div class="inputId">
+              <label for="id">Digite o Id</label>
+              
+              <input type="text" id="id">
+              
+            </div>
+            <button class="btn" id="btnBuscar">Buscar</button>
+           
+          </div>
+          <br>
+          <div class="inputDesc">
+            <label for="desc">Descrição</label>
+            <input type="text" id="desc">
+          </div>
+          <br>
+          <div class="inputQuantidade">
+            <label for="desc">Quantidade</label>
+            <input type="number" id="total">
+          </div>
+          <br>
+          <div id="checkBox">
+            <label for="saida">Saída</label>
+            <input type="checkbox" name="" id="saida" checked>
+            <label for="entrada">Entrada</label>
+            <input type="checkbox" name="" id="entrada">
+            <input type="text" name="comentário" id="comentario" placeholder="Deixe um comentário"> 
+        </div>
+           
+
+
+          <button class="btn" id="btnAgregar">Agregar</button>
+        </div>
+
+        
+      </div>
+
+      
+      <script src="../js/fastInsumo.js"></script>
+</body>
+</html>

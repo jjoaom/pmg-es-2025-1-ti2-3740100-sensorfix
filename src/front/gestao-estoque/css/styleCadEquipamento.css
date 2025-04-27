@@ -1,22 +1,19 @@
 /*ESTILO NAV BAR*/
 
 body {
-    margin: 0;
-     
-    background-color: #f9f9f9;
-    text-align: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: 'JetBrains Mono', monospace;
-    
-  }
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  background-color: #f9f9f9;
+  text-align: center;
+  height: 100vh;
+  background-image: url('../images/fundo.jpg');
+  background-size: cover; /* faz a imagem cobrir toda a tela */
+  background-position: center; /* centraliza a imagem */
+  background-repeat: no-repeat; /* evita repetir a imagem */
+}
   
   header {
-    background-color: #007bff;
+    
     color: white;
     display: flex;
     align-items: center;
@@ -37,9 +34,9 @@ body {
   }
   
   nav a {
-    color: white;
+    color: rgb(0, 0, 0);
     margin: 0 10px;
-    text-decoration: none;
+    
     font-weight: 500;
     transition: background-color 1.6s ease; /* tempo de saída */
   }

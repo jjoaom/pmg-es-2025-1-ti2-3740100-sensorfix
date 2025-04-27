@@ -1,0 +1,123 @@
+/* ESTILO NAV BAR */
+body {
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  background-color: #f9f9f9;
+  text-align: center;
+  height: 100vh;
+  background-image: url('../images/fundo.jpg');
+  background-size: cover; /* faz a imagem cobrir toda a tela */
+  background-position: center; /* centraliza a imagem */
+  background-repeat: no-repeat; /* evita repetir a imagem */
+}
+
+header {
+  
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 20px;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.brand {
+  margin-left: 5px;
+}
+
+nav a {
+  color: rgb(0, 0, 0);
+  margin: 0 10px;
+ 
+  font-weight: 500;
+  transition: background-color 1.6s ease;
+}
+
+nav a:hover {
+  background-color: #d9d9d9;
+  color: black;
+  padding: 5px;
+  border-radius: 10px;
+  transition: background-color ease 0.0s;
+}
+
+.icons span {
+  font-size: 1.5em;
+  margin-left: 10px;
+}
+
+#logo {
+  margin-top: 10px;
+  width: 250px;
+}
+
+.btnPerfil,
+.btnSair {
+  background-color: #007bff;
+  border: none;
+}
+
+/* Container principal */
+#container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #d9d9d9;
+  padding: 10px;
+  width: 500px;
+  border: solid 2px black;
+  border-radius: 12px;
+}
+
+/* Tabela */
+#tableDados {
+  border: 1px solid black;
+  background-color: #d9d9d9;
+}
+
+tr th, td {
+  border: 1px solid black;
+}
+
+/* Botões */
+button {
+  border: solid 1px black;
+  border-radius: 10px 0px 10px 0;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px;
+  background-color: #007bff;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+/* Inputs */
+input {
+  padding: 5px;
+  border-radius: 8px;
+  border: solid 1px black;
+}
+
+/* Layout dos botões e filtros */
+#showInsumos,
+#showEquipamentos {
+  padding: 10px;
+  background-color: #b8b8b8;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#cabeçalho,
+#btns {
+  padding: 10px;
+}

@@ -1,5 +1,6 @@
 package com.luizgustavo.sensor_fix.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,14 @@ public class EquipamentoService {
     @Autowired
     private EquipamentoRepository equipamentoRepository;
 
+    // Método para buscar um equipamento por ID
     public Equipamento findById(Long id) {
         Optional<Equipamento> equipamento = this.equipamentoRepository.findById(id);
         return equipamento.orElseThrow(() -> 
             new RuntimeException("Equipamento não encontrado! ID: " + id + ", Tipo: " + Equipamento.class.getName()));
     }
 
+    // Método para criar um novo equipamento
     @Transactional
     public Equipamento create(Equipamento obj) {
         obj.setId(null); // Garante que será um novo registro
@@ -28,6 +31,7 @@ public class EquipamentoService {
         return obj;
     }
 
+    // Método para atualizar um equipamento existente
     @Transactional
     public Equipamento update(Equipamento obj) {
         Equipamento newObj = findById(obj.getId());
@@ -42,6 +46,7 @@ public class EquipamentoService {
         return this.equipamentoRepository.save(newObj);
     }
 
+    // Método para excluir um equipamento
     public void delete(Long id) {
         findById(id); // Verifica se existe
 
@@ -50,5 +55,10 @@ public class EquipamentoService {
         } catch (Exception e) {
             throw new RuntimeException("Não é possível excluir pois há entidades relacionadas");
         }
+    }
+
+    // Novo método para buscar todos os equipamentos
+    public List<Equipamento> findAll() {
+        return this.equipamentoRepository.findAll();
     }
 }

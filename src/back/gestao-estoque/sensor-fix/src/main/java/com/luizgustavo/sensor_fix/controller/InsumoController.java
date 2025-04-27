@@ -1,6 +1,7 @@
 package com.luizgustavo.sensor_fix.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -30,39 +31,37 @@ public class InsumoController {
     @Autowired
     private InsumoService insumoService;
 
+    @GetMapping
+    public ResponseEntity<List<Insumo>> findAll() {
+        List<Insumo> lista = insumoService.findAll();
+        return ResponseEntity.ok().body(lista);
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Insumo> findById(@PathVariable Long id){
+    public ResponseEntity<Insumo> findById(@PathVariable Long id) {
         Insumo obj = this.insumoService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
     @Validated(CreateInsumo.class)
-    public ResponseEntity<Void> create (@Valid @RequestBody Insumo obj){
+    public ResponseEntity<Void> create(@Valid @RequestBody Insumo obj) {
         this.insumoService.create(obj);
-        //montando a url
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
-
     @PutMapping("/{id}")
     @Validated(UpdateInsumo.class)
-    public ResponseEntity<Void> update (@Valid @RequestBody Insumo obj, @PathVariable Long id){
+    public ResponseEntity<Void> update(@Valid @RequestBody Insumo obj, @PathVariable Long id) {
         obj.setId(id);
         this.insumoService.update(obj);
-
         return ResponseEntity.noContent().build();
-
-
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete (@PathVariable Long id){
-
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         this.insumoService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

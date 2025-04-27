@@ -13,6 +13,7 @@ const inputIdInsumo = document.getElementById('id');
 const inputDescInsumo = document.getElementById('descInsumo');
 const inputQuantidadeInsumo = document.getElementById('quantidade');
 
+
 // VARIÁVEIS DE DADOS
 let dataEquip;
 let dataInusmo;
@@ -24,6 +25,8 @@ const tableInsumo = document.getElementById('tabelaInsumos');
 // DIALOGS
 const dialogOk = document.getElementById('dialogOk');
 const naoCadastrado = document.getElementById('naoCadastrado');
+const dialogDeletado = document.getElementById('delete');
+const dialogaviso= document.getElementById('avisoRelacional');
 
 // BOTÕES
 const btnBuscar = document.getElementById('btnBuscar');
@@ -42,12 +45,17 @@ btnAgregar.addEventListener('click', () => {
     addInsumo();
 });
 
+const btnExcluir=document.getElementById('btnExcluir');
+btnExcluir.style.display= 'none';
+btnExcluir.addEventListener('click',()=>{
+    deleteEquipamento(urlEquipamento, inputIdEquipamento.value);
+})
+
 const btnSalvar = document.getElementById('btnSalvar');
 btnSalvar.style.display = "none";
 btnSalvar.addEventListener('click',() =>{
     putEquipamento(urlEquipamento,inputIdEquipamento.value);
-    tableInsumo.innerHTML="";
-    location.reload();
+    
 
 });
 // FUNÇÕES
@@ -71,6 +79,7 @@ async function getEquipamento(url, idInsumo) {
                 dataEquip.quantidade
             );
             btnSalvar.style.display='inline';
+            btnExcluir.style.display='inline';
         } else {
             console.error("Erro na requisição:", resposta.status);
             naoCadastrado.showModal();
@@ -80,6 +89,8 @@ async function getEquipamento(url, idInsumo) {
         console.error("Erro ao buscar equipamento:", erro);
     }
 }
+
+
 
 // Preenche automaticamente os dados do equipamento nos campos
 function preencheAutomatico(desc, peso, estMin, end, quantidade) {
@@ -253,6 +264,9 @@ async function putEquipamento(id, urlBase) {
         });
 
         if (resposta.ok) {
+            
+            tableInsumo.innerHTML="";
+            location.reload();
             dialogOk.showModal();
         } else {
             alert(`Erro ao atualizar equipamento: ${resposta.status}`);
@@ -274,3 +288,23 @@ function limparCampos() {
     
     inputIdInsumo.value="";
 }
+
+async function deleteEquipamento(url, id) {
+    try {
+      const response = await fetch(`${url}${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        dialogDeletado.showModal();
+        limparCampos();
+        location.reload();
+
+
+      } else {
+        dialogaviso.showModal();
+      }
+    } catch (error) {
+      console.error('Erro de rede:', error);
+    }
+  }

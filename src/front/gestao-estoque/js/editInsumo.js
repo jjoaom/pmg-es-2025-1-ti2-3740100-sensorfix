@@ -4,6 +4,9 @@ const urlinsumo= "http://localhost:8080/insumo/"
 //BOTÕES
 const btnBuscar=document.getElementById('btnBuscar');
 const btnSalvar=document.getElementById('btnSalvar');
+const btnExcluir=document.getElementById('btnExcluir');
+btnExcluir.style.display="none";
+btnSalvar.style.display="none";
 
 //VARIAVEIS
 const inputDescricao = document.getElementById('desc');
@@ -14,9 +17,13 @@ const inputEstoque = document.getElementById('total');
 const inputIdInsumo = document.getElementById('id');
 const dialogOk = document.getElementById('dialogOk');
 const dialogSemCad = document.getElementById('naoCadastrado');
+const dialogDeletado = document.getElementById('delete');
+const dialogAviso = document.getElementById('avisoRelacional');
+
 
 let data;
 
+//botões
 
 btnBuscar.addEventListener('click',() =>{
     
@@ -27,6 +34,11 @@ btnSalvar.addEventListener('click',() =>{
     
     putInsumo(inputIdInsumo.value,urlinsumo);
 });
+
+btnExcluir.addEventListener('click',()=>{
+    deleteInsumo(urlinsumo,inputIdInsumo.value);
+})
+
 //FUNÇÕES 
 
 
@@ -50,6 +62,8 @@ async function getInsumo(url, idInsumo) {
             data = await resposta.json();
             console.log(data);
             preencheAutomatico(data.nome, data.peso, data.estoqueMin, data.endereco, data.quantidade);
+            btnExcluir.style.display ="inline"
+            btnSalvar.style.display ="inline"
 
         } else {
             console.error("Erro na requisição:", resposta.status);
@@ -105,3 +119,21 @@ function limparCampos() {
     
     inputIdInsumo.value="";
 }
+
+async function deleteInsumo(url, id) {
+    try {
+      const response = await fetch(`${url}${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        dialogDeletado.showModal();
+        limparCampos();
+
+      } else {
+        dialogAviso.showModal();
+      }
+    } catch (error) {
+      console.error('Erro de rede:', error);
+    }
+  }
