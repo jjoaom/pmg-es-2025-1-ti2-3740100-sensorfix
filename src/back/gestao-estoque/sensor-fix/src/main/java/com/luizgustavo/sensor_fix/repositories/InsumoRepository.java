@@ -1,7 +1,9 @@
 package com.luizgustavo.sensor_fix.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import com.luizgustavo.sensor_fix.models.Insumo;
 
@@ -10,5 +12,8 @@ import com.luizgustavo.sensor_fix.models.Insumo;
 //anotação para repositorio
 @Repository
 public interface InsumoRepository extends JpaRepository<Insumo, Long> {
-    
+
+    // Sugestões de compra: quantidade abaixo do estoque mínimo
+    @Query("SELECT i FROM Insumo i WHERE i.quantidade < i.estoqueMin")
+    List<Insumo> findSugestoesDeCompra();
 }

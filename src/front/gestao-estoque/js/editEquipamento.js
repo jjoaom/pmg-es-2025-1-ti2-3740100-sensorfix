@@ -1,5 +1,5 @@
 // URLs da API
-const urlEquipamento = "http://localhost:8080/equipamento/";
+const urlEquipamento = "http://localhost:8080/equipamentos/";
 const urlinsumo = "http://localhost:8080/insumo/";
 
 // VARIÁVEIS DE INPUT

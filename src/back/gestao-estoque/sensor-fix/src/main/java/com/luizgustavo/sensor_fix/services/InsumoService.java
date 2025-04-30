@@ -56,4 +56,8 @@ public class InsumoService {
             throw new RuntimeException("Não é possível excluir, pois há entidades relacionadas");
         }
     }
+
+    public List<Insumo> listarSugestoesDeCompra() {
+        return insumoRepository.findSugestoesDeCompra();
+    }
 }

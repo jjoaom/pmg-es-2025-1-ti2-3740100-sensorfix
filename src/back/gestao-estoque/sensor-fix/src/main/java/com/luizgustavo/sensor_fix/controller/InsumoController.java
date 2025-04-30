@@ -64,4 +64,10 @@ public class InsumoController {
         this.insumoService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/sugestoes-compra")
+    public ResponseEntity<List<Insumo>> listarSugestoesDeCompra() {
+    List<Insumo> sugestoes = this.insumoService.listarSugestoesDeCompra();
+    return ResponseEntity.ok().body(sugestoes);
+}
 }
