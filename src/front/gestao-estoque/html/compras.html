@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SensorFix - Compras</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js" integrity="sha512-yu5WG6ewBNKx8svICzUA01vozhmiQCVfzjzW40eCHJdsDRaOifh9hPlWBDex5b32gWCzawTp1F3FJz60ps6TnQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link rel="stylesheet" href="../css/styleCompras.css "/>
 </head>
 <body>
@@ -41,7 +42,7 @@
       <div id="cabecalhoSolicitacao">
         
         <br>
-        <input type="text" name="number" id="id" placeholder="ID Insumo">
+        <input type="number" name="number" id="id" placeholder="ID Insumo">
         <button class="btn" id="btnBuscar"> <img src="../images/lupa.png" alt="" height="12px"></button>
         <input type="none" name="insumos" id="descInsumo" placeholder="Descrição" readonly>
         <input type="number" name="insumos" id="quantidade" placeholder="Quantidade" >
@@ -53,12 +54,14 @@
           <tr>
             <th>Id</th>
             <th>Nome</th>
-            <th>Quantidade</th>
             <th>Peso(g)</th>
+            <th>Quantidade</th>
+            <th>Excluir</th>
+            
           </tr>
         </table>
       </div>
-
+      
       <div id="finalziacao">
         <button id="fornecedor" class="btn">Fornecedor</button>
         <button id="concluir" class="btn">Concluir</button>
@@ -89,7 +92,27 @@
     !!! Salvo com sucesso !!!
   </dialog>
   
+  <dialog id="confirmaSugestao">
+    <label for="quantidadeSugest">Quantidade</label>
+    <input type="number" name="" id="quantidadeSugest">
+    <button id="confirmaEntarda">Confirmar</button>
+  </dialog>
+  
+  <dialog id="naoencontrado">
+    ID não encotrado !
+    <p>Press ESC para sair</p>
+  </dialog>
+  <dialog id="quantidadeInvalida">
+    Insira uma quantidade invalida !
+    <p>Press ESC para sair</p>
+  </dialog>
 
-  <script src="../js/compras.js"></script>
+  <dialog id="digiteID">
+    Digite um ID para pesquisa!
+    <p>Press ESC para sair</p>
+  </dialog>
+  
+
+  <script type="module" src="../js/compras.js"></script>
 </body>
 </html>

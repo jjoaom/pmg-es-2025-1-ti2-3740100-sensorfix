@@ -43,12 +43,16 @@
         <p>Press ESC para sair</p>
       </dialog>
 
-      <a href="compras.html"><button>Compras</button></a>
+      <button id="btnCompra">Compras
       <a href="pesquisa.html"><button>Pesquisar</button></a>
     </section>
   </main>
   
+  <dialog id="compras">
+    <a href="listaPedidosCompra.html"><button id="btnListaPedidos">Mostrar Pedidos</button></a>
+    <button id="btnNovoPedido">Novo Pedido</button>
+  </dialog>
 
-  <script src="../js/estoque.js"></script>
+  <script type="module" src="../js/estoque.js"></script>
 </body>
 </html>
