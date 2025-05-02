@@ -6,7 +6,7 @@ O fluxo descreve a movimentação dos sensores em diferentes estados: Ativo, Ati
 Cada atividade do processo tem seus campos e comandos definidos abaixo.
 
 
-![Movimentação de depósitos](https://github.com/user-attachments/assets/24bb96ef-d437-451e-a9a6-7f901676bec9)
+![image](https://github.com/user-attachments/assets/837d776e-53ac-4ddc-82fe-8d51c37cdaa2)
 
 
 
