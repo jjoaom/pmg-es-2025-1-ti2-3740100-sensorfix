@@ -33,8 +33,8 @@
             <div class="inputId">
                 <label for="id">Digite o id</label>
                 
-                <input type="text" id="id">
-                <p>ID NÃO ENCONTRADO</p>
+                <input type="text" id="idEquipamento">
+                
               </div>
               <button class="btn" id="btnBuscar">Buscar</button>
           
@@ -62,7 +62,8 @@
           </div>
 
           <div>
-            <button id="btnCadatrar" class="btn" > Cadastrar</button>
+            <button id="btnSalvar" class="btn" >Salvar</button>
+            <button id="btnExcluir" class="btn">Excluir</button>
           </div>
           
         </div>
@@ -75,16 +76,47 @@
           </label>
           <input type="text" name="insumos" id="id" placeholder="Dig. ID">
           <button class="btn" id="btnBusca"> <img src="../images/lupa.png" alt="" height="12px"></button>
-          <input type="none" name="insumos" id="insumo" placeholder="Descrição" readonly>
+          <input type="none" name="insumos" id="descInsumo" placeholder="Descrição" readonly>
+          <input type="number" name="insumos" id="quantidade" placeholder="Quantidade" >
           <button class="btn"  id="btnAgregar">Agregar</button>
           <br>
           <div id="showInsumos">
-          
+            <table id="tabelaInsumos" >
+              <tr>
+                <th>INSUMO</th>
+                <th>QUANTIDADE</th>
+                <th>EXCLUIR</th>
+              </tr>
+            </table>
           </div>
         </div>
         
       </div>
-      
+
+      <dialog id="naoCadastrado">
+        ID NÃO CADASTRADO
+        <p>ESC para sair</p>
+      </dialog>
+
+      <dialog id="dialogOk">
+        Equipamento Atualizado
+        <p>ESC para sair</p>
+        
+      </dialog>
+      <dialog id="delete">
+        DELETADO COM SUCESSO !
+        <p>ESC para sair</p>
+      </dialog>
+
+      <dialog id="avisoRelacional">
+        !! ATENÇÃO !!<br>
+        !! EQUIPAMENTO NÃO DELETADO !!<br>
+        Esse Equipamento não pode ser deletado. Exclua suas relações com insumos"
+        
+        <p>ESC para sair</p>
+      </dialog>
+
+      <script src="../js/editEquipamento.js"></script>
       
 </body>
 </html>

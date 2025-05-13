@@ -1,73 +1,83 @@
+/* === HEADER ATUALIZADO === */
+header {
+  background-color: #0056b3; /* tom mais escuro de azul para melhor contraste */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px; /* padding mais fino */
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* leve sombra para destacar */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-/*ESTILO NAV BAR*/
+/* LOGO */
+.logo {
+  font-size: 1.2em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
 
-body {
-    margin: 0;
-     
-    background-color: #f9f9f9;
-    text-align: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: 'JetBrains Mono', monospace;
-    
-  }
-  
-  header {
-    background-color: #007bff;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 20px;
-    
-  
-    
-  }
-  
-  .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  
-  .brand {
-    margin-left: 5px;
-  }
-  
-  nav a {
-    color: white;
-    margin: 0 10px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 1.6s ease; /* tempo de saída */
-  }
-  nav a:hover {
-    background-color: #d9d9d9;
-    color: black;
-    padding: 5px;
-    border-radius: 10px;
-    transition: background-color ease 0.0s; /* duração + delay */
-  }
-  
-  .icons span {
-    font-size: 1.5em;
-    margin-left: 10px;
-  }
+/* NOME DA MARCA (opcional) */
+.brand {
+  margin-left: 10px;
+  font-size: 1em;
+}
 
-  #logo{
-    margin-top: 10px;
-    width: 250px;
-  }
+/* LINKS DE NAVEGAÇÃO */
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 12px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
 
-  .btnPerfil ,.btnSair{
-    background-color: #007bff;
-    border: none;
-  }
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
 
-  /*FIM ESTILO NAV BAR*/
+/* ÍCONES NO HEADER */
+.icons span {
+  font-size: 1.2em;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.icons span:hover {
+  color: #ffcc00;
+}
+
+/* IMAGEM DE LOGO */
+#logo {
+  width: 200px;
+  margin-top: 5px;
+}
+
+/* BOTÕES */
+.btnPerfil,
+.btnSair {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.btnPerfil:hover,
+.btnSair:hover {
+  color: #ffcc00;
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -34,7 +34,7 @@
                   <label for="id">Digite o id</label>
                   
                   <input type="text" id="id">
-                  <p>ID NÃO ENCONTRADO</p>
+                  
                 </div>
                 <button class="btn" id="btnBuscar">Buscar</button>
           <div class="inputDesc">
@@ -62,10 +62,34 @@
 
           <div>
             <button id="btnSalvar" class="btn"> Salvar</button>
+            <button id="btnExcluir" class="btn">Excluir</button>
           </div>
           
         </div>
       </div>
+
+      <dialog id="dialogOk">
+        INSUMO ATUALZADO !
+        <p>ESC para sair</p>
+        
+      </dialog>
       
+      <dialog id="naoCadastrado">
+        ID NÃO CADASTRADO !
+        <p>ESC para sair</p>
+      </dialog>
+
+      <dialog id="delete">
+        DELETADO COM SUCESSO !
+        <p>ESC para sair</p>
+      </dialog>
+
+      <dialog id="avisoRelacional">
+        ATENÇÃO !<br>
+        Esse insumo não pode ser deletado por ser componente base de um Equipamento!
+        !!INSUMO NÃO DELETADO!!
+        <p>ESC para sair</p>
+      </dialog>
+      <script src="../js/editInsumo.js"></script>
 </body>
 </html>

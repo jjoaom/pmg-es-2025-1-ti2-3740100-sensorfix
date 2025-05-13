@@ -21,6 +21,8 @@ public class EquipamentoInsumos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    
+
 
     @ManyToOne //fazendo a foreignkey
     @JoinColumn(name = "equipamento_id", nullable = false)
@@ -69,5 +71,12 @@ public class EquipamentoInsumos {
         this.quantidade = quantidade;
     }
     
+    public long getId() {
+        return id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
+    }
 
 }

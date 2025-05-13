@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SensorFix - Depósito</title>
-  <link rel="stylesheet" href="/css/styleEstoque.css"/>
+  <link rel="stylesheet" href="../css/styleEstoque.css "/>
 </head>
 <body>
   <header>
@@ -28,12 +28,31 @@
     <h1>Deposito</h1>
     <section class="painel">
       <a href="entrada.html"><button>Entrada de insumos</button></a>
-      <a href="fast.html"><button>Fast In/Out</button></a>
-      <a href="cadInsumo.html"><button>Cadastro Insumo</button></a>
-      <a href="cadEquipamento.html"><button>Cadastro Equipamento</button></a>
-      <a href="buscar.html"><button>Buscar</button></a>
-      <a href="compras.html"><button>Compras</button></a>
+     <button id="btnFast">Fast In/Out</button>
+      
+      <button id="btnBuscar">Editar</button>
+      <dialog id="dialogEditar">
+        <a href="editInsumo.html"><button id="btnEditarInsumo">Editar Insumo</button></a>
+        <a href="editEquipamento.html"><button id="btnEditarEquipamento">Editar Equipamento</button></a>
+        <p>Press ESC para sair</p>
+      </dialog>
+
+      <dialog id="dialogFast">
+        <a href="fastInsumo.html"><button id="btnEditarInsumo">Saida Insumo</button></a>
+        <a href="fastEqui.html"><button id="btnEditarEquipamento">Saida Equipamento</button></a>
+        <p>Press ESC para sair</p>
+      </dialog>
+
+      <button id="btnCompra">Compras
+      <a href="pesquisa.html"><button>Pesquisar</button></a>
     </section>
   </main>
+  
+  <dialog id="compras">
+   <!--<a href="listaPedidosCompra.html"><button id="btnListaPedidos">Mostrar Pedidos</button></a>--> 
+    <button id="btnNovoPedido">Novo Pedido</button>
+  </dialog>
+
+  <script type="module" src="../js/estoque.js"></script>
 </body>
 </html>

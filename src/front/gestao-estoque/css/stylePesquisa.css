@@ -1,0 +1,179 @@
+/* === GERAL === */
+body {
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  background-color: #f9f9f9;
+  background-image: url('../images/fundo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  text-align: center;
+}
+
+/* === HEADER / NAV === */
+header {
+  background-color: #0056b3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 20px;
+  height: 58px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.logo {
+  font-size: 1.2em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  margin-top: 4px;
+  width: 180px;
+}
+
+/* Links de navegação */
+nav a {
+  color: white;
+  margin: 0 10px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 6px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* === BOTÕES HEADER === */
+.btnPerfil,
+.btnSair {
+  background-color: transparent;
+  border: none;
+  padding: 4px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btnPerfil:hover,
+.btnSair:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.btnPerfil img,
+.btnSair img {
+  width: 24px;
+}
+
+/* === CONTAINER PRINCIPAL === */
+#container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #d9d9d9;
+  padding: 20px;
+  width: 900px;
+  height: 450px;
+  border: solid 2px black;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* === INPUT E BOTÕES DE FILTRO === */
+#cabeçalho,
+#btns {
+  padding: 10px;
+}
+
+input {
+  padding: 8px;
+  border-radius: 8px;
+  border: solid 1px black;
+  width: 80%;
+  max-width: 400px;
+  font-size: 14px;
+}
+
+/* === BOTÕES GERAIS === */
+button {
+  border: solid 1px black;
+  border-radius: 10px 0 10px 0;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 6px 12px;
+  background-color: #007bff;
+  margin: 5px;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+/* === ÁREA DAS TABELAS === */
+#showInsumos,
+#showEquipamentos {
+  background-color: #b8b8b8;
+  border-radius: 8px;
+  padding: 1px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* === TABELA === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #d9d9d9;
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #999;
+  z-index: 1;
+  border-bottom: 2px solid black;
+  font-weight: bold;
+}
+
+th,
+td {
+  border: 1px solid black;
+  padding: 4px;
+  text-align: center;
+}
+
+td {
+  font-weight: 300;
+  font-size: 13px;
+  color: #333;
+}
+
+/* === SCROLLBAR PERSONALIZADA === */
+#showInsumos::-webkit-scrollbar,
+#showEquipamentos::-webkit-scrollbar {
+  width: 8px;
+}
+
+#showInsumos::-webkit-scrollbar-thumb,
+#showEquipamentos::-webkit-scrollbar-thumb {
+  background-color: #666;
+  border-radius: 4px;
+}

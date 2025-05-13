@@ -1,5 +1,6 @@
 package com.luizgustavo.sensor_fix.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,38 +12,30 @@ import com.luizgustavo.sensor_fix.repositories.InsumoRepository;
 
 @Service
 public class InsumoService {
-    
-    @Autowired //avisando que esta instanciando uma extensão e ai seria o construtor da extends
-    private InsumoRepository InsumoRepository;
 
+    @Autowired
+    private InsumoRepository insumoRepository; // minúsculo o nome da variável, por boas práticas
 
-    public Insumo findById(Long id){
-        //esse optional serve para, se eu buscar um id que não esta no banco ele não vai retornar NULL e sim "vazio"
-        Optional<Insumo> insumo = this.InsumoRepository.findById(id);
-
-        //esse retorno me diz que eu vou retornar um insumo, mas se ele estiver vazio eu retorno uma throw
-        return insumo.orElseThrow(()->new RuntimeException(
-            "\"Insumo não encotrado!ID: \"+id+\", Tipo\"+ Insumo.class.getName()"
-            ));
+    public List<Insumo> findAll() {
+        return insumoRepository.findAll();
     }
 
-    //sempre que for fazer alguma alteração no banco faço essa anotation para segurança (create e update)
-    //util para inserções 
+    public Insumo findById(Long id) {
+        Optional<Insumo> insumo = this.insumoRepository.findById(id);
+        return insumo.orElseThrow(() -> new RuntimeException(
+            "Insumo não encontrado! ID: " + id + ", Tipo: " + Insumo.class.getName()
+        ));
+    }
+
     @Transactional
-    public Insumo create (Insumo obj){
-        //vamos setar o id como null para que nuca seja inserido um mesmo id e o create meio que vire um edit 
-        obj.setId(null);
-        obj = this.InsumoRepository.save(obj);
+    public Insumo create(Insumo obj) {
+        obj.setId(null); // garantir que é inserção nova
+        obj = this.insumoRepository.save(obj);
         return obj;
-        
-
     }
 
-
     @Transactional
-    public Insumo update(Insumo obj){
-
-        //vamos garantir que esse usuáro exite e assim pegaremos ele no banco de dados e faremos somente alterações nos campos necessários , se não existir ja cai na excessão do find
+    public Insumo update(Insumo obj) {
         Insumo newObj = findById(obj.getId());
 
         newObj.setNome(obj.getNome());
@@ -52,20 +45,19 @@ public class InsumoService {
         newObj.setEndereco(obj.getEndereco());
         newObj.setDeposito(obj.getDeposito());
 
-        return this.InsumoRepository.save(newObj);
+        return this.insumoRepository.save(newObj);
     }
 
-    public void delete (Long id){
+    public void delete(Long id) {
         findById(id);
-
-        // fazendo essa logica por que o usuário não pode ser deletado se estiver relacionado com outras coisas;
         try {
-            this.InsumoRepository.deleteById(id);
+            this.insumoRepository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException("Não é possível excluir pois há entidades relacionadas");
+            throw new RuntimeException("Não é possível excluir, pois há entidades relacionadas");
         }
-
     }
 
-
+    public List<Insumo> listarSugestoesDeCompra() {
+        return insumoRepository.findSugestoesDeCompra();
+    }
 }

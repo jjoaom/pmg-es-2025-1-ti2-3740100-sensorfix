@@ -22,47 +22,73 @@
           <button class="btnPerfil"> <img src="../images/usuario-de-perfil.png" alt="botão perfil"></button>
           <button class="btnSair"><img src="../images/sair.png" alt="botão sair"></button>
         </div>
-      </header>
+    </header>
 
-      
-      <div id="container">
+    <div id="container">
         <div> <!-- essa div ajuda a controlar o conteúdo interno -->
           <div>
             <div class="inputId">
-              <label for="id">Digite o id</label>
-              
+              <label for="id">Digite o Id</label>
               <input type="text" id="id">
-              <p>ID NÃO ENCONTRADO</p>
             </div>
             <button class="btn" id="btnBuscar">Buscar</button>
-           
           </div>
-          
+
+          <br>
+
           <div class="inputDesc">
             <label for="desc">Descrição</label>
-            <input type="text" id="desc">
+            <input type="text" id="desc" readonly>
           </div>
+
+          <br>
 
           <div class="inputQuantidade">
-            <label for="desc">Quantidade</label>
-            <input type="number" id="desc">
+            <label for="total">Estoque</label>
+            <input type="number" id="total" readonly>
+            <br>
+            <label for="entradaQuantidade">Quantidade</label>
+            <input type="number" id="entradaQuantidade">
           </div>
-          
+
+          <br>
+
           <div id="checkBox">
             <label for="saida">Saída</label>
-            <input type="checkbox" name="" id="saida" checked>
-            <label for="entrada">Entrada</label>
-            <input type="checkbox" name="" id="entrada">
-            <input type="text" name="comentário" id="comentario" placeholder="Deixe um comentário"> 
-        </div>
-           
+            <input type="checkbox" id="saida" checked>
+            <label for="entradaCheckbox">Entrada</label>
+            <input type="checkbox" id="entradaCheckbox">
+            <br>
+          </div>
 
+          <br>
 
           <button class="btn" id="btnAgregar">Agregar</button>
         </div>
+    </div>
 
-        
-      </div>
-      
+    <dialog id="atualizado">
+      ESTOQUE ATUALIZADO
+      <p>ESC para sair</p>
+    </dialog>
+    <dialog id="falha">
+      ID NÃO ENCONTRADO
+      <p>ESC para sair</p>
+    </dialog>
+    <dialog id="saidaFalha">
+      SAÍDA SUPERIOR AO VALOR QUE TEMOS EM ESTOQUE
+      <p>ESC para sair</p>
+    </dialog>
+    <dialog id="checkbox">
+      SELECIONE ENTRADA OU SAÍDA
+      <p>ESC para sair</p>
+    </dialog>
+
+    <dialog id="valorErrado">
+      VALOR INVÁLIDO
+      <p>ESC para sair</p>
+    </dialog>
+
+    <script src="../js/fastInsumo.js"></script>
 </body>
 </html>
