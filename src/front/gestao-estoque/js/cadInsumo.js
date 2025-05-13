@@ -64,5 +64,12 @@ async function createInsumo(url, nome, peso, estoqueMin, quantidade, endereco, d
     btnNovaEntrada.style.display="inline";
 }
 
+function limparCampos() {
+    inputDescricao.value = "";
+    inputEnd.value = "";
+    inputEstMin.value = "";
+    inputEstoque.value = "";
+    inputPeso.value="";
+}
 
 

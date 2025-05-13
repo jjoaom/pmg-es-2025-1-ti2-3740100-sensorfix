@@ -1,4 +1,4 @@
-const urlEquipamento= "http://localhost:8080/equipamento"
+const urlEquipamento= "http://localhost:8080/equipamentos"
 const urlinsumo= "http://localhost:8080/insumo/"
 ////////////////////VARIAVEIS////////////////////////////
 const inputDescricao = document.getElementById('desc');
@@ -31,9 +31,7 @@ bntCadastra.addEventListener('click',()=>{
     createEquipamento(urlEquipamento,inputDescricao.value,inputPeso.value,inputEstMin.value,inputEstoque.value,inputEnd.value,2)
 })
 
-btnBuscar.addEventListener('click',() =>{
-    getInsumo(urlinsumo,inputIdInsumo.value);
-})
+
 
 
 

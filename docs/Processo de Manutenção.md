@@ -15,7 +15,7 @@ Manutenção de Equipamentos
 
 O processo de manutenção tem como objetivo identificar, registrar os defeitos encontrados nos equipamentos e buscar um meio para recuperá-los, garantindo que todas as informações sejam devidamente documentadas. Caso o reparo não seja viável, o equipamento é encaminhado para descarte.
 
-O processo se inicia com a chegada do equipámento danificado, momento em que o técnico responsável realiza a identificação do ID do produto. Este ID é registrado no sistema para rastreio e consulta do histórico de manutenção anteriores. Se necessário, o técnico pode anexar imagens do equipamento como evidência do dano.
+O processo se inicia com a chegada do equipamento danificado, momento em que o técnico responsável realiza a identificação do ID do produto. Este ID é registrado no sistema para rastreio e consulta do histórico de manutenção anteriores. Se necessário, o técnico pode anexar imagens do equipamento como evidência do dano.
 
 Após a identificação, segue-se a análise do defeito, na qual o técnico descreve o problema encontrado e registra a provável causa. Se necessário, podem ser adicionadas evidências adicionais, como imagens ou documentos. Em seguida, é feita a descrição sobre a possibilidade de reparo, onde o técnico avalia se o equipamento pode ser consertado ou se deve ser descartado.
 
@@ -23,7 +23,7 @@ Caso o equipamento for reparável, o técnico registrará os detalhes dos reparo
 
 Caso o equipamento não possa ser reparado, ele é encaminhado ao depósito de descarte para o devido processamento.
 
-Independente do caminho que será seguido, quando chegarem ao final do processo, as informações são registradas e armazenadas no sistema, garantindo assim a rastreabilidade da manutenção e permitindo consultas futuras. Isso possibilita um controle eficiente sobre os equipamentos, otimizando assim a gestão da manutenção e tomada ded decisões.
+Independente do caminho que será seguido, quando chegarem ao final do processo, as informações são registradas e armazenadas no sistema, garantindo assim a rastreabilidade da manutenção e permitindo consultas futuras. Isso possibilita um controle eficiente sobre os equipamentos, otimizando assim a gestão da manutenção e tomada de decisões.
 
 _Os tipos de dados a serem utilizados são:_
 
@@ -61,8 +61,8 @@ _* **Tabela** - campo formado por uma matriz de valores_
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
 | **ID do equipamento**  |  Número   | Obrigatório    |    -               |
-| **Número de série**    | Caixa de Texto   | Alfanumérico, obrigatório |                |
-| **Imagem do equipamento**          | Imagem   | Formato PDF, JPG, PNG |           |
+| **Número de série**    | Caixa de Texto   | Alfanumérico, obrigatório |          -      |
+| **Imagem do equipamento**          | Imagem   | Formato PDF, JPG, PNG |      -     |
 | **Equipamento já teve retorno antes?**  |  Seleção única   | Opções: Sim/Não    |    -               |
 
 | **Comandos**         |  **Destino**                   | **Tipo** |
@@ -74,11 +74,11 @@ _* **Tabela** - campo formado por uma matriz de valores_
 
 | **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
 | ---             | ---              | ---            | ---               |
-| Componente danificado | Caixa de texto  | Obrigatório  |                   |
-| Detalhamento do problema | Área de texto | Mínimo 10 caracteres |                   |
-| Necessário detalhamento adicional? | Seleção única | Opções Sim/Não |                   |
-| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |            |
-| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |            |
+| Componente danificado | Caixa de texto  | Obrigatório  |           -        |
+| Detalhamento do problema | Área de texto | Mínimo 10 caracteres |         -          |
+| Necessário detalhamento adicional? | Seleção única | Opções Sim/Não |            -       |
+| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |      -      |
+| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |      -      |
 
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
@@ -94,8 +94,8 @@ _* **Tabela** - campo formado por uma matriz de valores_
 | Data de encaminhamento | Data e hora  | Automático  |  Data/Hora atual  |
 | Técnico responsável | Seleção única | Lista de técnicos cadastrados |    -               |
 | Depósito de destino | Seleção única | Lista de depósitos cadastrados | -                  |
-| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |            |
-| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |            |
+| Registro de falhas recorrentes | Seleção múltipla | Listagem de falhas comuns |      -      |
+| Evidência do problema | Arquivo | Formato PDF, JPG, PNG |       -     |
 
 
 | **Comandos**         |  **Destino**                   | **Tipo**          |
