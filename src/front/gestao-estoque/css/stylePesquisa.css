@@ -1,7 +1,7 @@
 /* === GERAL === */
 body {
   margin: 0;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Arial', monospace;
   background-color: #f9f9f9;
   background-image: url('../images/fundo.jpg');
   background-size: cover;
@@ -18,12 +18,12 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 20px;
-  height: 58px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  padding: 8px 20px;
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
 }
 
 .logo {
@@ -81,7 +81,7 @@ nav a:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #d9d9d9;
+  background-color: #d9d9d987;
   padding: 20px;
   width: 900px;
   height: 450px;

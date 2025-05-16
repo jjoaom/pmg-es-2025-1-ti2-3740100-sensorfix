@@ -2,56 +2,64 @@
 
 body {
   margin: 0;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Arial', monospace;
   background-color: #f9f9f9;
   text-align: center;
   height: 100vh;
   background-image: url('../images/fundo.jpg');
-  background-size: cover; /* faz a imagem cobrir toda a tela */
-  background-position: center; /* centraliza a imagem */
-  background-repeat: no-repeat; /* evita repetir a imagem */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-  
-  header {
-    
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 20px;
-    
-  
-    
-  }
-  
-  .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  
-  .brand {
-    margin-left: 5px;
-  }
-  
-  nav a {
-    color: rgb(0, 0, 0);
-    margin: 0 10px;
-    
-    font-weight: 500;
-    transition: background-color 1.6s ease; /* tempo de saída */
-  }
-  nav a:hover {
-    background-color: #d9d9d9;
-    color: black;
-    padding: 5px;
-    border-radius: 10px;
-    transition: background-color ease 0.0s; /* duração + delay */
-  }
-  
-  .icons span {
-    font-size: 1.5em;
-    margin-left: 10px;
-  }
+
+/* === HEADER ATUALIZADO === */
+header {
+  background-color: #0056b3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.2em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  margin-left: 10px;
+  font-size: 1em;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 12px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.icons span {
+  font-size: 1.2em;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
 
   #logo{
     margin-top: 10px;
@@ -59,7 +67,7 @@ body {
   }
 
   .btnPerfil ,.btnSair{
-    background-color: #007bff;
+    background-color: #0056b3;
     border: none;
   }
 
@@ -107,7 +115,7 @@ input{
   border-radius: 16px;
   width: 100%;
   max-width: 800px; /* ou o que fizer sentido */
-  border: solid 2px black;
+  border: solid 2px #007bff;
 }
 
 
@@ -128,7 +136,7 @@ input{
   width: 100%;
   height: 300px;
   background-color: #f0f0f0;
-  border: 1px solid black;
+  border: 1px solid #007bff;
   margin-top: 20px;
   padding: 10px;
   box-sizing: border-box;
@@ -164,7 +172,7 @@ input{
     font-family: 'JetBrains Mono', monospace;
     padding: 5px;
     margin: 5px;
-    border: solid black 2px;
+    border: solid #007bff 2px;
 
 }
 
@@ -182,21 +190,22 @@ input{
 /* === CONTEÚDO CENTRAL === */
 
 #container {
-  flex: 1;
+   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh; /* Garante altura da tela inteira */
 }
 
 #container > div {
   display: flex;
   justify-content: space-around;
-  background-color: #d9d9d9;
+  background-color: #d9d9d995;
   padding: 20px;
   border-radius: 16px;
   width: 100%;
   max-width: 800px;
-  border: solid 2px black;
+  border: solid 2px #007bff;
 }
 
 /* === CAMPOS E INPUTS === */

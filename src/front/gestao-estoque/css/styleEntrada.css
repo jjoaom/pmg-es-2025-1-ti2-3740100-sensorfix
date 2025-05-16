@@ -112,10 +112,10 @@ input {
 }
 
 #container {
-  flex: 1;
+  height: 100vh; /* Ocupa 100% da altura da tela */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center;     /* Centraliza verticalmente */
 }
 
 #container > div {
