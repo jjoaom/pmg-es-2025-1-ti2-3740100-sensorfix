@@ -23,12 +23,6 @@ public class PecaService {
         return peca.orElseThrow(() ->
             new RuntimeErrorException("Peça não encontrada ou não existente. ID: " + id + ", Tipo: " + Peca.class.getName()));
     }
-    // Buscar Peca por Nome
-    public Peca findByName(String name){
-        Optional<Peca> peca = this.pecaRepository.findByName(name);
-        return peca.orElseThrow(() ->
-            new RuntimeErrorException("Peça não encontrada ou não existente. Nome: " + name + ", Tipo: " + Peca.class.getName()));
-    }
     //Criar nova Peça
     @Transactional
     public Peca create(Peca obj){
