@@ -1,13 +1,14 @@
-package main.java.com.luizgustavo.sensor_fix.services;
+package com.luizgustavo.sensor_fix.services;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 
 import com.luizgustavo.sensor_fix.models.Peca;
 import com.luizgustavo.sensor_fix.repositories.PecaRepository;
@@ -18,10 +19,14 @@ public class PecaService {
     private PecaRepository pecaRepository;    
 
     // Buscar Peça por ID
-    public Peca findById(Long id){
-        Optional<Peca> peca = this.pecaRepository.findById(id);
-        return peca.orElseThrow(() ->
-            new RuntimeErrorException("Peça não encontrada ou não existente. ID: " + id + ", Tipo: " + Peca.class.getName()));
+    public Peca findById(Long id) {
+    return pecaRepository.findById(id)
+        .orElseThrow(() -> 
+            new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Peça não encontrada (ID: " + id + ")"
+            )
+        );
     }
     //Criar nova Peça
     @Transactional
@@ -41,15 +46,17 @@ public class PecaService {
         return this.pecaRepository.save(newObj);
     }
     //Excluir Peça
-    public void delete(Long id){
-        findById(id);
-
-        try{
-            this.pecaRepository.deleteById(id);
-        } catch (Exception e){
-            throw new RuntimeException("Não é possível excluir pois há entidades relacionadas.")
-        }
+    public void delete(Long id) {
+    findById(id);
+    try {
+        pecaRepository.deleteById(id);
+    } catch (DataIntegrityViolationException e) {
+        throw new ResponseStatusException(
+            HttpStatus.CONFLICT,
+            "Não é possível excluir: existem entidades relacionadas."
+        );
     }
+}
 
     //Buscar todas as peças
     public List<Peca> findAll(){

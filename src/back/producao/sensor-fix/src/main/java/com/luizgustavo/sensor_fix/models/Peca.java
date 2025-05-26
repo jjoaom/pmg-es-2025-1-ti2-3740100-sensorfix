@@ -89,8 +89,8 @@ public class Peca {
         return "Peça{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
-                ", Descrição=" + descricao + + '\'' +
-                ", quantidade=" + qtd + '\'' +
+                ", Descrição=" + descricao + '\'' +
+                ", quantidade=" + qtd + 
                 '}';
     }
 }

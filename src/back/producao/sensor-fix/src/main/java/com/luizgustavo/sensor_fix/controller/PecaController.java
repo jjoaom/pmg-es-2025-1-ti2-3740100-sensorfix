@@ -1,4 +1,4 @@
-package main.java.com.luizgustavo.sensor_fix.controller;
+package com.luizgustavo.sensor_fix.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -39,7 +39,7 @@ public class PecaController {
     }
     //Criar nova peça
     @PostMapping
-    @validaded(CreatePeca.class)
+    @validated(CreatePeca.class)
     public ResponseEntity<Void> create(@Valid @RequestBody Peca obj){
         this.pecaService.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
