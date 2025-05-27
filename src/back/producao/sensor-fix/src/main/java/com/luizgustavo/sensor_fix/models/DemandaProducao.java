@@ -18,7 +18,7 @@ public class DemandaProducao {
     @Column(name = "id", unique = true)
     private long id;
 
-    @Column(name = "data_hora_criacao", columnDefinition = "TIMESTAMP")
+    @Column(name = "data_hora_criacao", columnDefinition = "DATETIME2")
     private LocalDateTime dataHoraCriacao;
 
     @Column(name = "setor_responsavel", nullable = false)
