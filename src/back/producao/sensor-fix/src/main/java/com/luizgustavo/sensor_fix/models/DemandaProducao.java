@@ -4,7 +4,7 @@
  */
 package com.luizgustavo.sensor_fix.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 /**
  *

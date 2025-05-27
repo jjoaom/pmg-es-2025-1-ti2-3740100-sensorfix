@@ -39,7 +39,7 @@ public class PecaController {
     }
     //Criar nova peça
     @PostMapping
-    @validated(CreatePeca.class)
+    @Validated(CreatePeca.class)
     public ResponseEntity<Void> create(@Valid @RequestBody Peca obj){
         this.pecaService.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
