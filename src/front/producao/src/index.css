@@ -1,0 +1,281 @@
+body {
+  background-image: url("./fundo.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/*Formato botão*/
+.btn-design{
+  border-radius: 25px 5px 25px 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-design:hover, .btn-design:focus{
+  transition: all 0.3s ease;
+  border-radius: 15px 25px 15px 25px;
+}
+
+.btn-design:active{
+  transform: scale(0.97) translateY(1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 30px 10px 30px 10px; 
+}
+
+
+/*Div efeito vidro*/
+.glass-div {
+  background: linear-gradient(to bottom right,
+      rgba(255, 255, 255, 0.4),
+      rgba(200, 255, 255, 0.2));
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #007bff;
+}
+
+.glass-button {
+  font-size: 1em;
+  font-weight: bold;
+  color: #ffffff;
+  background: linear-gradient(to bottom, rgba(0, 123, 255, 0.85), rgba(0, 98, 204, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 4px 12px rgba(0, 123, 255, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.glass-button:hover {
+  background: linear-gradient(to bottom, rgba(0, 143, 255, 0.9), rgba(0, 100, 200, 1));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 6px 16px rgba(0, 123, 255, 0.5);
+}
+
+.glass-button:active {
+  background: linear-gradient(to top, rgba(0, 100, 200, 1), rgba(0, 123, 255, 0.9));
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.3),
+    0 2px 6px rgba(0, 0, 0, 0.2);
+  transform: translateY(1px);
+}
+/* CSS para header*/
+.header-div {
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 123, 255, 0.9),
+    rgba(0, 100, 210, 0.85)
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    inset 0 0 0.5px rgba(255, 255, 255, 0.2);
+  border-radius: 0 0 16px 16px;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.header-div .navbar-nav .nav-link {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease-in-out;
+}
+
+.header-div .navbar-nav .nav-link:hover {
+  color: #1f1f1f !important;
+  transform: translateY(-1px);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.header-div .navbar-toggler {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border-radius: 6px;
+}
+/*FOOTER*/
+.footer-div {
+  background: linear-gradient(
+    to top left,
+    rgba(0, 100, 210, 0.85),
+    rgba(0, 123, 255, 0.9)
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 -4px 8px rgba(0, 0, 0, 0.25),
+    inset 0 0 0.5px rgba(255, 255, 255, 0.2);
+  border-radius: 16px 16px 0 0;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+
+#paginaLogin svg,
+#loginButton svg {
+  color: white;
+  transition: transform 0.2s ease, color 0.2s ease;
+  font-size: 1.5rem; /* ajuste conforme necessário */
+}
+
+#paginaLogin:hover svg,
+#loginButton:hover svg {
+  transform: scale(1.2);
+  color: #17e3ff;
+  text-shadow: 0 0 8px rgba(23, 227, 255, 0.7);
+}
+
+
+.color-blue{
+    background-color: #007bff;
+    color: white;
+}
+.text-blue{
+    color: #007bff;
+}
+
+.color-gray{
+    background-color: #2c3e50;
+    color: white;
+}
+.bg-lightgray{
+    background-color: #dbdbdb;
+}
+
+.color-dark{
+    background-color: #1c1c1c;
+    color: white;
+}
+
+.btn-estoque{
+    border-radius: 15px;
+    border: 0.2em solid #007bff;
+    background-color: #fcfcfc;
+    color: #007bff;
+    font-weight: 600;
+    width: 200px;
+    height: 50px;
+}
+.btn-estoque:hover {
+    background-color: #007bff;
+    color: #fcfcfc;
+    transform: translateY(3px) scale(1.00);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/*BOTÃO VERDE*/
+.btn-green-submit {
+  background:
+    radial-gradient(farthest-corner at bottom center, rgba(255, 255, 255, 0.7), transparent),
+    linear-gradient(to bottom, #50bb50, #2c9e2c);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  border: 1px solid #299929;
+  border-radius: 25px 5px 25px 5px;
+  text-shadow: 0 2px 0.5em #0003;
+  transition: box-shadow 0.3s ease, transform 0.2s ease, border-radius 0.3s ease;
+  color: #0d1a2f;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  will-change: box-shadow, transform, border-radius;
+}
+
+.btn-green-submit::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.15) 100%
+  );
+  border-radius: 15px 25px 15px 25px;
+  pointer-events: none;
+  animation: shineMove 3s infinite linear;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+.btn-green-submit:hover,
+.btn-green-submit:focus {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.45), 0 0 10px rgba(109, 223, 109, 0.7);
+  transform: translateY(-2px);
+  border-radius: 15px 25px 15px 25px; 
+  outline: none;
+}
+
+/* Active: pressionado */
+.btn-green-submit:active {
+  transform: scale(0.97) translateY(1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 30px 10px 30px 10px; 
+  animation: none; 
+}
+
+/*BOTÃO VOLTAR*/
+.btn-voltar {
+  background:
+    radial-gradient(farthest-corner at bottom center, rgba(255, 255, 255, 0.7), transparent),
+    linear-gradient(to bottom, #006ae0, #007bff);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  border: 1px solid #007bff;
+  border-radius: 25px 5px 25px 5px;
+  text-shadow: 0 2px 0.5em #0003;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  color: #0d1a2f;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden; /* para efeito no ::after não vazar */
+  will-change: box-shadow, transform;
+}
+
+.btn-voltar::after {
+  content: "";
+  position: absolute;
+  top: 4%;
+  left: 0.5em;
+  width: calc(100% - 1em);
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
+  border-radius: 25px 5px 25px 5px;
+  pointer-events: none;
+  transition: background 0.4s ease;
+  filter: brightness(1);
+  animation: shineMove 3s linear infinite;
+  opacity: 0.7;
+}
+
+.btn-voltar:hover,
+.btn-voltar:focus {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5), 0 0 15px #0091ffaa;
+  transform: translateY(-2px);
+  outline: none;
+  transition: all 0.3s ease;
+  border-radius: 25px 10px 25px 10px;
+}
+
+.btn-voltar:active {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+  transform: translateY(1px) scale(0.98);
+  animation-play-state: paused; /* pausa o brilho no clique */
+  border-radius: 15px 25px 15px 25px;
+  transition: all 0.3s ease;
+   transform: translateY(1px) scale(0.98);
+  
+}
+

@@ -1,0 +1,4 @@
+{
+    "deepscan.ignoreConfirmWarning": true,
+    "java.compile.nullAnalysis.mode": "disabled"
+}
