@@ -67,7 +67,7 @@ const DemandaAberta = ({ demanda, onClose }) => {
           <div className="dropdown" onClick={(e) => e.stopPropagation()}>
             <button
               id="addPecaDefeituosa"
-              className="btn border border-primary-subtle rounded dropdown-toggle rounded"
+              className="btn border border-primary-subtle rounded dropdown-toggle rounded text-blue"
               type="button"
               data-bs-toggle="dropdown"
               data-bs-auto-close="outside"
@@ -186,7 +186,7 @@ const DemandaAberta = ({ demanda, onClose }) => {
             </label>
           </div>
         </div>
-        <button className="w-25 mt-3 mb-2 p-1 btn btn-green-submit">
+        <button className="w-25 mt-3 mb-2 p-1 btn btn-green-submit text-white fw-bold">
           Enviar
         </button>
       </div>
