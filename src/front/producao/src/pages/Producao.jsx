@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PageLayout from "../components/PageLayout";
 import { GoPlus } from "react-icons/go";
 import { FaSave } from "react-icons/fa";
+import { FaFilter } from "react-icons/fa";
 import { HiMiniXMark } from "react-icons/hi2";
 import Select from "react-select";
 
@@ -9,7 +10,7 @@ import Select from "react-select";
 
 const ItemDemanda = ({ demanda, onClick }) => {
   return (
-    <div className="card mb-2 glass-div" onClick={() => onClick(demanda)} style={{ cursor: "pointer" }}>
+    <div className="card mb-2 glass-div rounded" onClick={() => onClick(demanda)} style={{ cursor: "pointer" }}>
       <div className="card-body text-start">
         <div className="form-check">
           <input className="form-check-input" type="checkbox" role="switch" id={`switch-${demanda.id}`} />
@@ -75,7 +76,7 @@ const DemandaAberta = ({ demanda, onClose }) => {
             >
               <GoPlus /> Adicionar Peça Defeituosa
             </button>
-            <ul className="dropdown-menu glass-div border border-primary-subtle">
+            <ul className="dropdown-menu glass-div rounded border border-primary-subtle">
               <li className="p-2">
                 <Select
                   id="idPeca"
@@ -321,20 +322,20 @@ export default function Producao() {
   return (
     <PageLayout>
       <div className="container text-center">
-        <h1 className="display-5 text-start">Produção</h1>
+        <h1 className="display-5 text-start text-blue">Produção</h1>
 
         <div className="row g-4">
           {/* Coluna da esquerda */}
           <div className="col-lg-4 col-md-6 col-12">
-            <div className="p-3 card h-100 glass-div">
+            <div className="p-3 card h-100 glass-div rounded">
               <div className="container-fluid ">
                 <div className="row align-items-center">
                   <div className="col-6 text-start">
                     <p className="fs-4 mb-0">Demandas</p>
                   </div>
                   <div className="col-6 d-flex justify-content-end">
-                    <button type="button" className="btn btn-secondary btn-sm">
-                      Filtrar
+                    <button type="button" className="btn btn-primary-subtle btn-sm" title="Filtrar">
+                      <FaFilter/>
                     </button>
                     <button
                       type="button"
@@ -363,10 +364,10 @@ export default function Producao() {
 
           {/* Coluna da direita */}
           <div className="col-lg-8 col-md-6 col-12">
-            <div className="p-3 card h-100 glass-div">
+            <div className="p-3 card h-100 glass-div rounded-start-2">
               <div className="card-body">
                 {showCriarDemanda ? (
-                  <div className="border p-3 bg-lightgray">
+                  <div className="p-3" >
                     <div className="d-flex justify-content-between align-items-center">
                       <h1 className="fs-4 text-start">Criar nova Demanda</h1>
                       <button

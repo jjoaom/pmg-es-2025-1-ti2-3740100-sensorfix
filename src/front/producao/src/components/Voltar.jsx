@@ -18,7 +18,7 @@ const Voltar = ({ label = "Voltar" }) => {
     <div className="my-1 d-flex  justify-content-start position-relative z-3 ms-auto ">
       <button
         onClick={handleBack}
-        className="btn btn-voltar mt-1 btn-sm d-flex align-items-center gap-2 shadow-sm rounded-pill px-3 py-2"
+        className="btn btn-voltar mt-1 btn-sm d-flex align-items-center gap-2 shadow-sm px-3 py-2"
       >
         <IoMdReturnLeft size={18} />
         <span className="d-none d-sm-inline">{label}</span>
