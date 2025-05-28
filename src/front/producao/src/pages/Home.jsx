@@ -10,19 +10,19 @@ export default function Home() {
         <h1 className="display-2 mb-5 text-blue">Bem vindo a Sensor Fix</h1>
         <div className="d-flex flex-column align-items-center">
           <ul class="nav p-5">
-            <div className="m-2 btn glass-div btn-design">
+            <div className="m-2 btn glass-div btn-design shiny">
                 <Link className="nav-link" to="/producao">
                   <MdPrecisionManufacturing size={30} color="color-blue" /> Produção{" "}
                 </Link>
             </div>
-            <div className="m-2 btn glass-div btn-design">
+            <div className="m-2 btn glass-div btn-design shiny">
               <li class="nav-item">
                 <Link className="nav-link" to="/estoque">
                   <BsBoxSeam size={30} color="color-blue" /> Estoque{" "}
                 </Link>
               </li>
             </div>
-            <div className="m-2 btn glass-div btn-design">
+            <div className="m-2 btn glass-div btn-design shiny">
               <li class="nav-item">
                 <Link className="nav-link" to="/manutencao">
                   <FaTools size={30} color="color-blue" /> Manutenção{" "}
