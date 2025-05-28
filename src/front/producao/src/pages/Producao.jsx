@@ -10,7 +10,7 @@ import Select from "react-select";
 
 const ItemDemanda = ({ demanda, onClick }) => {
   return (
-    <div className="card mb-2 glass-div rounded" onClick={() => onClick(demanda)} style={{ cursor: "pointer" }}>
+    <div className="card mb-2 glass-div rounded shiny" onClick={() => onClick(demanda)} style={{ cursor: "pointer" }}>
       <div className="card-body text-start">
         <div className="form-check">
           <input className="form-check-input" type="checkbox" role="switch" id={`switch-${demanda.id}`} />
@@ -47,10 +47,10 @@ const DemandaAberta = ({ demanda, onClose }) => {
       <p className="fs-5 text-start">
         Gerado em: <span>{demanda.hora}</span> - <span>{demanda.data}</span>
       </p>
-      <div className="mb-2 text-center row justify-content-center p-1">
-        <div className="col-8 d-flex align-items-center border border-primary-subtle rounded">
+      <div className="mb-1 text-center row justify-content-center p-1">
+        <div className="col-8 d-flex align-items-center border border-primary-subtle rounded-3 rounded-end-0">
           <label
-            className="form-check-label fs-5 me-2 "
+            className="form-check-label fs-5 me-3"
             htmlFor="switchLimpezaCheck"
           >
             Limpeza realizada?
@@ -68,7 +68,7 @@ const DemandaAberta = ({ demanda, onClose }) => {
           <div className="dropdown" onClick={(e) => e.stopPropagation()}>
             <button
               id="addPecaDefeituosa"
-              className="btn border border-primary-subtle rounded dropdown-toggle rounded text-blue"
+              className="btn border shadow-sm border-primary-subtle dropdown-toggle rounded text-blue"
               type="button"
               data-bs-toggle="dropdown"
               data-bs-auto-close="outside"
@@ -97,7 +97,7 @@ const DemandaAberta = ({ demanda, onClose }) => {
               </li>
               <li className="p-2">
                 <textarea
-                  className="form-control"
+                  className="form-control btn-design"
                   placeholder="Observações"
                   id="observacoesDropdown"
                   style={{ resize: "none" }}
@@ -118,13 +118,13 @@ const DemandaAberta = ({ demanda, onClose }) => {
                 </div>
               </li>
               <li className="p-2">
-                <button className="btn btn-primary">Adicionar Peça defeituosa</button>
+                <button className="btn btn-design hover-blue lh-sm shiny">Adicionar Peça defeituosa</button>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <div className="container-fluid mb-2 text-center row justify-content-center p-1">
+      <div className="container-fluid mb-1 text-center row justify-content-center p-1">
         <div className="text-start">
           Descrição do problema:{" "}
           <span id="descricaoProblema">
@@ -136,7 +136,7 @@ const DemandaAberta = ({ demanda, onClose }) => {
         </div>
         <hr className="my-4 border-top border-secondary" />
         <div className="text-start">
-          <h1 className="display-7 mb-5">Peças defeituosas:</h1>
+          <h5 className="fw-bold mb-5">Peças defeituosas:</h5>
         </div>
         <hr className="my-4 border-top border-secondary" />
         <div className="d-flex align-items-start">
@@ -187,7 +187,7 @@ const DemandaAberta = ({ demanda, onClose }) => {
             </label>
           </div>
         </div>
-        <button className="w-25 mt-3 mb-2 p-1 btn btn-green-submit text-white fw-bold">
+        <button className="w-25 mt-2 mb-1 p-1 btn btn-green-submit text-white fw-bold">
           Enviar
         </button>
       </div>
@@ -321,8 +321,8 @@ export default function Producao() {
 
   return (
     <PageLayout>
-      <div className="container text-center">
-        <h1 className="display-5 text-start text-blue">Produção</h1>
+      <div className="container-fluid">
+        <h3 className="display-5 text-start text-blue">Produção</h3>
 
         <div className="row g-4">
           {/* Coluna da esquerda */}
@@ -345,7 +345,7 @@ export default function Producao() {
                       <GoPlus size={20} />
                     </button>
                   </div>
-                  <hr className="my-1 border-top border-secondary" />
+                  <hr className="my-1 border-top border-primary" />
                 </div>
               </div>
 

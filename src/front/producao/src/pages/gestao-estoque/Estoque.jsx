@@ -1,6 +1,10 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import PageLayout from "../../components/PageLayout";
+import { IoCloseSharp } from "react-icons/io5";
+
+
+
 
 export default function Estoque() {
   const urlPedidos = "http://localhost:8080/pedidos";
@@ -82,31 +86,22 @@ export default function Estoque() {
           tabIndex="-1"
           aria-hidden="true"
         >
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Editar</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+          <div className="modal-dialog modal-dialog-centered w-25">
+            <div className="modal-content ">
+              <div className="modal-header text-center shadow">
+                <h5 className="modal-title w-100 text-blue">Editar</h5>
+                <IoCloseSharp size={30} className="btn-fechar shiny" data-bs-dismiss="modal"
+                  aria-label="Close" />
               </div>
               <div className="modal-body d-flex flex-column gap-2">
                 <Link to="/editInsumo">
-                  <button className="btn btn-design shiny">Editar Insumo</button>
+                  <button className="btn btn-silver shiny mb-3">Editar Insumo</button>
                 </Link>
                 <Link to="/editEquipamento">
-                  <button className="btn btn-secondary">
+                  <button className="btn btn-silver shiny mb-3">
                     Editar Equipamento
                   </button>
                 </Link>
-              </div>
-              <div className="modal-footer">
-                <button className="btn btn-secondary" data-bs-dismiss="modal">
-                  Fechar
-                </button>
               </div>
             </div>
           </div>
@@ -121,22 +116,13 @@ export default function Estoque() {
         >
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Fast In/Out</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+              <div className="modal-header text-center shadow ">
+                <h5 className="modal-title w-100 text-blue">Fast In/Out</h5>
+                <IoCloseSharp size={30} className="btn-fechar shiny" data-bs-dismiss="modal"
+                  aria-label="Close" />
               </div>
               <div className="modal-body">
                 <p>Conteúdo do Fast In/Out aqui...</p>
-              </div>
-              <div className="modal-footer">
-                <button className="btn btn-secondary" data-bs-dismiss="modal">
-                  Fechar
-                </button>
               </div>
             </div>
           </div>
@@ -151,23 +137,14 @@ export default function Estoque() {
         >
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Compras</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+              <div className="modal-header text-center shadow ">
+                <h5 className="modal-title w-100 text-blue">Compras</h5>
+                <IoCloseSharp size={30} className="btn-fechar shiny" data-bs-dismiss="modal"
+                  aria-label="Close" />
               </div>
               <div className="modal-body">
-                <button className="btn btn-design shiny" onClick={handleNovoPedido}>
+                <button className="btn btn-silver shiny" onClick={handleNovoPedido}>
                   Novo Pedido
-                </button>
-              </div>
-              <div className="modal-footer">
-                <button className="btn btn-secondary" data-bs-dismiss="modal">
-                  Fechar
                 </button>
               </div>
             </div>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Buscar() {
   return (
     <PageLayout>
-      <div className="container text-center py-3 w-25 ">
+      <div className="container text-center py-3 w-50 ">
         <h1 className="display-5 text-blue">Buscar</h1>
         <div className="p-3 card h-100 glass-div rounded">
   <div className="text-center mb-4">
