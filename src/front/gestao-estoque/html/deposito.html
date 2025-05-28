@@ -70,8 +70,9 @@
           <thead>
             <tr>
               <th>Data</th>
-              <th>Descrição</th>
-              <th>Depósito</th>
+              <th>Produto</th>
+              <th>Origem</th>
+              <th>Destino </th>
               <th>Quantidade</th>
             </tr>
           </thead>
@@ -91,38 +92,44 @@
     <form id="form-movimentacao">
       <label>
         ID:
-        <input type="text" name="descricao" required />
+        <input type="number" name="descricao" required id="inputIdEquip"/>
+        <button type="button" id="btnBuscarEquip">Buscar</button>
+      </label>
+      
+      <label>
+        Nome:
+        <input id= "nomeProduto" type="text" name="descricao" required readonly/>
+        
       </label>
       <label>
-        Depósito Inicial:
-        <select name="deposito" required>
-          <option value="nenhum">Nenhum</option>
-          <option value="ativacao">Ativação</option>
-          <option value="ativo">Ativo</option>
-          <option value="danificado">Danificado</option>
-          <option value="estoque">Estoque</option>
-          <option value="manutencao">Manutenção</option>
-        </select>
-      </label>
-      <label>
-        Depósito de destino:
-        <select name="deposito" required>
-          <option value="ativacao">Ativação</option>
-          <option value="ativo">Ativo</option>
-          <option value="danificado">Danificado</option>
-          <option value="estoque">Estoque</option>
-          <option value="manutencao">Manutenção</option>
-        </select>
-      </label>
+  Depósito Inicial:
+  <select name="deposito" required id="selectOrigem">
+    
+    <option value="1">Ativação</option>
+    <option value="2">Ativo</option>
+    <option value="3">Danificado</option>
+    <option value="4">Estoque</option>
+    <option value="5">Manutenção</option>
+  </select>
+</label>
+
+<label>
+  Depósito de destino:
+  <select name="deposito" required id="selectDestino">
+    <option value="1">Ativação</option>
+    <option value="2">Ativo</option>
+    <option value="3">Danificado</option>
+    <option value="4">Estoque</option>
+    <option value="5">Manutenção</option>
+  </select>
+</label>
+
       <label>
         Quantidade:
-        <input type="number" name="quantidade" required />
+        <input type="number" name="quantidade" required  id="quantidade"/>
       </label>
-      <label>
-        Data:
-        <input type="date" name="data" required />
-      </label>
-      <button type="submit">Salvar</button>
+      
+      <button type="submit" id="btnSalvarMovimentacao">Salvar</button>
     </form>
   </div>
 </div>

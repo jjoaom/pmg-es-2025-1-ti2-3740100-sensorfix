@@ -41,7 +41,7 @@ public class MovimentacaoService {
         newObj.setDestino(obj.getDestino());
         newObj.setOrigem(obj.getOrigem());
         newObj.setDataMovimentacao(obj.getDataMovimentacao());
-        
+        newObj.setQuantidade(obj.getQuantidade());
 
         return this.movimentacaoRepository.save(newObj);
     }
