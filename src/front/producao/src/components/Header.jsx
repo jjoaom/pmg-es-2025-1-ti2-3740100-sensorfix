@@ -9,15 +9,15 @@ export default function Header() {
   return (
     <nav className="navbar navbar-expand-lg header-div">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <div className="navbar-brand">
           <img
             src="./logo1.png"
             alt="Logo"
             width="100%"
-            height="92"
+            height="64"
             className="d-inline-block align-text-top"
           />
-        </a>
+        </div>
         <button
           className="navbar-toggler"
           type="button"
