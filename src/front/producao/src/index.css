@@ -1,4 +1,4 @@
-body {
+.root {
   background-image: url("./fundo.jpg");
   background-size: cover;
   background-position: center;
