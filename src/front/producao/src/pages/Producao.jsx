@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PageLayout from "../components/PageLayout";
 import { GoPlus } from "react-icons/go";
 import { FaSave } from "react-icons/fa";
@@ -15,12 +15,13 @@ const ItemDemanda = ({ demanda, onClick }) => {
         <div className="form-check">
           <input className="form-check-input" type="checkbox" role="switch" id={`switch-${demanda.id}`} />
           <h5 className="card-title">
-            Demanda <span>{demanda.nome}</span>
+            ID: <span>{demanda.id}</span>
           </h5>
         </div>
-        <h6 className="card-subtitle mb-2 text-body-secondary">
-          Prioridade: <span className="fw-bolder">{demanda.prioridade}</span>
-        </h6>
+        <p className="card-subtitle fs-6 mb-1 text-body-secondary">
+          Descrição: <span className="fw-bold fs-6">{demanda.descricaoItem}</span>
+        </p>
+        <p>Status: {demanda.statusDemanda}</p>
       </div>
     </div>
   );
@@ -28,14 +29,23 @@ const ItemDemanda = ({ demanda, onClick }) => {
 
 
 const DemandaAberta = ({ demanda, onClose }) => {
+  const [pecas, setPecas] = useState([]);
+  const [pecaSelecionada, setPecaSelecionada] = useState(null);
+
+  useEffect(() => {
+        fetch('http://localhost:8080/api/pecas') 
+            .then(response => response.json())
+            .then(data => setPecas(data))
+            .catch(error => console.error('Erro ao buscar itens:', error));
+    }, []);
+
   if (!demanda) return <p className="text-muted">Nenhuma demanda selecionada.</p>;
 
-  const opcoes = ["Peça 1", "Peça 2", "Peça 3"];
   return (
     <div className="container-fluid ">
       <div className="d-flex justify-content-between align-items-center">
         <h4 className="display-6 text-start mb-1">
-          Demanda <span>{demanda.nome}</span> - Nº <span>{demanda.id}</span>
+          Demanda - Nº <span>{demanda.id}</span>
         </h4>
         <button
           type="button"
@@ -44,8 +54,11 @@ const DemandaAberta = ({ demanda, onClose }) => {
           onClick={onClose}
         ></button>
       </div>
-      <p className="fs-5 text-start">
-        Gerado em: <span>{demanda.hora}</span> - <span>{demanda.data}</span>
+      <p className= "fs-5 text-start">
+        Gerado em: 
+<span> {demanda.dataHoraCriacao[3]}</span>:<span>{demanda.dataHoraCriacao[4]}</span> -  
+<span> {demanda.dataHoraCriacao[2]}</span>/<span>{demanda.dataHoraCriacao[1]}</span>/<span>{demanda.dataHoraCriacao[0]}</span>
+
       </p>
       <div className="mb-1 text-center row justify-content-center p-1">
         <div className="col-8 d-flex align-items-center border border-primary-subtle rounded-3 rounded-end-0">
@@ -80,17 +93,15 @@ const DemandaAberta = ({ demanda, onClose }) => {
               <li className="p-2">
                 <Select
                   id="idPeca"
-                  options={opcoes.map((op) => ({ value: op, label: op }))}
+                  options={pecas.map((peca) => ({
+                    value: peca.nome,
+                    label: peca.nome,
+                  }))}
+                  value={pecaSelecionada}
+                  onChange={(selectedOption) =>
+                    setPecaSelecionada(selectedOption)
+                  }
                   placeholder="Valor"
-                  isSearchable
-                  noOptionsMessage={() => "Não encontrado"}
-                />
-              </li>
-              <li className="p-2">
-                <Select
-                  id="choicePeca"
-                  options={opcoes.map((op) => ({ value: op, label: op }))}
-                  placeholder="Selecione a peça"
                   isSearchable
                   noOptionsMessage={() => "Não encontrado"}
                 />
@@ -112,13 +123,15 @@ const DemandaAberta = ({ demanda, onClose }) => {
                     value=""
                     id="substituiPeca"
                   ></input>
-                  <label className="form-check-label" for="checkDefault">
+                  <label className="form-check-label" htmlFor="substituiPeca">
                     Substituir Peça Original
                   </label>
                 </div>
               </li>
               <li className="p-2">
-                <button className="btn btn-design hover-blue lh-sm shiny">Adicionar Peça defeituosa</button>
+                <button className="btn btn-design hover-blue lh-sm shiny">
+                  Adicionar Peça defeituosa
+                </button>
               </li>
             </ul>
           </div>
@@ -128,15 +141,12 @@ const DemandaAberta = ({ demanda, onClose }) => {
         <div className="text-start">
           Descrição do problema:{" "}
           <span id="descricaoProblema">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-            blanditiis ex unde, sit, at adipisci tempora, non obcaecati numquam
-            maiores dicta accusamus nisi modi et? Quasi nihil veritatis
-            explicabo odio.
+            {demanda.descricaoItem}
           </span>
         </div>
         <hr className="my-4 border-top border-secondary" />
         <div className="text-start">
-          <h5 className="fw-bold mb-5">Peças defeituosas:</h5>
+          <h5 className="fw-bold mb-5">Peças defeituosas: {demanda.qtdPecasDefeituosas}</h5>
         </div>
         <hr className="my-4 border-top border-secondary" />
         <div className="d-flex align-items-start">
@@ -170,7 +180,7 @@ const DemandaAberta = ({ demanda, onClose }) => {
               id="estoque"
               value="entrada"
             />
-            <label className="form-check-label" for="encaminharPara">
+            <label className="form-check-label" htmlFor="encaminharPara">
               Estoque
             </label>
           </div>
@@ -182,7 +192,7 @@ const DemandaAberta = ({ demanda, onClose }) => {
               id="reciclagem"
               value="reciclagem"
             />
-            <label className="form-check-label" for="encaminharPara">
+            <label className="form-check-label" htmlFor="reciclagem">
               Reciclagem
             </label>
           </div>
@@ -297,27 +307,17 @@ const FormCriarDemanda = () => {
 };
 
 export default function Producao() {
-  const [demandas] = useState([
-    {
-      id: 1,
-      nome: "Lorem Ipsum 1",
-      prioridade: "Alta",
-      descricao: "Problema com a peça 1",
-      data: "31/12/2025",
-      hora: "22:22"
-    },
-    {
-      id: 2,
-      nome: "Lorem Ipsum 2",
-      prioridade: "Normal",
-      descricao: "Problema com a peça 2",
-      data: "01/01/2026",
-      hora: "10:00"
-    },
-  ]);
+  const [demandas, setDemandas] = useState([]);
   const [demandaSelecionada, setDemandaSelecionada] = useState(null);
   
   const [showCriarDemanda, setShowCriarDemanda] = useState(false);
+
+  useEffect(() => {
+        fetch('http://localhost:8080/api/demandas') 
+            .then(response => response.json())
+            .then(data => setDemandas(data))
+            .catch(error => console.error('Erro ao buscar itens:', error));
+    }, []);
 
   return (
     <PageLayout>

@@ -24,7 +24,7 @@ import com.luizgustavo.sensor_fix.models.Peca.UpdatePeca;
 import com.luizgustavo.sensor_fix.services.PecaService;
 
 @RestController
-@RequestMapping("pecas")
+@RequestMapping("/api/pecas")
 @Validated
 public class PecaController {
 
