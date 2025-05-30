@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -25,13 +25,14 @@ jobs:
           distribution: 'microsoft'
 
       - name: Build with Maven
+        working-directory: pmg-es-2025-1-ti2-3740100-sensorfix/src/back/producao/sensor-fix
         run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: pmg-es-2025-1-ti2-3740100-sensorfix/src/back/producao/sensor-fix/target/*.jar
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,9 +41,9 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
-  
+      id-token: write
+      contents: read
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
@@ -63,4 +64,3 @@ jobs:
           app-name: 'sensorfix-backend'
           slot-name: 'Production'
           package: '*.jar'
-          
