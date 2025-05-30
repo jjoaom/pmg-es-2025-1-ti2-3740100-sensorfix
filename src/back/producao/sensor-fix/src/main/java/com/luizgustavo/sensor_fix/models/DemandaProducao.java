@@ -5,11 +5,18 @@
 package com.luizgustavo.sensor_fix.models;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.time.LocalDateTime;
-/**
- *
- * @author joaom
- */
+import java.util.ArrayList;
+import java.util.List;
+import java.time.Duration;
+
 @Entity
 public class DemandaProducao {
 
@@ -21,20 +28,50 @@ public class DemandaProducao {
     @Column(name = "data_hora_criacao", columnDefinition = "DATETIME2")
     private LocalDateTime dataHoraCriacao;
 
+    @Column(name = "data_abertura", columnDefinition = "DATETIME2")
+    private LocalDateTime dataAbertura;
+
+    @Column(name = "data_limpeza", columnDefinition = "DATETIME2")
+    private LocalDateTime dataLimpeza;
+
+    @Column(name = "data_recuperacao", columnDefinition = "DATETIME2")
+    private LocalDateTime dataRecuperacao;
+
+    @Column(name = "data_inicio_testes", columnDefinition = "DATETIME2")
+    private LocalDateTime dataInicioTestes;
+
+    @Column(name = "data_fim_testes", columnDefinition = "DATETIME2")
+    private LocalDateTime dataFimTestes;
+
+    @Column(name = "data_conclusao", columnDefinition = "DATETIME2")
+    private LocalDateTime dataConclusao;
+
+    @Column(name = "data_encerramento", columnDefinition = "DATETIME2")
+    private LocalDateTime dataEncerramento;
+
+    @NotBlank
     @Column(name = "setor_responsavel", nullable = false)
-    private String setorResponsavel;
+    private String setorResponsavel;;
 
-    @Column(name = "id_insumo", nullable = false)
-    private long idInsumo;
+    @Column(name = "responsavel")
+    private String responsavel;
 
-    @Column(name = "descricao_item")
+    @NotNull(message = "O insumo é obrigatório")
+    @ManyToOne
+    @JoinColumn(name = "id_insumo", nullable = false)
+    private Insumo insumo;
+
+    @Size(max = 255, message = "Descrição deve ter no máximo 255 caracteres")
+    @Column(name = "descricao_item", length = 255)
     private String descricaoItem;
 
     @Column(name = "limpeza_realizada")
     private boolean limpezaRealizada;
 
-    @Column(name = "qtd_pecas_defeituosas")
-    private int qtdPecasDefeituosas;
+    @Valid
+    @OneToMany(mappedBy = "demanda", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<PecaDefeituosa> pecasDefeituosas = new ArrayList<>();
 
     @Column(name = "produto_recuperado")
     private boolean produtoRecuperado;
@@ -48,8 +85,13 @@ public class DemandaProducao {
     @Column(name = "teste_bem_sucedido")
     private boolean testeBemSucedido;
 
+    public enum StatusDemanda {
+        CRIADA, ABERTA, EM_ANALISE, EM_RECUPERACAO, EM_TESTE, FALHA_TESTE, FINALIZADA, DESCARTADA
+    }
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_demanda")
-    private String statusDemanda;
+    private StatusDemanda statusDemanda;
 
     public long getId() {
         return id;
@@ -63,20 +105,12 @@ public class DemandaProducao {
         return setorResponsavel;
     }
 
-    public long getIdInsumo() {
-        return idInsumo;
-    }
-
     public String getDescricaoItem() {
         return descricaoItem;
     }
 
     public boolean isLimpezaRealizada() {
         return limpezaRealizada;
-    }
-
-    public int getQtdPecasDefeituosas() {
-        return qtdPecasDefeituosas;
     }
 
     public boolean isProdutoRecuperado() {
@@ -95,7 +129,7 @@ public class DemandaProducao {
         return testeBemSucedido;
     }
 
-    public String getStatusDemanda() {
+    public StatusDemanda getStatusDemanda() {
         return statusDemanda;
     }
 
@@ -111,20 +145,12 @@ public class DemandaProducao {
         this.setorResponsavel = setorResponsavel;
     }
 
-    public void setIdInsumo(long idInsumo) {
-        this.idInsumo = idInsumo;
-    }
-
     public void setDescricaoItem(String descricaoItem) {
         this.descricaoItem = descricaoItem;
     }
 
     public void setLimpezaRealizada(boolean limpezaRealizada) {
         this.limpezaRealizada = limpezaRealizada;
-    }
-
-    public void setQtdPecasDefeituosas(int qtdPecasDefeituosas) {
-        this.qtdPecasDefeituosas = qtdPecasDefeituosas;
     }
 
     public void setProdutoRecuperado(boolean produtoRecuperado) {
@@ -143,10 +169,119 @@ public class DemandaProducao {
         this.testeBemSucedido = testeBemSucedido;
     }
 
-    public void setStatusDemanda(String statusDemanda) {
+    public void setStatusDemanda(StatusDemanda statusDemanda) {
         this.statusDemanda = statusDemanda;
     }
-    
-    
-    
+
+    public LocalDateTime getDataAbertura() {
+        return dataAbertura;
+    }
+
+    public void setDataAbertura(LocalDateTime dataAbertura) {
+        this.dataAbertura = dataAbertura;
+    }
+
+    public LocalDateTime getDataLimpeza() {
+        return dataLimpeza;
+    }
+
+    public void setDataLimpeza(LocalDateTime dataLimpeza) {
+        this.dataLimpeza = dataLimpeza;
+    }
+
+    public LocalDateTime getDataRecuperacao() {
+        return dataRecuperacao;
+    }
+
+    public void setDataRecuperacao(LocalDateTime dataRecuperacao) {
+        this.dataRecuperacao = dataRecuperacao;
+    }
+
+    public LocalDateTime getDataInicioTestes() {
+        return dataInicioTestes;
+    }
+
+    public void setDataInicioTestes(LocalDateTime dataInicioTestes) {
+        this.dataInicioTestes = dataInicioTestes;
+    }
+
+    public LocalDateTime getDataFimTestes() {
+        return dataFimTestes;
+    }
+
+    public void setDataFimTestes(LocalDateTime dataFimTestes) {
+        this.dataFimTestes = dataFimTestes;
+    }
+
+    public LocalDateTime getDataConclusao() {
+        return dataConclusao;
+    }
+
+    public void setDataConclusao(LocalDateTime dataConclusao) {
+        this.dataConclusao = dataConclusao;
+    }
+
+    public LocalDateTime getDataEncerramento() {
+        return dataEncerramento;
+    }
+
+    public void setDataEncerramento(LocalDateTime dataEncerramento) {
+        this.dataEncerramento = dataEncerramento;
+    }
+
+    public String getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(String responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public Insumo getInsumo() {
+        return insumo;
+    }
+
+    public void setInsumo(Insumo insumo) {
+        this.insumo = insumo;
+    }
+
+    public List<PecaDefeituosa> getPecasDefeituosas() {
+        return pecasDefeituosas;
+    }
+
+    public void setPecasDefeituosas(List<PecaDefeituosa> pecasDefeituosas) {
+        this.pecasDefeituosas = pecasDefeituosas;
+    }
+
+    public Duration tempoTotal() {
+        if (dataHoraCriacao != null && dataConclusao != null) {
+            return Duration.between(dataHoraCriacao, dataConclusao);
+        }
+        return null;
+    }
+
+    public Duration tempoLimpeza() {
+        if (dataAbertura != null && dataLimpeza != null) {
+            return Duration.between(dataAbertura, dataLimpeza);
+        }
+        return null;
+    }
+
+    public Duration tempoRecuperacao() {
+        if (dataLimpeza != null && dataRecuperacao != null) {
+            return Duration.between(dataLimpeza, dataRecuperacao);
+        }
+        return null;
+    }
+
+    public Duration tempoTestes() {
+        if (dataInicioTestes != null && dataFimTestes != null) {
+            return Duration.between(dataInicioTestes, dataFimTestes);
+        }
+        return null;
+    }
+
+    public boolean podeAvancarParaTestes() {
+        return statusDemanda == StatusDemanda.EM_RECUPERACAO && produtoRecuperado;
+    }
 }

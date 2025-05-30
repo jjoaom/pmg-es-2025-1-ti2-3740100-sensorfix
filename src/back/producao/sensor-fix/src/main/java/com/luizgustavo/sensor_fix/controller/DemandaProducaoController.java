@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/demandas")
 public class DemandaProducaoController {
@@ -28,12 +30,12 @@ public class DemandaProducaoController {
     }
 
     @PostMapping
-    public ResponseEntity<DemandaProducao> criar(@RequestBody DemandaProducao demanda) {
+    public ResponseEntity<DemandaProducao> criar(@Valid @RequestBody DemandaProducao demanda) {
         return ResponseEntity.ok(service.salvar(demanda));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DemandaProducao> atualizar(@PathVariable Long id, @RequestBody DemandaProducao novaDemanda) {
+    public ResponseEntity<DemandaProducao> atualizar(@PathVariable Long id, @Valid @RequestBody DemandaProducao novaDemanda) {
         try {
             return ResponseEntity.ok(service.atualizar(id, novaDemanda));
         } catch (RuntimeException e) {

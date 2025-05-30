@@ -211,7 +211,9 @@ body {
   border-radius: 15px 25px 15px 25px;
   transition: all 0.3s ease;
 }
-
+.btn-green-submit:disabled{
+  color: white;
+}
 
 /*BOTÃO VERMELHO*/
 .btn-red-submit {
@@ -273,6 +275,9 @@ body {
   animation-play-state: paused;
   border-radius: 15px 25px 15px 25px;
   transition: all 0.3s ease;
+}
+.btn-red-submit:disabled{
+  color: white;
 }
 
 
@@ -535,4 +540,25 @@ body {
 
 .btn-fechar:hover {
   transform: scale(1.2);
+}
+
+/*Scroll Bar*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #248eff94;
+  border-radius: 4px;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #258dfd86 transparent;
 }
