@@ -1,6 +1,7 @@
 // URLs da API
 const urlMovimentacao = "http://localhost:8080/movimentacoes/";
 const urlEquipamento = "http://localhost:8080/equipamentos/";
+const urlEstoqueDeposito = "http://localhost:8080/estoque-depositos";
 
 // Variáveis globais
 let courretEquipamento;
@@ -20,13 +21,27 @@ btnBuscaEquip.addEventListener("click", () => {
 });
 
 const btnSalvarMovimentacao = document.getElementById("btnSalvarMovimentacao");
-btnSalvarMovimentacao.addEventListener("click", () => {
-  criaMovimentacao(
-    inputselectOrigem.value,
-    inputselectDestino.value,
-    inputIdEquipamento.value,
-    inputQuantidade.value
-  );
+btnSalvarMovimentacao.addEventListener("click", async () => {
+  const origem = inputselectOrigem.value;
+  const destino = inputselectDestino.value;
+  const idEquipamento = inputIdEquipamento.value;
+  let quantidade = parseInt(inputQuantidade.value);
+
+  const quantidadeOrigem = await getQuantidadeDeposito(urlEstoqueDeposito, origem);
+  if (quantidade > quantidadeOrigem) {
+    alert(`Quantidade indisponível no depósito de origem.\nDisponível: ${quantidadeOrigem}`);
+    inputQuantidade.value = ""; // limpa o campo
+    inputQuantidade.focus(); // foca para o usuário digitar novamente
+    return;
+  }
+
+  const movimentacaoCriada = await criaMovimentacao(origem, destino, idEquipamento, quantidade);
+  if (movimentacaoCriada) {
+    await atualizarQuantidadeDeposito(origem, quantidadeOrigem - quantidade);
+    const quantidadeDestino = await getQuantidadeDeposito(urlEstoqueDeposito, destino);
+    await atualizarQuantidadeDeposito(destino, quantidadeDestino + quantidade);
+    getTodasMovimentacoes();
+  }
 });
 
 // Função que busca um equipamento por ID
@@ -89,7 +104,7 @@ function populaTabelaMovimentacoes(lista) {
 }
 
 // Cria uma nova movimentação
-function criaMovimentacao(origem, destino, idEquipamento, quantidade) {
+async function criaMovimentacao(origem, destino, idEquipamento, quantidade) {
   const dataAtual = new Date().toISOString().slice(0, 19);
 
   const novaMovimentacao = {
@@ -100,11 +115,6 @@ function criaMovimentacao(origem, destino, idEquipamento, quantidade) {
     equipamento: { id: parseInt(idEquipamento) }
   };
 
-  salvaMovimentacao(novaMovimentacao);
-}
-
-// Salva a movimentação no banco de dados
-async function salvaMovimentacao(novaMovimentacao) {
   try {
     const resposta = await fetch(urlMovimentacao, {
       method: "POST",
@@ -114,14 +124,53 @@ async function salvaMovimentacao(novaMovimentacao) {
 
     if (resposta.ok) {
       alert("Movimentação criada com sucesso!");
-      getTodasMovimentacoes();
+      return true;
     } else {
       console.error("Erro ao salvar movimentação:", resposta.status);
+      return false;
     }
   } catch (error) {
     console.error("Erro ao tentar criar movimentação:", error);
+    return false;
   }
 }
+
+// Busca a quantidade de um depósito
+async function getQuantidadeDeposito(baseUrl, idDeposito) {
+  try {
+    const resposta = await fetch(`${baseUrl}/${idDeposito}`);
+    if (resposta.ok) {
+      const dados = await resposta.json();
+      return dados.quantidade;
+    } else {
+      console.error("Erro ao buscar depósito:", resposta.status);
+      return 0;
+    }
+  } catch (erro) {
+    console.error("Erro ao buscar depósito:", erro);
+    return 0;
+  }
+}
+
+// Atualiza a quantidade de um depósito
+// Atualiza a quantidade de um depósito (usando PATCH com JSON {"quantidade": novaQuantidade})
+async function atualizarQuantidadeDeposito(idDeposito, novaQuantidade) {
+  try {
+    const body = { quantidade: novaQuantidade };
+    const resposta = await fetch(`${urlEstoqueDeposito}/${idDeposito}/quantidade`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    if (!resposta.ok) {
+      throw new Error(`Erro ao atualizar depósito ${idDeposito}: ${resposta.status}`);
+    }
+  } catch (erro) {
+    console.error("Erro ao atualizar depósito:", erro);
+  }
+}
+
 
 // Inicializa funcionalidades do modal
 document.addEventListener("DOMContentLoaded", () => {
