@@ -34,8 +34,9 @@
 
       <label>Estado do Hardware:</label>
       <select>
-        <option>Sem danos físicos</option>
-        <option>Com danos físicos</option>
+        <option value="" selected disabled>Selecione...</option>
+        <option>Sem danos físicos externos</option>
+        <option>Com danos físicos externos</option>
       </select>
 
 
@@ -47,7 +48,7 @@
     <div class="section">
       <div class="section-title">Trabalho a Ser Realizado</div>
       <div class="checkbox-group">
-        <label><input type="checkbox"> Alta</label>
+        <label><input type="checkbox"> Perda Total</label>
         <label><input type="checkbox"> Revisão</label>
         <label><input type="checkbox"> Refuncionalização</label>
       </div>
@@ -87,24 +88,34 @@
       tr.innerHTML = `
         <td>
           <select>
-            <option>Não Liga</option>
+            <option value="" selected disabled>Selecione...</option>
+            <option>Sensor Não Liga</option>
             <option>Sem Sinal</option>
+            <option>Leds Apagados</option>
+            <option>Leds Piscando</option>
+            <option>Mau Funcionamento do Sensor</option>
           </select>
         </td>
         <td>
           <select>
+            <option value="" selected disabled>Selecione...</option>
             <option>Membrana</option>
+            <option>Fiação</option>
+            <option>Fusível</option>
             <option>Solda</option>
           </select>
         </td>
         <td>
           <select>
-            <option>Outras</option>
-            <option>Cabo</option>
+            <option value="" selected disabled>Selecione...</option>
+            <option>Mal Uso do Equipamento</option>
+            <option>Falha na Montagem</option>
+            <option>Falha na Montagem</option>
           </select>
         </td>
         <td>
           <select>
+            <option value="" selected disabled>Selecione...</option>
             <option>Encaminhar para Descarte</option>
             <option>Encaminhar para Manutenção</option>
             <option>Encaminhar para Aproveitamento de Componentes</option>
