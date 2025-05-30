@@ -90,15 +90,15 @@ export default function Estoque() {
             <div className="modal-content ">
               <div className="modal-header text-center shadow">
                 <h5 className="modal-title w-100 text-blue">Editar</h5>
-                <IoCloseSharp size={30} className="btn-fechar shiny" data-bs-dismiss="modal"
+                <IoCloseSharp size={30} className="btn-fechar" data-bs-dismiss="modal"
                   aria-label="Close" />
               </div>
               <div className="modal-body d-flex flex-column gap-2">
                 <Link to="/editInsumo">
-                  <button className="btn btn-silver shiny mb-3">Editar Insumo</button>
+                  <button className="btn btn-silver mb-3">Editar Insumo</button>
                 </Link>
                 <Link to="/editEquipamento">
-                  <button className="btn btn-silver shiny mb-3">
+                  <button className="btn btn-silver mb-3">
                     Editar Equipamento
                   </button>
                 </Link>
@@ -118,7 +118,7 @@ export default function Estoque() {
             <div className="modal-content">
               <div className="modal-header text-center shadow ">
                 <h5 className="modal-title w-100 text-blue">Fast In/Out</h5>
-                <IoCloseSharp size={30} className="btn-fechar shiny" data-bs-dismiss="modal"
+                <IoCloseSharp size={30} className="btn-fechar" data-bs-dismiss="modal"
                   aria-label="Close" />
               </div>
               <div className="modal-body">
@@ -139,11 +139,11 @@ export default function Estoque() {
             <div className="modal-content">
               <div className="modal-header text-center shadow ">
                 <h5 className="modal-title w-100 text-blue">Compras</h5>
-                <IoCloseSharp size={30} className="btn-fechar shiny" data-bs-dismiss="modal"
+                <IoCloseSharp size={30} className="btn-fechar" data-bs-dismiss="modal"
                   aria-label="Close" />
               </div>
               <div className="modal-body">
-                <button className="btn btn-silver shiny" onClick={handleNovoPedido}>
+                <button className="btn btn-silver" onClick={handleNovoPedido}>
                   Novo Pedido
                 </button>
               </div>

@@ -18,54 +18,55 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.luizgustavo.sensor_fix.models.Peca;
-import com.luizgustavo.sensor_fix.models.Peca.CreatePeca;
-import com.luizgustavo.sensor_fix.models.Peca.UpdatePeca;
-import com.luizgustavo.sensor_fix.services.PecaService;
+import com.luizgustavo.sensor_fix.models.Equipamento;
+import com.luizgustavo.sensor_fix.models.Equipamento.CreateEquipamento;
+import com.luizgustavo.sensor_fix.models.Equipamento.UpdateEquipamento;
+import com.luizgustavo.sensor_fix.services.EquipamentoService;
 
 @RestController
-@RequestMapping("/api/pecas")
+@RequestMapping("/equipamentos")
 @Validated
-public class PecaController {
-
+public class EquipamentoController {
+    
     @Autowired
-    private PecaService pecaService;
+    private EquipamentoService equipamentoService;
 
-    //Buscar Peça por id
+    // Método para buscar equipamento por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Peca> findById(@PathVariable Long id){
-        Peca obj = this.pecaService.findById(id);
+    public ResponseEntity<Equipamento> findById(@PathVariable Long id) {
+        Equipamento obj = this.equipamentoService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
-    //Criar nova peça
+
+    // Método para criar um novo equipamento
     @PostMapping
-    @Validated(CreatePeca.class)
-    public ResponseEntity<Void> create(@Valid @RequestBody Peca obj){
-        this.pecaService.create(obj);
+    @Validated(CreateEquipamento.class)
+    public ResponseEntity<Void> create(@Valid @RequestBody Equipamento obj) {
+        this.equipamentoService.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
-    // Atualizar uma peça
+    // Método para atualizar um equipamento
     @PutMapping("/{id}")
-    @Validated(UpdatePeca.class)
-    public ResponseEntity<Void> update(@Valid @RequestBody Peca obj, @PathVariable Long id) {
+    @Validated(UpdateEquipamento.class)
+    public ResponseEntity<Void> update(@Valid @RequestBody Equipamento obj, @PathVariable Long id) {
         obj.setId(id);
-        this.pecaService.update(obj);
+        this.equipamentoService.update(obj);
         return ResponseEntity.noContent().build();
     }
 
-     //Deletar uma peça
+    // Método para excluir um equipamento
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        this.pecaService.delete(id);
+        this.equipamentoService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Listar todas as peças
+    // Método para listar todos os equipamentos
     @GetMapping
-    public ResponseEntity<List<Peca>> listarTodos() {
-        List<Peca> pecas = this.pecaService.findAll();
-        return ResponseEntity.ok().body(pecas);
+    public ResponseEntity<List<Equipamento>> listarTodos() {
+        List<Equipamento> equipamentos = this.equipamentoService.findAll();
+        return ResponseEntity.ok().body(equipamentos);
     }
 }

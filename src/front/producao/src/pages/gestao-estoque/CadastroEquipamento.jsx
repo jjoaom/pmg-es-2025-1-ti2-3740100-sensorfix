@@ -71,7 +71,7 @@ export default function CadastroEquipamento() {
           </div>
 
           <div className="container mt-4">
-            <button className="btn btn-design btn-silver shiny">Cadastrar</button>
+            <button className="btn btn-design btn-silver">Cadastrar</button>
           </div>
         </div>
       </div>
