@@ -6,6 +6,9 @@ import { FaFilter } from "react-icons/fa";
 import { HiMiniXMark } from "react-icons/hi2";
 import Select from "react-select";
 
+//URL Padrão do arquivo .env
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 // Helper: fetch with error handling
 const fetchJson = (url, opts = {}) =>
   fetch(url, opts).then(async (res) => {
@@ -75,10 +78,10 @@ function DemandaAberta({
   useEffect(() => {
     if (!demanda) return;
     setLoading(true);
-    fetchJson("http://localhost:8080/api/pecas")
+    fetchJson(`${baseUrl}/api/pecas`)
       .then(setPecas)
       .catch(() => setPecas([]));
-    fetchJson(`http://localhost:8080/api/demandas/${demanda.id}/historico`)
+    fetchJson(`${baseUrl}/api/demandas/${demanda.id}/historico`)
       .then(setHistorico)
       .catch(() => setHistorico([]));
     setPecasDefeituosasLocal(demanda.pecasDefeituosas || []);
@@ -118,7 +121,7 @@ function DemandaAberta({
       limpezaRealizada: true,
       pecasDefeituosas: pecasDefeituosasLocal,
     };
-    fetch(`http://localhost:8080/api/demandas/${demanda.id}`, {
+    fetch(`${baseUrl}/api/demandas/${demanda.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -153,7 +156,7 @@ function DemandaAberta({
     } else if (confirmModal.type === "descartar") {
       payload = { ...payload, dataEncerramento: now, statusDemanda: "DESCARTADA" };
     }
-    fetch(`http://localhost:8080/api/demandas/${demanda.id}`, {
+    fetch(`${baseUrl}/api/demandas/${demanda.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -386,8 +389,8 @@ function FormCriarDemanda({ onCreated }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchJson("http://localhost:8080/insumo").then(setInsumos).catch(() => setInsumos([]));
-    fetchJson("http://localhost:8080/api/pecas").then(setPecas).catch(() => setPecas([]));
+    fetchJson(`${baseUrl}/insumo`).then(setInsumos).catch(() => setInsumos([]));
+    fetchJson(`${baseUrl}/api/pecas`).then(setPecas).catch(() => setPecas([]));
   }, []);
 
   const handleAddPeca = () => {
@@ -412,7 +415,7 @@ function FormCriarDemanda({ onCreated }) {
       descricaoItem: descricao,
       pecasDefeituosas,
     };
-    fetch("http://localhost:8080/api/demandas", {
+    fetch(`${baseUrl}/api/demandas`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -536,7 +539,7 @@ export default function Producao() {
   // Load demandas list
   const loadDemandas = () => {
     setLoading(true);
-    fetchJson("http://localhost:8080/api/demandas")
+    fetchJson(`${baseUrl}/api/demandas`)
       .then(setDemandas)
       .catch(() => setDemandas([]))
       .finally(() => setLoading(false));
@@ -549,7 +552,7 @@ export default function Producao() {
   // Select demanda and fetch full data
   const handleSelectDemanda = (id) => {
     setLoading(true);
-    fetchJson(`http://localhost:8080/api/demandas/${id}`)
+    fetchJson(`${baseUrl}/api/demandas/${id}`)
       .then((d) => setDemandaSelecionada(d))
       .catch(() => setDemandaSelecionada(null))
       .finally(() => setLoading(false));
