@@ -25,14 +25,14 @@ jobs:
           distribution: 'microsoft'
 
       - name: Build with Maven
-        working-directory: pmg-es-2025-1-ti2-3740100-sensorfix/src/back/producao/sensor-fix
+        working-directory: src/back/producao/sensor-fix
         run: mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: pmg-es-2025-1-ti2-3740100-sensorfix/src/back/producao/sensor-fix/target/*.jar
+          path: src/back/producao/sensor-fix/target/*.jar
 
   deploy:
     runs-on: ubuntu-latest
