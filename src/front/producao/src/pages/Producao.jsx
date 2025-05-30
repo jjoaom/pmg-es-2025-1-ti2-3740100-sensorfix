@@ -7,7 +7,7 @@ import { HiMiniXMark } from "react-icons/hi2";
 import Select from "react-select";
 
 //URL Padrão do arquivo .env
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const baseUrl = import.meta.env.API_URL;
 
 // Helper: fetch with error handling
 const fetchJson = (url, opts = {}) =>
