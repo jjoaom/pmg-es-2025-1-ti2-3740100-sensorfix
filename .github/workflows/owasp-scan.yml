@@ -1,0 +1,34 @@
+name: OWASP Dependency-Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  owasp-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run OWASP Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: "sensorfix-backend"
+          path: "src/back/producao/sensor-fix"
+          format: "HTML"
+          out: "reports"
+
+      - name: Upload OWASP Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: dependency-check-report
+          path: reports/dependency-check-report.html
