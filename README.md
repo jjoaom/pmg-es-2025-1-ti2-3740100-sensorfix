@@ -1,5 +1,6 @@
 # SensorFix
 [![Netlify Status](https://api.netlify.com/api/v1/badges/189b22ee-0b9f-4773-a23b-7f54a62cdeee/deploy-status)](https://app.netlify.com/projects/sensorfix/deploys)
+[![Build and deploy JAR app to Azure Web App - sensorfix-backend](https://github.com/ICEI-PUC-Minas-PMGES-TI/pmg-es-2025-1-ti2-3740100-sensorfix/actions/workflows/main_sensorfix-backend.yml/badge.svg)](https://github.com/ICEI-PUC-Minas-PMGES-TI/pmg-es-2025-1-ti2-3740100-sensorfix/actions/workflows/main_sensorfix-backend.yml)
 
 A SensorFix oferece uma solução web inovadora voltada para a gestão de processos logísticos de empresas que desenvolvem e distribuem soluções IoT. A empresa foca no controle de estoque, classificação de equipamentos para manutenção e agilidade no gerenciamento de depósitos. 
 
