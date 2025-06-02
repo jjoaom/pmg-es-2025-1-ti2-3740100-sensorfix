@@ -27,8 +27,11 @@ jobs:
           format: "HTML"
           out: "reports"
 
+      - name: List reports folder
+        run: ls -l reports/
+
       - name: Upload OWASP Report
-        uses: uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           name: dependency-check-report
           path: reports/dependency-check-report.html
