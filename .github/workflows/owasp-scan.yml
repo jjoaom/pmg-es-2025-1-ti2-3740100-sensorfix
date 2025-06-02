@@ -16,7 +16,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: 'microsoft'
           java-version: '17'
 
       - name: Run OWASP Dependency-Check
@@ -31,7 +31,7 @@ jobs:
         run: ls -l reports/
 
       - name: Upload OWASP Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: dependency-check-report
           path: reports/dependency-check-report.html
