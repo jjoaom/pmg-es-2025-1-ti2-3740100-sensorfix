@@ -27,8 +27,11 @@ jobs:
           format: "HTML"
           out: "reports"
 
-      - name: List reports folder
-        run: ls -l reports/
+      - name: List full workspace for debug
+        run: |
+          ls -l
+          ls -l src/back/producao/sensor-fix
+          ls -l reports
 
       - name: Upload OWASP Report
         uses: actions/upload-artifact@v2
