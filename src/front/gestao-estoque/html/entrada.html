@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrada</title>
+    <link rel="stylesheet" href="../css/styleEntrada.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <img src="../images/logo.png" alt="logo SensorFix" id="logo">
+        </div>
+        <nav>
+          <a href="#">Home</a>
+          <a href="#">Produção</a>
+          <a href="estoque.html">Estoque</a>
+          <a href="#">Manutenção</a>
+          <a href="#">Movimentação</a>
+        </nav>
+        <div class="icons">
+          <button class="btnPerfil"> <img src="../images/usuario-de-perfil.png" alt="botão perfil"></button>
+          <button class="btnSair"><img src="../images/sair.png" alt="botão sair"></button>
+        </div>
+      </header>
+
+      
+      <div id="container">
+        <div> <!-- essa div ajuda a controlar o conteúdo interno -->
+          <div>
+            <div class="inputId">
+              <label for="id">Digite o id</label>
+              
+              <input type="number" id="id">
+              
+            </div>
+            <button class="btn" id="btnBuscar">Buscar</button>
+            <button class="btn" id="btnCadastro">Cadastrar</button>
+            <dialog id="naoCadastrado">
+              ID NÃO CADASTRADO
+              <p>ESC para sair</p>
+            </dialog>
+            <dialog id="atualizado">
+              ATUALIZADO
+              <p>ESC para sair</p>
+            </dialog>
+            <dialog id="dialogCadastro">
+              <a href="cadInsumo.html"><button id="btnEditarInsumo">Cadastrar Insumo</button></a>
+              <a href="cadEquipamento.html"><button id="btnEditarEquipamento">Cadastrar Equipamento</button></a>
+              <p>Press ESC para sair</p>
+            </dialog>
+          </div>
+          
+          <div class="inputDesc">
+            <label for="desc">Descrição</label>
+            <input type="text" id="desc" readonly >
+          </div>
+          <div class="detalhes">
+            <div class="inputPeso">
+              <label for="peso">Peso(g)</label>
+              <input type="text" id="peso" readonly >
+            </div>
+            <div class="inputEstMin">
+              <label for="estMin">Estoque mínimo</label>
+              <input type="text" id="estMin" readonly >
+            </div>
+            <div class="InputEnd">
+              <label for="end">Endereço</label>
+              <input type="text" id="end" readonly >
+            </div>
+            <div class="inputTotal">
+              <label for="total">Quantidade em estoque</label>
+              <input type="number" id="total" readonly >
+            </div>
+          </div>
+
+          <div>
+            <div class="quantEntrada">
+              <label for="entrada">Quantidade de Entrada</label>
+              <input type="number" id="entrada">
+            </div>
+            <button id="btnEntrar" class="btn"> Dar entrada</button>
+          </div>
+          
+        </div>
+      </div>
+      <script src="../js/entrada.js"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+/* === HEADER ATUALIZADO === */
+header {
+    background-color: #0056b3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* LOGO */
+.logo {
+  font-size: 1.2em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+/* NOME DA MARCA (opcional) */
+.brand {
+  margin-left: 10px;
+  font-size: 1em;
+}
+
+/* LINKS DE NAVEGAÇÃO */
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 12px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+nav a:hover {
+  background-color: #d9d9d9;
+  color: black;
+  padding: 5px;
+  border-radius: 10px;
+  transition: background-color ease 0.0s;
+}
+
+/* ÍCONES NO HEADER */
+.icons span {
+  font-size: 1.2em;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.icons span:hover {
+  color: #ffcc00;
+}
+
+/* IMAGEM DE LOGO */
+#logo {
+  width: 200px;
+  margin-top: 5px;
+}
+
+/* BOTÕES */
+.btnPerfil,
+.btnSair {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.btnPerfil:hover,
+.btnSair:hover {
+  color: #ffcc00;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+
+
+.header {
+  background-color: #0080ff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+.header h1 {
+  font-size: 24px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  
+}
+
+.icons {
+  margin-left: 20px;
+}
+
+main {
+  display: flex;
+  justify-content: center;   /* Centraliza horizontalmente */
+  align-items: center;       /* Centraliza verticalmente */
+  min-height: calc(100vh - 60px); /* Ocupa altura da tela menos a altura do header */
+  padding: 40px;
+}
+
+.form-container {
+  background-color: #d3d3d3;
+  padding: 30px;
+  border-radius: 20px;
+  width: 500px;
+  box-shadow: 0 0 10px #ccc;
+  text-align: center;
+  border: solid 2px black;
+}
+
+.form-container label {
+  display: block;
+  margin-top: 20px;
+  
+}
+
+.input-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+input[type="text"] {
+padding: 8px;
+  width: 150px;
+  border: 2px solid #0080ff;
+  border-radius: 20px;
+  outline: none;
+}
+
+#desc {
+    width: 400px; /* ou o valor que quiser */
+  }
+
+.btn {
+  padding: 10px ;
+  border: solid 2px black;
+  border-radius: 10px 10px 10px 0;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.buscar {
+  background-color: #FF6600;
+}
+
+.editar {
+  background-color: #1EDC1E;
+}
+
+.excluir {
+  background-color: red;
+}
+
+.btn-row {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+/* Hover effect */
+.btn:hover {
+  filter: brightness(0.9);
+}

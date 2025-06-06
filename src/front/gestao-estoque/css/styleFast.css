@@ -1,0 +1,331 @@
+/* === ESTILO NAV BAR === */
+
+body {
+  margin: 0;
+  font-family: 'Arial', monospace;
+  background-color: #f9f9f9;
+  text-align: center;
+  height: 100vh;
+  background-image: url('../images/fundo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+header {
+    background-color: #0056b3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.2em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  margin-left: 10px;
+  font-size: 1em;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 12px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.icons span {
+  font-size: 1.2em;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.icons span:hover {
+  color: #ffcc00;
+}
+
+#logo {
+  margin-top: 5px;
+  width: 200px;
+}
+
+.btnPerfil,
+.btnSair {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.btnPerfil:hover,
+.btnSair:hover {
+  color: #ffcc00;
+}
+
+/* === FIM NAV BAR === */
+
+.quantEntrada,
+.inputId,
+.inputDesc,
+.inputPeso,
+.inputEstMin,
+.InputEnd,
+.inputTotal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputDesc input {
+  width: 300px;
+}
+
+input {
+  width: 100px;
+  height: 18px;
+  border-radius: 6px;
+  border: solid 2px #007bff;
+  padding: 8px;
+}
+
+#container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#container > div {
+  background-color: #d8d8d878;
+  padding: 20px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  border: solid 2px #007bff;
+}
+
+.detalhes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.detalhes > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* === BOTÕES === */
+
+#btnBuscar {
+  background-color: #FF6600;
+}
+
+#btnCadastro {
+  background-color: #FF6600;
+}
+
+#btnEntrar {
+  background-color: #1EDC1E;
+}
+
+.btn {
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 1px;
+  border-bottom-left-radius: 1px;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 5px;
+  margin: 5px;
+  border: solid black 2px;
+}
+
+/* === FEEDBACK MENSAGENS === */
+
+#atualizado {
+  border: solid 1px black;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: #75e77b;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#naoCadastrado {
+  border: solid 1px black;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: #e77575;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#dialogCadastro {
+  border: solid 1px black;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#btnEditarInsumo,
+#btnEditarEquipamento {
+  font-family: 'JetBrains Mono', monospace;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 1px;
+  border-bottom-left-radius: 1px;
+  padding: 8px 12px;
+  margin: 10px;
+  border: solid black 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#btnEditarInsumo:hover,
+#btnEditarEquipamento:hover {
+  background-color: #1edc1e7f;
+}
+
+
+
+
+  .quantEntrada,.inputId, .inputDesc,.inputQuantidade{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.inputDesc input{
+
+  width: 300px;
+}
+
+input{
+  width: 100px;
+  height: 18px;
+  border-radius: 6px;
+  border: solid 2px #007bff;
+  padding: 8px;
+}
+
+
+
+#container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+#container > div {
+  background-color: #d9d9d9;
+  padding: 20px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px; /* ou o que fizer sentido */
+  border: solid 2px black;
+  max-height: 450px;
+}
+
+
+.detalhes {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* duas colunas iguais */
+  gap: 20px; /* espaço entre os campos */
+  max-width: 600px; /* opcional */
+  margin: 20px auto; /* centraliza se quiser */
+} 
+
+.detalhes > div {
+  display: flex;
+  flex-direction: column;
+}
+
+#comentario{
+  margin-top: 20px;
+  padding: 10px;
+  width: 200px;
+  height: 20px;
+
+}
+
+
+/***********************BOTOÕES***************************/
+
+#btnBuscar{
+  background-color: #FF6600;
+}
+
+
+
+#btnAgregar{
+
+  background-color: #1EDC1E;
+}
+
+.btn{
+  border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 1px;
+    border-bottom-left-radius: 1px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 5px;
+    margin: 5px;
+    border: solid black 2px;
+
+}
+
+
+/***********************BOTOÕES***************************/
+
+
+
+#falha,#valorErrado{
+  border: solid 1px black;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: #e77575;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#saidaFalha, #checkbox{
+  border: solid 1px black;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: #ece631;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#atualizado{
+  border: solid 1px black;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: #31ec4d;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}

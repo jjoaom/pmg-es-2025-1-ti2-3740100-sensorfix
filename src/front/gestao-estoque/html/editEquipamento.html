@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar equipamento</title>
+    <link rel="stylesheet" href="../css/styleEditEquipa.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <img src="../images/logo.png" alt="logo SensorFix" id="logo">
+        </div>
+        <nav>
+          <a href="#">Home</a>
+          <a href="#">Produção</a>
+          <a href="estoque.html">Estoque</a>
+          <a href="#">Manutenção</a>
+          <a href="#">Movimentação</a>
+        </nav>
+        <div class="icons">
+          <button class="btnPerfil"> <img src="../images/usuario-de-perfil.png" alt="botão perfil"></button>
+          <button class="btnSair"><img src="../images/sair.png" alt="botão sair"></button>
+        </div>
+      </header>
+
+      
+      <div id="container">
+        <div> <!-- essa div ajuda a controlar o conteúdo interno -->
+
+  
+          <div>
+            <div class="inputId">
+                <label for="id">Digite o id</label>
+                
+                <input type="text" id="idEquipamento">
+                
+              </div>
+              <button class="btn" id="btnBuscar">Buscar</button>
+          
+          <div class="inputDesc">
+            <label for="desc">Descrição</label>
+            <input type="text" id="desc">
+          </div>
+          <div class="detalhes">
+            <div class="inputPeso">
+              <label for="peso">Peso(g)</label>
+              <input type="text" id="peso">
+            </div>
+            <div class="inputEstMin">
+              <label for="estMin">Estoque mínimo</label>
+              <input type="text" id="estMin">
+            </div>
+            <div class="InputEnd">
+              <label for="end">Endereço</label>
+              <input type="text" id="end">
+            </div>
+            <div class="inputTotal">
+              <label for="total">Quantidade em estoque</label>
+              <input type="text" id="total">
+            </div>
+          </div>
+
+          <div>
+            <button id="btnSalvar" class="btn" >Salvar</button>
+            <button id="btnExcluir" class="btn">Excluir</button>
+          </div>
+          
+        </div>
+
+        <div id="insumos"> 
+          
+          <label for="id">
+            Add novo insumo
+            <br>
+          </label>
+          <input type="text" name="insumos" id="id" placeholder="Dig. ID">
+          <button class="btn" id="btnBusca"> <img src="../images/lupa.png" alt="" height="12px"></button>
+          <input type="none" name="insumos" id="descInsumo" placeholder="Descrição" readonly>
+          <input type="number" name="insumos" id="quantidade" placeholder="Quantidade" >
+          <button class="btn"  id="btnAgregar">Agregar</button>
+          <br>
+          <div id="showInsumos">
+            <table id="tabelaInsumos" >
+              <tr>
+                <th>INSUMO</th>
+                <th>QUANTIDADE</th>
+                <th>EXCLUIR</th>
+              </tr>
+            </table>
+          </div>
+        </div>
+        
+      </div>
+
+      <dialog id="naoCadastrado">
+        ID NÃO CADASTRADO
+        <p>ESC para sair</p>
+      </dialog>
+
+      <dialog id="dialogOk">
+        Equipamento Atualizado
+        <p>ESC para sair</p>
+        
+      </dialog>
+      <dialog id="delete">
+        DELETADO COM SUCESSO !
+        <p>ESC para sair</p>
+      </dialog>
+
+      <dialog id="avisoRelacional">
+        !! ATENÇÃO !!<br>
+        !! EQUIPAMENTO NÃO DELETADO !!<br>
+        Esse Equipamento não pode ser deletado. Exclua suas relações com insumos"
+        
+        <p>ESC para sair</p>
+      </dialog>
+
+      <script src="../js/editEquipamento.js"></script>
+      
+</body>
+</html>
