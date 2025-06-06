@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaTools } from "react-icons/fa";
 import { MdPrecisionManufacturing } from "react-icons/md";
 import { BsBoxSeam } from "react-icons/bs";
+import { BiBarChartAlt2 } from "react-icons/bi";
 export default function Home() {
   return (
     <>
@@ -16,18 +17,19 @@ export default function Home() {
                 </Link>
             </div>
             <div className="m-2 btn glass-div btn-design shiny">
-              <li class="nav-item">
                 <Link className="nav-link" to="/estoque">
                   <BsBoxSeam size={30} color="color-blue" /> Estoque{" "}
                 </Link>
-              </li>
             </div>
             <div className="m-2 btn glass-div btn-design shiny">
-              <li class="nav-item">
                 <Link className="nav-link" to="/manutencao">
                   <FaTools size={30} color="color-blue" /> Manutenção{" "}
                 </Link>
-              </li>
+            </div>
+            <div className="m-2 btn glass-div btn-design shiny">
+                <Link className="nav-link" to="/indicadores">
+                  <BiBarChartAlt2 size={30} color="color-blue" /> Indicadores{" "}
+                </Link>
             </div>
           </ul>
         </div>

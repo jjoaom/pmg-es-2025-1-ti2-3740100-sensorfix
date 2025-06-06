@@ -49,8 +49,7 @@ public class DemandaProducao {
     @Column(name = "data_encerramento", columnDefinition = "DATETIME2")
     private LocalDateTime dataEncerramento;
 
-    @NotBlank
-    @Column(name = "setor_responsavel", nullable = false)
+    @Column(name = "setor_responsavel")
     private String setorResponsavel;;
 
     @Column(name = "responsavel")
