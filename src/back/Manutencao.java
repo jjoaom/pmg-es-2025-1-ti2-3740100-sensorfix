@@ -43,5 +43,5 @@ public class Manutencao {
     public void setEncaminhadoParaDescarte(boolean encaminhadoParaDescarte) { this.encaminhadoParaDescarte = encaminhadoParaDescarte; }
 
     public LocalDate getDataFinalizacao() { return dataFinalizacao; }
-    public void setDataFinalizacao(LocalDate dataFinalizacao) { this.dataFinalizacao = dataFinalizacao; }
+    public void setDataFinalizacao(LocalDate dataFinalizacao) { this.dataFinalizacao = dataFinalizacao; }
 }

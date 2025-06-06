@@ -222,3 +222,21 @@ footer img {
     filter: brightness(0) invert(1);
 }
 
+.acao-coluna {
+      width: 50px; 
+      text-align: center; 
+    }
+    .btn-remover {
+      background: none; 
+      border: none; 
+      cursor: pointer; 
+      font-size: 1.0em; 
+      padding: 5px; 
+      transition: transform 0.2s; 
+    }
+    .btn-remover:hover {
+      transform: scale(1.2); 
+      color: red !important;
+
+    }
+

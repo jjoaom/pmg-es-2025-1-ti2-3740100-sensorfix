@@ -15,6 +15,7 @@
     </div>
     <div class="nav-links">
       <a href="#">Home</a>
+
       <a href="#">Produção</a>
       <a href="#">Estoque</a>
       <a href="#">Produção</a>
@@ -81,50 +82,7 @@
     </a>
   </footer>
 
-  <script>
-    function adicionarLinha() {
-      const tbody = document.getElementById('falhas-body');
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>
-          <select>
-            <option value="" selected disabled>Selecione...</option>
-            <option>Sensor Não Liga</option>
-            <option>Sem Sinal</option>
-            <option>Leds Apagados</option>
-            <option>Leds Piscando</option>
-            <option>Mau Funcionamento do Sensor</option>
-          </select>
-        </td>
-        <td>
-          <select>
-            <option value="" selected disabled>Selecione...</option>
-            <option>Membrana</option>
-            <option>Fiação</option>
-            <option>Fusível</option>
-            <option>Solda</option>
-          </select>
-        </td>
-        <td>
-          <select>
-            <option value="" selected disabled>Selecione...</option>
-            <option>Mal Uso do Equipamento</option>
-            <option>Falha na Montagem</option>
-            <option>Falha na Montagem</option>
-          </select>
-        </td>
-        <td>
-          <select>
-            <option value="" selected disabled>Selecione...</option>
-            <option>Encaminhar para Descarte</option>
-            <option>Encaminhar para Manutenção</option>
-            <option>Encaminhar para Aproveitamento de Componentes</option>
-          </select>
-        </td>
-      `;
-      tbody.appendChild(tr);
-    }
-  </script>
+  <script src="js/registro.js"></script>
 
 </body>
 </html>
