@@ -6,6 +6,7 @@ import Producao from "./pages/Producao.jsx";
 import Estoque from './pages/gestao-estoque/Estoque.jsx';
 import Buscar from "./pages/gestao-estoque/Buscar.jsx";
 import CadastroEquipamento from "./pages/gestao-estoque/CadastroEquipamento.jsx";
+import Indicadores from "./pages/indicadores/Indicadores.jsx";
 //import Login from "./pages/login/Login.jsx";
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/estoque" element={<Estoque />} />
             <Route path="/estoque/buscar" element={<Buscar/>}></Route>
             <Route path="/estoque/cadastrarEquipamento" element={<CadastroEquipamento/>}></Route>
+            <Route path="/indicadores" element={<Indicadores/>} />
             {/*<Route path="/login" element={<Login/>} />*/}
           </Routes>
         </div>
