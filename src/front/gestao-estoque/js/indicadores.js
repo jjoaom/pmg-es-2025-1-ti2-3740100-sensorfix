@@ -1,17 +1,20 @@
 //url da api 
 const urlDepositos = "http://localhost:8080/estoque-depositos/"
-const urlDemandas = "http://localhost:8080/estoque-depositos/"
+const urlDemandas = "https://sensorfix-backend-fegvfqa4bra5csbq.brazilsouth-01.azurewebsites.net/api/demandas"
 
 
 //puxando os canvas
 const ctxDepEquip = document.getElementById("cvsDepEquip");
+const ctxTempo = document.getElementById("cvsTempo");
 
 //variaveis
 let vetorDepositos = [];
+let vetorDemandas = [];
 
 //eventos da página 
 window.addEventListener("pageshow",()=>{
   criaGraficoDepositos();
+  criaGraficoTempDemanda();
 });
 
 
@@ -61,6 +64,10 @@ async function criaGraficoDepositos (){
     }
   });
 
+}
+
+async function criaGraficoTempDemanda() {
+  vetorDemandas = await getDemandas(urlDemandas);
 }
 
 async function getDepositos(url) {
