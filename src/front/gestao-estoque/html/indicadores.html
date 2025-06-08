@@ -1,3 +1,4 @@
+<!-- HTML ATUALIZADO -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,10 +10,10 @@
 <body>
   <div id="container">
     <h1>Indicadores de Desempenho</h1>
-
+    
     <div class="grid-graficos">
       <div class="card-grafico">
-        <h2>Equipamentos em Depositos</h2>
+        <h2>Estado Atual Depositos</h2>
         <canvas id="cvsDepEquip"></canvas>
       </div>
 
@@ -23,18 +24,28 @@
 
       <div class="card-grafico">
         <h2>Tempo médio de Produção</h2>
-        <canvas id="cvsDepEquip"></canvas>
+        <div id="filtroData">
+          <div class="elementoFiltro">
+            <label for="ano">Escolha o ano:</label>
+            <input type="number" list="anos" id="ano" name="ano" min="1900" max="2100">
+            <datalist id="anos"></datalist>
+          </div>
+
+          <div id="meses">
+            <!-- Gera os checkboxes com JS -->
+          </div>
+
+          <div class="elementoFiltro">
+            <button id="btnAplicarFiltro">Aplicar Filtro</button>
+            <button id="btnLimparFiltro">Limpar Filtro</button>
+          </div>
+        </div>
+
+        <canvas id="cvsTempoProducao"></canvas>
       </div>
-
-      
-
-      
-
-      
     </div>
   </div>
 
-  <!-- Certifique-se de carregar Chart.js antes do seu script que cria os gráficos -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script type="module" src="../js/indicadores.js"></script>
 </body>

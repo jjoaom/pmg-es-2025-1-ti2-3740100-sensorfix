@@ -24,9 +24,9 @@ h1 {
 }
 
 .grid-graficos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 colunas de largura igual */
-  grid-gap: 20px;                         /* espaço entre linhas e colunas */
+  display: flex;
+  flex-direction: column; /* Um card abaixo do outro */
+  gap: 20px;                          /* espaço entre linhas e colunas */
 }
 
 .card-grafico {
