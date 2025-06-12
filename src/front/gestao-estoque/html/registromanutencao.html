@@ -5,6 +5,7 @@
   <title>Revisão de Equipamento</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
   <link rel="stylesheet" href="../css/styleregistro.css">
+  <link rel="stylesheet" href="../css/styleInscricaoID.css">
 
 </head>
 <body>
@@ -27,12 +28,15 @@
     <h2>Revisão de Equipamento</h2>
 
     <div class="section">
-      <div class="section-title">Dados da Revisão</div>
-      <label>Data:</label>
-      <input type="date">
-      <label>Hora:</label>
-      <input type="time">
-
+      <div class="content">
+      
+      <div class="form-group">
+        <label for="idEquipamento">ID do Equipamento:</label><br>
+        <input type="text" id="idEquipamento" placeholder="Digite o ID aqui...">
+        
+      </div>
+        <button id="buscarSalvar" onclick="window.location.href='registromanutencao.html'">Buscar Equipamento</button>
+    </div>
       <label>Estado do Hardware:</label>
       <select>
         <option value="" selected disabled>Selecione...</option>
@@ -82,7 +86,7 @@
     </a>
   </footer>
 
-  <script src="js/registro.js"></script>
+  <script src="../js/registro.js"></script>
 
 </body>
 </html>
