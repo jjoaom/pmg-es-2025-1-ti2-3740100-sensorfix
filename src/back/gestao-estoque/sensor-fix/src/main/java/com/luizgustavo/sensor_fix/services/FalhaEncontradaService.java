@@ -30,4 +30,8 @@ public class FalhaEncontradaService {
     public FalhaEncontrada buscarPorId(Long id) {
         return repository.findById(id).orElse(null);
     }
+
+    public List<FalhaEncontrada> listarTodas() {
+        return repository.findAll();
+    }
 }

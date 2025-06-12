@@ -48,4 +48,9 @@ public class FalhaEncontradaController {
     public void deletar(@PathVariable Long id) {
         falhaService.deletar(id);
     }
+
+    @GetMapping("/todas_falhas")
+    public List<FalhaEncontrada> listarTodasAsFalhas() {  
+        return falhaService.listarTodas();
+    }
 }

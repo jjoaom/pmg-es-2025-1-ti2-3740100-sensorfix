@@ -1,5 +1,7 @@
 package com.luizgustavo.sensor_fix.models;
 
+import java.time.LocalDate;
+
 import javax.persistence.*;
 
 
@@ -18,10 +20,14 @@ public class FalhaEncontrada {
     private String falhaEncontrada;
     private String causaProvavel;
     private String acaoASerTomada;
+    private LocalDate dataRevisao;
+
+    
 
     @ManyToOne
     @JoinColumn(name = "revisao_id")
     private Revisao revisao;
+
 
     // Getters e Setters
     public Long getId() {
@@ -66,5 +72,14 @@ public class FalhaEncontrada {
 
     public void setRevisao(Revisao revisao) {
         this.revisao = revisao;
+    }
+
+    // Getters e Setters
+    public LocalDate getDataRevisao() {
+        return dataRevisao;
+    }
+
+    public void setDataRevisao(LocalDate dataRevisao) {
+        this.dataRevisao = dataRevisao;
     }
 }

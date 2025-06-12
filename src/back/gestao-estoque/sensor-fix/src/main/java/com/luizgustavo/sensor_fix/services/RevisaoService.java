@@ -31,4 +31,7 @@ public class RevisaoService {
     public void deletar(Long id) {
         revisaoRepository.deleteById(id);
     }
+    public List<Revisao> listarRevisoesComFalhas() {
+    return revisaoRepository.findAll(); // Assumindo fetchType.EAGER ou JOIN FETCH
+    }
 }
