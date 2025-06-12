@@ -6,22 +6,19 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
   <link rel="stylesheet" href="../css/styleregistro.css">
   <link rel="stylesheet" href="../css/styleInscricaoID.css">
-
 </head>
 <body>
 
   <header>
     <div class="logo">
-      <img src="sensorfix.png" alt="Logo SensorFix">
+      <img src="../images/logo.png" alt="Logo SensorFix">
     </div>
     <div class="nav-links">
       <a href="#">Home</a>
-
       <a href="#">Produção</a>
       <a href="#">Estoque</a>
       <a href="#">Produção</a>
     </div>
-    
   </header>
 
   <div class="container">
@@ -29,14 +26,19 @@
 
     <div class="section">
       <div class="content">
-      
-      <div class="form-group">
-        <label for="idEquipamento">ID do Equipamento:</label><br>
-        <input type="text" id="idEquipamento" placeholder="Digite o ID aqui...">
-        
+        <div class="form-group">
+          <label for="idEquipamento">ID do Equipamento:</label><br>
+          <input type="number" id="idEquipamento" placeholder="Digite o ID aqui...">
+        </div>
+        <button id="buscarSalvar">Buscar Equipamento</button>
+
+        <!-- Div para mostrar o nome do equipamento -->
+        <div style="margin-top: 10px;">
+          <strong>Nome do Equipamento:</strong>
+          <span id="divdisplayEquipamento" style="font-weight: bold; color: #2c3e50;"></span>
+        </div>
       </div>
-        <button id="buscarSalvar" onclick="window.location.href='registromanutencao.html'">Buscar Equipamento</button>
-    </div>
+
       <label>Estado do Hardware:</label>
       <select>
         <option value="" selected disabled>Selecione...</option>
@@ -44,10 +46,8 @@
         <option>Com danos físicos externos</option>
       </select>
 
-
       <label>Observações:</label>
       <textarea rows="3"></textarea>
-
     </div>
 
     <div class="section">
@@ -68,6 +68,7 @@
             <th>Falha Encontrada</th>
             <th>Causa Provável</th>
             <th>Ação</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody id="falhas-body">
