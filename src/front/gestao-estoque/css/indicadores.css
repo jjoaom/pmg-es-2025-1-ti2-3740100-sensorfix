@@ -51,3 +51,203 @@ h1 {
   height: auto !important;
   max-height: 250px; /* você pode ajustar conforme quiser */
 }
+/* indicadores.css */
+
+/* Estilo geral para o container principal */
+#container {
+    max-width: 1200px; /* Limita a largura do conteúdo principal */
+    margin: 0 auto; /* Centraliza o container na página */
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+/* Estilos para o layout geral dos gráficos - Mantendo-os um embaixo do outro */
+.grid-graficos {
+    display: grid;
+    grid-template-columns: 1fr; /* Força uma única coluna, empilhando os cards */
+    gap: 30px; /* Espaçamento entre os cards de gráfico */
+    padding: 0; /* Remove padding extra se o container já tem */
+    justify-items: center; /* Centraliza os cards horizontalmente */
+}
+
+.card-grafico {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra mais suave e proeminente */
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Ocupa toda a largura da coluna */
+    max-width: 7000px; /* Define uma largura máxima para o card em telas maiores */
+    box-sizing: border-box; /* Garante que padding e borda sejam incluídos na largura */
+}
+
+.card-grafico h2 {
+    color: #34495e; /* Cor mais escura para o título do gráfico */
+    margin-bottom: 25px; /* Mais espaço abaixo do título */
+    font-size: 1.8em; /* Aumenta um pouco o tamanho do título */
+    text-align: center;
+    border-bottom: 2px solid #ecf0f1; /* Linha sutil abaixo do título */
+    padding-bottom: 10px;
+    width: 100%; /* Linha em toda a largura do título */
+}
+
+/* Estilo para os contêineres dos filtros */
+#filtroDemandas,
+#filtroRevisoes {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
+    gap: 20px; /* Aumenta o espaçamento entre os elementos do filtro */
+    background-color: #f8f8f8; /* Fundo mais claro */
+    border: 1px solid #e0e0e0; /* Borda suave */
+    padding: 20px;
+    border-radius: 12px; /* Bordas mais arredondadas */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra interna para profundidade */
+    margin-bottom: 30px; /* Espaço entre o filtro e o gráfico */
+    width: 100%; /* Ocupa a largura total do card-grafico */
+    box-sizing: border-box;
+    justify-content: flex-start; /* Alinha elementos à esquerda por padrão */
+    align-items: flex-end; /* Alinha os itens pela base, útil para botões e inputs */
+}
+
+/* Estilo para cada grupo de elemento (label + input/checkbox) dentro do filtro */
+.elementoFiltro {
+    display: flex;
+    flex-direction: column; /* Coloca label e input/checkbox um sobre o outro */
+    /* margin-bottom: 0; Removido, já que o gap do container pai gerencia o espaçamento */
+    flex-grow: 1; /* Permite que os elementos cresçam e ocupem o espaço disponível */
+    min-width: 120px; /* Largura mínima para evitar que fiquem muito apertados */
+    max-width: 250px; /* Largura máxima para inputs de ano */
+}
+
+.elementoFiltro label {
+    font-weight: 600; /* Mais negrito */
+    margin-bottom: 8px; /* Mais espaço entre label e input */
+    color: #555;
+    font-size: 0.95em; /* Levemente maior */
+}
+
+/* Estilo para inputs de número (ano) */
+.elementoFiltro input[type="number"] {
+    padding: 10px 12px; /* Mais padding */
+    border: 1px solid #c0c0c0; /* Borda mais definida */
+    border-radius: 6px; /* Bordas mais arredondadas */
+    font-size: 1em;
+    outline: none; /* Remove o contorno ao focar */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Transição suave */
+}
+
+.elementoFiltro input[type="number"]:focus {
+    border-color: #3498db; /* Cor ao focar */
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Sombra ao focar */
+}
+
+/* Estilo para os contêineres de meses (checkboxes) */
+#meses,
+#mesesRevisoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px; /* Espaço vertical e horizontal entre checkboxes */
+    margin-top: 5px;
+    padding: 5px 0;
+    /* Optional: add a subtle border or background to the months container */
+    /* border: 1px dashed #ddd; */
+    /* background-color: #fefefe; */
+    border-radius: 8px;
+}
+
+/* Estilo para cada checkbox individualmente */
+#meses .elementoFiltro,
+#mesesRevisoes .elementoFiltro {
+    flex-direction: row; /* Coloca o checkbox e o label lado a lado */
+    align-items: center; /* Alinha verticalmente */
+    margin-bottom: 0; /* Remove margem vertical extra */
+    min-width: unset; /* Permite que o flex-grow do pai funcione melhor */
+    max-width: unset;
+}
+
+#meses .elementoFiltro input[type="checkbox"],
+#mesesRevisoes .elementoFiltro input[type="checkbox"] {
+    margin-right: 7px; /* Espaço entre o checkbox e o texto */
+    cursor: pointer;
+    transform: scale(1.15); /* Deixa o checkbox um pouco maior */
+    accent-color: #3498db; /* Cor de destaque para o checkbox (modern browsers) */
+}
+
+/* Estilo para os botões */
+.elementoFiltro.botoes-container { /* Adicionei uma classe para estilizar o container dos botões */
+    display: flex;
+    flex-direction: row; /* Botões lado a lado */
+    align-items: center;
+    gap: 15px; /* Espaçamento entre os botões */
+    flex-grow: 1; /* Permite que o container dos botões cresça */
+    justify-content: flex-end; /* Alinha os botões à direita dentro do seu container */
+    width: 100%; /* Ocupa a largura total para alinhar melhor */
+    margin-top: 10px; /* Espaço acima dos botões */
+}
+
+.elementoFiltro button {
+    padding: 10px 22px; /* Mais padding */
+    border: none;
+    border-radius: 7px; /* Bordas mais arredondadas */
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Transição suave e pequeno efeito ao clicar */
+    white-space: nowrap; /* Evita que o texto do botão quebre a linha */
+}
+
+#btnAplicarFiltro,
+#btnAplicarFiltroRevisoes {
+    background-color: #2ecc71; /* Verde esmeralda */
+    color: white;
+}
+
+#btnAplicarFiltro:hover,
+#btnAplicarFiltroRevisoes:hover {
+    background-color: #27ae60;
+    transform: translateY(-1px); /* Pequeno efeito de elevação */
+}
+
+#btnLimparFiltro,
+#btnLimparFiltroRevisoes {
+    background-color: #e74c3c; /* Vermelho mais vibrante */
+    color: white;
+}
+
+#btnLimparFiltro:hover,
+#btnLimparFiltroRevisoes:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+}
+
+/* Responsividade básica para telas menores */
+@media (max-width: 768px) {
+    #filtroDemandas,
+    #filtroRevisoes {
+        flex-direction: column; /* Coloca os elementos do filtro um abaixo do outro em telas pequenas */
+        align-items: stretch; /* Estica os elementos para preencher a largura */
+    }
+
+    .elementoFiltro {
+        max-width: 100%; /* Elementos ocupam a largura total em telas pequenas */
+        margin-bottom: 15px;
+    }
+
+    .elementoFiltro.botoes-container {
+        flex-direction: column; /* Botões um abaixo do outro */
+        gap: 10px;
+        align-items: stretch; /* Estica os botões */
+    }
+
+    .elementoFiltro button {
+        width: 100%; /* Botões ocupam a largura total */
+    }
+}

@@ -1,52 +1,70 @@
-<!-- HTML ATUALIZADO -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Indicadores</title>
-  <link rel="stylesheet" href="../css/indicadores.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indicadores</title>
+    <link rel="stylesheet" href="../css/indicadores.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div id="container">
-    <h1>Indicadores de Desempenho</h1>
-    
-    <div class="grid-graficos">
-      <div class="card-grafico">
-        <h2>Estado Atual Depositos</h2>
-        <canvas id="cvsDepEquip"></canvas>
-      </div>
+    <div id="container">
+        <h1>Indicadores de Desempenho</h1>
 
-      <div class="card-grafico">
-        <h2>Defeitos Recorrentes</h2>
-        <canvas id="cvsTempo"></canvas>
-      </div>
+        <div class="grid-graficos">
 
-      <div class="card-grafico">
-        <h2>Tempo médio de Produção</h2>
-        <div id="filtroData">
-          <div class="elementoFiltro">
-            <label for="ano">Escolha o ano:</label>
-            <input type="number" list="anos" id="ano" name="ano" min="1900" max="2100">
-            <datalist id="anos"></datalist>
-          </div>
+            <div class="card-grafico">
+                <h2>Estado Atual Depósitos</h2>
+                <canvas id="cvsDepEquip"></canvas>
+            </div>
 
-          <div id="meses">
-            <!-- Gera os checkboxes com JS -->
-          </div>
+            <div class="card-grafico">
+                <h2>Tempo Médio de Produção</h2>
 
-          <div class="elementoFiltro">
-            <button id="btnAplicarFiltro">Aplicar Filtro</button>
-            <button id="btnLimparFiltro">Limpar Filtro</button>
-          </div>
+                <div id="filtroDemandas">
+                    <div class="elementoFiltro">
+                        <label for="ano">Escolha o ano:</label>
+                        <input type="number" list="anos" id="ano" name="ano" min="1900" max="2100">
+                        <datalist id="anos"></datalist>
+                    </div>
+
+                    <div id="meses">
+                        </div>
+
+                    <div class="elementoFiltro">
+                        <button id="btnAplicarFiltro">Aplicar Filtro</button>
+                        <button id="btnLimparFiltro">Limpar Filtro</button>
+                    </div>
+                </div>
+
+                <canvas id="cvsTempoProducao"></canvas>
+            </div>
+
+            <div class="card-grafico">
+                <h2>Defeitos Recorrentes</h2>
+
+                <div id="filtroRevisoes">
+                    <div class="elementoFiltro">
+                        <label for="anoRevisoes">Escolha o ano:</label>
+                        <input type="number" list="anosRevisoes" id="anoRevisoes" name="anoRevisoes" min="1900" max="2100">
+                        <datalist id="anosRevisoes"></datalist>
+                    </div>
+
+                    <div id="mesesRevisoes">
+                        </div>
+
+                    <div class="elementoFiltro">
+                        <button id="btnAplicarFiltroRevisoes">Aplicar Filtro</button>
+                        <button id="btnLimparFiltroRevisoes">Limpar Filtro</button>
+                    </div>
+                </div>
+
+                <canvas id="cvsFalhas"></canvas>
+            </div>
+
         </div>
-
-        <canvas id="cvsTempoProducao"></canvas>
-      </div>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" src="../js/indicadores.js"></script>
+    <script src="../js/indicadores.js"></script>
 </body>
 </html>
