@@ -1,6 +1,22 @@
-/**
- * Adiciona uma nova linha na tabela de registro de falhas com botão de exclusão
- */
+const urlEquipamento = "http://localhost:8080/equipamentos/";
+
+// captura de elementos
+const inputIdEquipamento = document.getElementById("idEquipamento");
+const displayEquipamento = document.getElementById("divdisplayEquipamento");
+
+// botões
+const btnBuscaEquipamento = document.getElementById("buscarSalvar");
+
+// variáveis
+let currentEquipamento;
+
+// evento de clique no botão
+btnBuscaEquipamento.addEventListener("click", async () => {
+  const valorId = inputIdEquipamento.value;
+  await getEquipamento(urlEquipamento, valorId);
+});
+
+// adiciona nova linha à tabela
 function adicionarLinha() {
   const tbody = document.getElementById('falhas-body');
   const tr = document.createElement('tr');
@@ -44,11 +60,33 @@ function adicionarLinha() {
   tbody.appendChild(tr);
 }
 
-
-
+// remove linha da tabela
 function removerLinha(botao) {
   const linha = botao.closest('tr');
   if (linha) {
     linha.remove();
+  }
+}
+
+// busca equipamento por ID
+async function getEquipamento(url, idEquipamento) {
+  const urlCompleta = url + idEquipamento;
+
+  try {
+    const resposta = await fetch(urlCompleta, { method: "GET" });
+
+    if (resposta.ok) {
+      currentEquipamento = await resposta.json();
+      console.log(currentEquipamento);
+
+      displayEquipamento.innerText = currentEquipamento.nome;
+
+    } else {
+      console.error("Erro na requisição:", resposta.status);
+      displayEquipamento.innerText = "Equipamento não encontrado.";
+    }
+  } catch (erro) {
+    console.error("Erro ao buscar equipamento:", erro);
+    displayEquipamento.innerText = "Erro ao buscar equipamento.";
   }
 }
