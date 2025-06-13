@@ -1,36 +1,50 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import PageLayout from "../../components/PageLayout";
 import { IoCloseSharp } from "react-icons/io5";
-import { api } from "../../utils/api";
 
 
 
 
 export default function Estoque() {
-  const handleNovoPedido = async () => {
-  const agora = new Date();
-  const pedido = {
-    idfornecedor: 0,
-    data: agora.toISOString().split("T")[0],
-  };
+  const urlPedidos = "http://localhost:8080/pedidos";
 
-  try {
-    const data = await api.post("/pedidos", pedido);
-    const idNovoPedido = data.id;
-    localStorage.setItem("idNovoPedido", idNovoPedido);
-    window.location.href = "/estoque/compras";
-  } catch (erro) {
-    console.error("Erro na requisição POST:", erro);
-    alert("Erro ao criar pedido. Veja o console para mais detalhes.");
-  }
-};
+  const handleNovoPedido = async () => {
+    const agora = new Date();
+    const pedido = {
+      idfornecedor: 0,
+      data: agora.toISOString().split("T")[0],
+    };
+
+    try {
+      const resposta = await fetch(urlPedidos, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(pedido),
+      });
+
+      if (resposta.ok) {
+        const data = await resposta.json();
+        const idNovoPedido = data.id;
+        localStorage.setItem("idNovoPedido", idNovoPedido);
+        window.location.href = "compras.html";
+      } else {
+        alert(`Erro ao criar pedido: ${resposta.status}`);
+      }
+    } catch (erro) {
+      console.error("Erro na requisição POST:", erro);
+      alert("Erro ao criar pedido. Veja o console para mais detalhes.");
+    }
+  };
 
   return (
     <PageLayout>
       <div className="container text-center py-5 w-50">
         <h1 className="display-5 text-blue">Depósito</h1>
         <div className="p-3 card h-100 glass-div rounded">
-          <Link to="/estoque/entrada" className="mb-2">
+          <Link to="/entrada" className="mb-2">
             <button className="btn btn-design hover-blue shiny">Entrada de insumos</button>
           </Link>
           <div className="mb-2">
@@ -80,11 +94,11 @@ export default function Estoque() {
                   aria-label="Close" />
               </div>
               <div className="modal-body d-flex flex-column gap-2">
-                <Link to="/estoque/editarInsumo">
-                  <button className="btn btn-silver mb-3" data-bs-dismiss="modal">Editar Insumo</button>
+                <Link to="/editInsumo">
+                  <button className="btn btn-silver mb-3">Editar Insumo</button>
                 </Link>
-                <Link to="/estoque/editarEquipamento">
-                  <button className="btn btn-silver mb-3" data-bs-dismiss="modal">
+                <Link to="/editEquipamento">
+                  <button className="btn btn-silver mb-3">
                     Editar Equipamento
                   </button>
                 </Link>
@@ -107,15 +121,8 @@ export default function Estoque() {
                 <IoCloseSharp size={30} className="btn-fechar" data-bs-dismiss="modal"
                   aria-label="Close" />
               </div>
-              <div className="modal-body d-flex flex-column gap-2">
-                <Link to="/estoque/fastInsumo">
-                  <button className="btn btn-silver mb-3" data-bs-dismiss="modal">Fast Insumo</button>
-                </Link>
-                <Link to="/estoque/fastEquipamento">
-                  <button className="btn btn-silver mb-3" data-bs-dismiss="modal">
-                    Fast Equipamento
-                  </button>
-                </Link>
+              <div className="modal-body">
+                <p>Conteúdo do Fast In/Out aqui...</p>
               </div>
             </div>
           </div>

@@ -6,20 +6,20 @@ async function apiRequest(endpoint, method = "GET", body = null) {
     headers: {
       "Content-Type": "application/json",
     },
+    body: body ? JSON.stringify(body) : undefined,
   };
 
-  if (body) {
-    options.body = JSON.stringify(body);
+  try {
+    const response = await fetch(`${baseUrl}${endpoint}`, options);
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || `Erro na requisição: ${response.status}`);
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Erro na API:", error);
+    throw error; // Propagar erro para tratamento posterior
   }
-
-  const response = await fetch(`${baseUrl}${endpoint}`, options);
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || "Erro na requisição");
-  }
-
-  return response.json();
 }
 
 export const api = {

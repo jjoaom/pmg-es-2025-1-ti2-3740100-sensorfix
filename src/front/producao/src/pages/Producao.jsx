@@ -10,45 +10,58 @@ import { api } from "../utils/api";
 // Hook para loading global
 function useLoading() {
   const [loading, setLoading] = useState(false);
-  const withLoading = useCallback(
-    async (fn) => {
-      setLoading(true);
-      try {
-        return await fn();
-      } finally {
-        setLoading(false);
-      }
-    },
-    []
-  );
+  const withLoading = useCallback(async (fn) => {
+    setLoading(true);
+    try {
+      return await fn();
+    } finally {
+      setLoading(false);
+    }
+  }, []);
   return [loading, withLoading];
 }
 
 // Componente reutilizável para lista de peças defeituosas
-function ListaPecasDefeituosas({ pecas, pecasDefeituosas, onRemove, disabled }) {
+function ListaPecasDefeituosas({
+  pecas,
+  pecasDefeituosas,
+  onRemove,
+  disabled,
+}) {
   const lista = Array.isArray(pecasDefeituosas) ? pecasDefeituosas : [];
+
   return (
     <ul className="list-group mb-2">
       {lista.length === 0 && (
-        <li className="list-group-item text-muted">Nenhuma peça defeituosa adicionada.</li>
-      )}
-      {lista.map((pd, idx) => (
-        <li key={pd.peca.id + "-" + idx} className="list-group-item d-flex justify-content-between align-items-center">
-          <span>
-            {pecas.find((p) => p.id === pd.peca.id)?.nome || pd.peca.id} — Quantidade: {pd.quantidade}
-          </span>
-          {!disabled && (
-            <button
-              className="btn btn-sm btn-danger"
-              aria-label="Remover peça defeituosa"
-              onClick={() => onRemove(idx)}
-              type="button"
-            >
-              <HiMiniXMark />
-            </button>
-          )}
+        <li className="list-group-item text-muted">
+          Nenhuma peça defeituosa adicionada.
         </li>
-      ))}
+      )}
+      {lista.map((pd, idx) => {
+        const pecaId = pd.peca?.id ?? pd.pecaId;
+        const nomePeca =
+          pecas.find((p) => p.id === pecaId)?.nome || `ID: ${pecaId}`;
+        return (
+          <li
+            key={`peca-${pecaId}-${idx}`}
+            className="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <span>
+              {nomePeca} — Quantidade: {pd.quantidade}
+            </span>
+            {!disabled && (
+              <button
+                className="btn btn-sm btn-danger"
+                aria-label="Remover peça defeituosa"
+                onClick={() => onRemove(idx)}
+                type="button"
+              >
+                <HiMiniXMark />
+              </button>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -68,15 +81,26 @@ function ConfirmModal({ show, title, message, onConfirm, onCancel }) {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content btn-design">
           <div className="modal-header">
-            <h5 className="modal-title" id="modalTitle">{title || "Confirmação"}</h5>
-            <button type="button" className="btn-close" aria-label="Fechar" onClick={onCancel}></button>
+            <h5 className="modal-title" id="modalTitle">
+              {title || "Confirmação"}
+            </h5>
+            <button
+              type="button"
+              className="btn-close"
+              aria-label="Fechar"
+              onClick={onCancel}
+            ></button>
           </div>
           <div className="modal-body">
             <p>{message}</p>
           </div>
           <div className="modal-footer">
-            <button className="btn btn-design btn-danger" onClick={onCancel}>Cancelar</button>
-            <button className="btn btn-design btn-primary" onClick={onConfirm}>Confirmar</button>
+            <button className="btn btn-design btn-danger" onClick={onCancel}>
+              Cancelar
+            </button>
+            <button className="btn btn-design btn-primary" onClick={onConfirm}>
+              Confirmar
+            </button>
           </div>
         </div>
       </div>
@@ -87,13 +111,17 @@ function ConfirmModal({ show, title, message, onConfirm, onCancel }) {
 // ItemDemanda: mostra resumo da demanda na lista
 const ItemDemanda = React.memo(({ demanda, onClick, selected }) => (
   <div
-    className={`card glass-div rounded shiny ${selected ? "border-primary border-2" : ""}`}
+    className={`card glass-div rounded shiny ${
+      selected ? "border-primary border-2" : ""
+    }`}
     onClick={() => onClick(demanda.id)}
     style={{ cursor: "pointer" }}
     tabIndex={0}
     aria-pressed={selected}
     aria-label={`Selecionar demanda ${demanda.id}`}
-    onKeyDown={e => { if (e.key === "Enter") onClick(demanda.id); }}
+    onKeyDown={(e) => {
+      if (e.key === "Enter") onClick(demanda.id);
+    }}
   >
     <div className="card-body text-start">
       <h5 className="card-title mb-1">
@@ -126,7 +154,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       try {
         const [pecasData, historicoData] = await Promise.all([
           api.get(`/api/pecas`),
-          api.get(`/api/demandas/${demanda.id}/historico`)
+          api.get(`/api/demandas/${demanda.id}/historico`),
         ]);
         setPecas(pecasData);
         setHistorico(historicoData);
@@ -141,18 +169,26 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
     });
   }, [demanda, withLoading]);
 
-  if (!demanda) return <p className="text-muted">Nenhuma demanda selecionada.</p>;
+  if (!demanda)
+    return <p className="text-muted">Nenhuma demanda selecionada.</p>;
 
   // Adicionar peça defeituosa
-  const handleAddPecaDefeituosa = () => {
+  const handleAddPeca = () => {
     setErro("");
-    if (!pecaSelecionada || !quantidadeSelecionada || quantidadeSelecionada < 1) {
+    if (
+      !pecaSelecionada ||
+      !quantidadeSelecionada ||
+      quantidadeSelecionada < 1
+    ) {
       setErro("Selecione uma peça e uma quantidade válida.");
       return;
     }
     setPecasDefeituosasLocal((prev) => [
       ...prev,
-      { peca: { id: pecaSelecionada.value }, quantidade: Number(quantidadeSelecionada) },
+      {
+        pecaId: pecaSelecionada.value,
+        quantidade: Number(quantidadeSelecionada),
+      },
     ]);
     setPecaSelecionada(null);
     setQuantidadeSelecionada(1);
@@ -212,16 +248,32 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
 
     switch (confirmModal.type) {
       case "inicioTestes":
-        payload = { ...payload, dataInicioTestes: now, statusDemanda: "EM_TESTES" };
+        payload = {
+          ...payload,
+          dataInicioTestes: now,
+          statusDemanda: "EM_TESTES",
+        };
         break;
       case "fimTestes":
-        payload = { ...payload, dataFimTestes: now, statusDemanda: "AGUARDANDO_FINALIZACAO" };
+        payload = {
+          ...payload,
+          dataFimTestes: now,
+          statusDemanda: "AGUARDANDO_FINALIZACAO",
+        };
         break;
       case "finalizar":
-        payload = { ...payload, dataConclusao: now, statusDemanda: "FINALIZADA" };
+        payload = {
+          ...payload,
+          dataConclusao: now,
+          statusDemanda: "FINALIZADA",
+        };
         break;
       case "descartar":
-        payload = { ...payload, dataEncerramento: now, statusDemanda: "DESCARTADA" };
+        payload = {
+          ...payload,
+          dataEncerramento: now,
+          statusDemanda: "DESCARTADA",
+        };
         break;
       default:
         return;
@@ -266,7 +318,12 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
           </h4>
         </div>
         <div className="col-2 text-end">
-          <button type="button" className="btn-close" aria-label="Fechar" onClick={onClose}></button>
+          <button
+            type="button"
+            className="btn-close"
+            aria-label="Fechar"
+            onClick={onClose}
+          ></button>
         </div>
       </div>
       <div className="row mb-2">
@@ -275,7 +332,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
             Gerado em:{" "}
             <span>
               {(() => {
-                if (demanda.dataHoraCriacao && demanda.dataHoraCriacao.length >= 5) {
+                if (
+                  demanda.dataHoraCriacao &&
+                  demanda.dataHoraCriacao.length >= 5
+                ) {
                   const [ano, mes, dia, hora, minuto] = demanda.dataHoraCriacao;
                   const dt = new Date(ano, mes - 1, dia, hora, minuto);
                   return dt.toLocaleString("pt-BR", {
@@ -295,7 +355,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       {/* Limpeza realizada */}
       <div className="row g-2 mb-2">
         <div className="col-12 col-md-8 d-flex align-items-center border border-primary-subtle rounded-3 mb-2 mb-md-0 px-3">
-          <label className="form-check-label fs-6 me-3" htmlFor="switchLimpezaCheck">
+          <label
+            className="form-check-label fs-6 me-3"
+            htmlFor="switchLimpezaCheck"
+          >
             Limpeza realizada?
           </label>
           <div className="form-check form-switch mb-0">
@@ -341,8 +404,12 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
             />
             <button
               className="btn btn-outline-primary"
-              onClick={handleAddPecaDefeituosa}
-              disabled={!pecaSelecionada || !quantidadeSelecionada || !!demanda.limpezaRealizada}
+              onClick={handleAddPeca}
+              disabled={
+                !pecaSelecionada ||
+                !quantidadeSelecionada ||
+                !!demanda.limpezaRealizada
+              }
               type="button"
             >
               <GoPlus /> Adicionar
@@ -371,7 +438,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       {/* Testes */}
       <div className="row mb-2 align-items-center">
         <div className="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-          <label className="form-check-label fs-6 me-2" htmlFor="switchTesteRealizado">
+          <label
+            className="form-check-label fs-6 me-2"
+            htmlFor="switchTesteRealizado"
+          >
             Teste realizado?
           </label>
           <div className="form-check form-switch mb-0">
@@ -384,9 +454,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
               disabled={!!demanda.limpezaRealizada === false}
               onChange={() =>
                 handleConfirmEvent(
-                  demanda.dataInicioTestes
-                    ? "fimTestes"
-                    : "inicioTestes"
+                  demanda.dataInicioTestes ? "fimTestes" : "inicioTestes"
                 )
               }
               aria-checked={!!demanda.dataFimTestes}
@@ -397,12 +465,17 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       {/* Finalização */}
       <div className="row mb-2 align-items-center">
         <div className="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-          <label className="form-check-label fs-6 me-2" htmlFor="finalizarDemanda">
+          <label
+            className="form-check-label fs-6 me-2"
+            htmlFor="finalizarDemanda"
+          >
             Finalizar Demanda:
           </label>
           <button
             className="btn btn-green-submit btn-sm me-2"
-            disabled={!demanda.dataFimTestes || demanda.statusDemanda === "FINALIZADA"}
+            disabled={
+              !demanda.dataFimTestes || demanda.statusDemanda === "FINALIZADA"
+            }
             onClick={() => handleConfirmEvent("finalizar")}
             id="finalizarDemanda"
             type="button"
@@ -429,13 +502,15 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
             )}
             {historico.map((h) => (
               <li key={h.id} className="list-group-item">
-                [{new Date(h.dataHora).toLocaleString("pt-BR", {
+                [
+                {new Date(h.dataHora).toLocaleString("pt-BR", {
                   day: "2-digit",
                   month: "2-digit",
                   year: "numeric",
                   hour: "2-digit",
                   minute: "2-digit",
-                })}] {h.acao} — {h.descricao}
+                })}
+                ] {h.acao} — {h.descricao}
               </li>
             ))}
           </ul>
@@ -447,7 +522,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
         </div>
       )}
       {loading && (
-        <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style={{ background: "rgba(255,255,255,0.6)", zIndex: 10 }}>
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+          style={{ background: "rgba(255,255,255,0.6)", zIndex: 10 }}
+        >
           <div className="spinner-border text-primary" />
         </div>
       )}
@@ -488,13 +566,20 @@ function FormCriarDemanda({ onCreated }) {
 
   const handleAddPeca = () => {
     setErro("");
-    if (!pecaSelecionada || !quantidadeSelecionada || quantidadeSelecionada < 1) {
+    if (
+      !pecaSelecionada ||
+      !quantidadeSelecionada ||
+      quantidadeSelecionada < 1
+    ) {
       setErro("Selecione uma peça e uma quantidade válida.");
       return;
     }
     setPecasDefeituosas((prev) => [
       ...prev,
-      { peca: { id: pecaSelecionada.value }, quantidade: Number(quantidadeSelecionada) },
+      {
+        peca: { id: pecaSelecionada.value },
+        quantidade: Number(quantidadeSelecionada),
+      },
     ]);
     setPecaSelecionada(null);
     setQuantidadeSelecionada(1);
@@ -515,19 +600,45 @@ function FormCriarDemanda({ onCreated }) {
       const payload = {
         insumo: { id: insumoSelecionado.value },
         descricaoItem: descricao,
-        pecasDefeituosas,
+        setorResponsavel: "Produção",
+        responsavel: "João Marcos",
+        pecasDefeituosas: pecasDefeituosas.map((pd) => ({
+          peca: {
+            id:
+              pd.peca?.id ??
+              pd.pecaId ??
+              pd.peca?.value ??
+              pd.pecaSelecionada?.value ??
+              pd.peca,
+          },
+          quantidade: pd.quantidade,
+        })),
       };
+      console.log("Payload enviado:", JSON.stringify(payload, null, 2));
       try {
         const created = await api.post("/api/demandas", payload);
+        console.log("Resposta da API:", created);
         onCreated(created);
       } catch (e) {
-        setErro("Erro ao criar demanda: " + e.message);
+        if (e.response) {
+          console.error("Erro ao criar demanda:", e.response.data);
+          setErro(
+            "Erro ao criar demanda: " +
+              (e.response.data?.message || JSON.stringify(e.response.data))
+          );
+        } else {
+          console.error("Erro ao criar demanda:", e);
+          setErro("Erro ao criar demanda: " + e.message);
+        }
       }
     });
   };
 
   return (
-    <form className="container-fluid px-0 position-relative" onSubmit={handleSubmit}>
+    <form
+      className="container-fluid px-0 position-relative"
+      onSubmit={handleSubmit}
+    >
       <div className="row mb-3">
         <div className="col-12">
           <Select
@@ -619,7 +730,10 @@ function FormCriarDemanda({ onCreated }) {
         </div>
       )}
       {loading && (
-        <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style={{ background: "rgba(255,255,255,0.6)", zIndex: 10 }}>
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+          style={{ background: "rgba(255,255,255,0.6)", zIndex: 10 }}
+        >
           <div className="spinner-border text-primary" />
         </div>
       )}

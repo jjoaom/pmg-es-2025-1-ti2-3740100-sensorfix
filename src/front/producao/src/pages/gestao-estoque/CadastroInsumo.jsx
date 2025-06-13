@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import PageLayout from "../../components/PageLayout";
 import { api } from "../../utils/api";
 
-export default function CadastroEquipamento() {
+export default function CadastroInsumo() {
   const [form, setForm] = useState({
     descricao: "",
     peso: "",
@@ -17,7 +17,7 @@ export default function CadastroEquipamento() {
   };
 
   const handleSubmit = async () => {
-    const equipamento = {
+    const insumo = {
       nome: form.descricao,
       peso: parseFloat(form.peso),
       estoqueMin: parseInt(form.estMin),
@@ -26,18 +26,18 @@ export default function CadastroEquipamento() {
       deposito: 2,
     };
     try {
-      await api.post("/equipamentos", equipamento);
-      alert("Equipamento cadastrado com sucesso!");
+      await api.post("/insumo", insumo);
+      alert("Insumo cadastrado com sucesso!");
       setForm({ descricao: "", peso: "", estMin: "", total: "", endereco: "" });
-    } catch {
-      alert("Erro ao cadastrar equipamento.");
+    } catch (err) {
+      alert("Erro ao cadastrar insumo.");
     }
   };
 
   return (
     <PageLayout>
       <div className="card glass-div rounded p-3">
-        <h3 className="mb-4">Cadastro de Equipamento</h3>
+        <h3 className="mb-4">Cadastro de Insumo</h3>
         <div className="mb-3">
           <label htmlFor="descricao">Descrição</label>
           <input
@@ -52,7 +52,7 @@ export default function CadastroEquipamento() {
           <div className="col-md-3 mb-3">
             <label htmlFor="peso">Peso (g)</label>
             <input
-              type="text"
+              type="number"
               id="peso"
               className="form-control"
               value={form.peso}
@@ -62,7 +62,7 @@ export default function CadastroEquipamento() {
           <div className="col-md-3 mb-3">
             <label htmlFor="estMin">Estoque Mínimo</label>
             <input
-              type="text"
+              type="number"
               id="estMin"
               className="form-control"
               value={form.estMin}
@@ -72,7 +72,7 @@ export default function CadastroEquipamento() {
           <div className="col-md-3 mb-3">
             <label htmlFor="total">Quantidade em Estoque</label>
             <input
-              type="text"
+              type="number"
               id="total"
               className="form-control"
               value={form.total}
@@ -90,7 +90,7 @@ export default function CadastroEquipamento() {
             />
           </div>
         </div>
-        <div className="d-flex gap-2">
+        <div>
           <button className="btn btn-primary" onClick={handleSubmit}>
             Cadastrar
           </button>
