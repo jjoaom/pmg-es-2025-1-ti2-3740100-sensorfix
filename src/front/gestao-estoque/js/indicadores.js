@@ -1,12 +1,12 @@
 // ==================== URLs das APIs ====================
 const urlDepositos = "http://localhost:8080/estoque-depositos/";
 const urlDemandas = "http://localhost:8080/api/demandas/";
-const urlFalhas = "http://localhost:8080/falhas//todas_falhas"; // Nova URL para falhas
+const urlFalhas = "http://localhost:8080/falhas//todas_falhas";
 
 // ==================== Elementos DOM ====================
 const ctxDepEquip = document.getElementById("cvsDepEquip");
-const ctxTempoProducao = document.getElementById("cvsTempoProducao");
-const ctxFalhas = document.getElementById("cvsFalhas"); // Novo canvas para o gráfico de falhas
+const mediaTempoProducaoElement = document.getElementById("mediaTempoProducao"); // Elemento para exibir a média
+const ctxFalhas = document.getElementById("cvsFalhas");
 
 // Filtros de Tempo de Produção
 const inputAno = document.getElementById("ano");
@@ -15,17 +15,16 @@ const btnLimparFiltro = document.getElementById("btnLimparFiltro");
 const containerMeses = document.getElementById("meses");
 
 // Filtros de Defeitos Recorrentes
-const inputAnoRevisoes = document.getElementById("anoRevisoes"); // Novo input de ano para revisões
-const btnAplicarFiltroRevisoes = document.getElementById("btnAplicarFiltroRevisoes"); // Novo botão para aplicar filtro de revisões
-const btnLimparFiltroRevisoes = document.getElementById("btnLimparFiltroRevisoes"); // Novo botão para limpar filtro de revisões
-const containerMesesRevisoes = document.getElementById("mesesRevisoes"); // Novo container para checkboxes de meses de revisões
+const inputAnoRevisoes = document.getElementById("anoRevisoes");
+const btnAplicarFiltroRevisoes = document.getElementById("btnAplicarFiltroRevisoes");
+const btnLimparFiltroRevisoes = document.getElementById("btnLimparFiltroRevisoes");
+const containerMesesRevisoes = document.getElementById("mesesRevisoes");
 
 // ==================== Variáveis Globais ====================
 let vetorDepositos = [];
 let vetorDemandas = [];
-let vetorFalhas = []; // Novo vetor para armazenar os dados de falhas
-let chartTempoProducao = null;
-let chartFalhas = null; // Nova variável para a instância do gráfico de falhas
+let vetorFalhas = [];
+let chartFalhas = null;
 
 const meses = [
     "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -38,45 +37,45 @@ window.addEventListener("pageshow", async () => {
     criaGraficoDepositos();
 
     vetorDemandas = await getDemandas(urlDemandas);
-    populaFiltroAnos(); // Popula filtro de anos para Demandas
-    montaCheckboxMeses(); // Monta checkboxes para Demandas
+    // Popula filtro de anos e meses para Demandas baseado em dataHoraCriacao
+    populaFiltroAnosDemandas();
+    montaCheckboxMeses();
 
-    const tempos = calcularTempos(vetorDemandas);
-    plotaGraficoTempoProducao(tempos, false);
+    const mediaTempos = calcularMediaTempoProducao(vetorDemandas);
+    exibeMediaTempoProducao(mediaTempos, false);
 
-    // --- Nova funcionalidade para o gráfico de falhas ---
     vetorFalhas = await getFalhas(urlFalhas);
-    populaFiltroAnosRevisoes(); // Popula filtro de anos para Falhas
-    montaCheckboxMesesRevisoes(); // Monta checkboxes para Falhas
+    populaFiltroAnosRevisoes();
+    montaCheckboxMesesRevisoes();
 
     const dadosFalhas = processarDadosFalhas(vetorFalhas);
     plotaGraficoFalhas(dadosFalhas, false);
 });
 
-// Eventos de filtro para Tempo de Produção (já existentes)
+// Eventos de filtro para Média de Demora de Produção
 btnAplicarFiltro.addEventListener("click", () => {
     const ano = parseInt(inputAno.value);
     const mesesSelecionados = Array.from(document.querySelectorAll("#meses input:checked"))
         .map(cb => parseInt(cb.value));
 
     if (isNaN(ano) || mesesSelecionados.length === 0) {
-        alert("Para o filtro de Tempo de Produção: Informe um ano e pelo menos um mês.");
+        alert("Para o filtro de Média de Demora de Produção: Informe um ano e pelo menos um mês.");
         return;
     }
 
     const vetorFiltrado = filtrarDemandasPorAnoEMes(vetorDemandas, ano, mesesSelecionados);
-    const tempos = calcularTempos(vetorFiltrado);
-    plotaGraficoTempoProducao(tempos, true);
+    const mediaTempos = calcularMediaTempoProducao(vetorFiltrado);
+    exibeMediaTempoProducao(mediaTempos, true);
 });
 
 btnLimparFiltro.addEventListener("click", () => {
-    const tempos = calcularTempos(vetorDemandas);
-    plotaGraficoTempoProducao(tempos, false);
-    inputAno.value = ""; // Limpa o input do ano
-    document.querySelectorAll("#meses input:checked").forEach(cb => cb.checked = false); // Desmarca todos os checkboxes
+    const mediaTempos = calcularMediaTempoProducao(vetorDemandas);
+    exibeMediaTempoProducao(mediaTempos, false);
+    inputAno.value = "";
+    document.querySelectorAll("#meses input:checked").forEach(cb => cb.checked = false);
 });
 
-// --- Novos Eventos de filtro para Defeitos Recorrentes ---
+// Eventos de filtro para Defeitos Recorrentes (mantidos)
 btnAplicarFiltroRevisoes.addEventListener("click", () => {
     const ano = parseInt(inputAnoRevisoes.value);
     const mesesSelecionados = Array.from(document.querySelectorAll("#mesesRevisoes input:checked"))
@@ -95,12 +94,30 @@ btnAplicarFiltroRevisoes.addEventListener("click", () => {
 btnLimparFiltroRevisoes.addEventListener("click", () => {
     const dadosFalhas = processarDadosFalhas(vetorFalhas);
     plotaGraficoFalhas(dadosFalhas, false);
-    inputAnoRevisoes.value = ""; // Limpa o input do ano
-    document.querySelectorAll("#mesesRevisoes input:checked").forEach(cb => cb.checked = false); // Desmarca todos os checkboxes
+    inputAnoRevisoes.value = "";
+    document.querySelectorAll("#mesesRevisoes input:checked").forEach(cb => cb.checked = false);
 });
 
 
 // ==================== Funções Auxiliares Comuns ====================
+
+// Função auxiliar para parsear arrays de data no formato [ano, mês, dia, hora, minuto, segundo, milissegundo]
+function parseDateArray(arr) {
+    // Garante que o array tem pelo menos ano, mês, dia
+    if (!Array.isArray(arr) || arr.length < 3) return null;
+
+    const year = arr[0];
+    const month = arr[1] - 1; // Mês é 0-indexed em JavaScript Date (Janeiro=0, Dezembro=11)
+    const day = arr[2];
+    const hour = arr[3] || 0; // Se hora não existir, default para 0
+    const minute = arr[4] || 0; // Se minuto não existir, default para 0
+    const second = arr[5] || 0; // Se segundo não existir, default para 0
+    // O último elemento é geralmente nanosegundos do Java, precisamos converter para milissegundos
+    const millisecond = arr[6] ? Math.floor(arr[6] / 1000000) : 0;
+
+    return new Date(year, month, day, hour, minute, second, millisecond);
+}
+
 function montaCheckboxMeses() {
     containerMeses.innerHTML = "";
     meses.forEach((mes, i) => {
@@ -114,7 +131,6 @@ function montaCheckboxMeses() {
     });
 }
 
-// --- Novas Funções Auxiliares para Falhas ---
 function montaCheckboxMesesRevisoes() {
     containerMesesRevisoes.innerHTML = "";
     meses.forEach((mes, i) => {
@@ -128,14 +144,12 @@ function montaCheckboxMesesRevisoes() {
     });
 }
 
-function populaFiltroAnos() {
+// Modificada para usar dataHoraCriacao para popular os anos de filtro de demandas
+function populaFiltroAnosDemandas() {
     const anos = vetorDemandas
         .map(obj => {
-            const arrayData = obj.dataAbertura;
-            if (!Array.isArray(arrayData)) return null;
-            const data = new Date(arrayData[0], arrayData[1] - 1, arrayData[2]); // Ajusta mês (0-11)
-            const ano = data.getFullYear();
-            return isNaN(ano) ? null : ano;
+            const dateObj = parseDateArray(obj.dataHoraCriacao);
+            return dateObj ? dateObj.getFullYear() : null;
         })
         .filter(ano => ano !== null);
 
@@ -153,11 +167,8 @@ function populaFiltroAnos() {
 function populaFiltroAnosRevisoes() {
     const anos = vetorFalhas
         .map(obj => {
-            const arrayData = obj.dataRevisao;
-            if (!Array.isArray(arrayData)) return null;
-            const data = new Date(arrayData[0], arrayData[1] - 1, arrayData[2]); // Ajusta mês (0-11)
-            const ano = data.getFullYear();
-            return isNaN(ano) ? null : ano;
+            const dateObj = parseDateArray(obj.dataRevisao);
+            return dateObj ? dateObj.getFullYear() : null;
         })
         .filter(ano => ano !== null);
 
@@ -172,38 +183,67 @@ function populaFiltroAnosRevisoes() {
     });
 }
 
-
+// Modificada para usar dataHoraCriacao para filtrar demandas
 function filtrarDemandasPorAnoEMes(vetor, ano, mesesSelecionados) {
     return vetor.filter(obj => {
-        if (!obj.dataAbertura || !Array.isArray(obj.dataAbertura)) return false;
-        const data = new Date(obj.dataAbertura[0], obj.dataAbertura[1] - 1, obj.dataAbertura[2]); // Ajusta mês
-        return data.getFullYear() === ano && mesesSelecionados.includes(data.getMonth() + 1);
+        const dateObj = parseDateArray(obj.dataHoraCriacao);
+        if (!dateObj) return false;
+        return dateObj.getFullYear() === ano && mesesSelecionados.includes(dateObj.getMonth() + 1);
     });
 }
 
-// --- Nova Função de Filtro para Falhas ---
 function filtrarFalhasPorAnoEMes(vetor, ano, mesesSelecionados) {
     return vetor.filter(obj => {
-        if (!obj.dataRevisao || !Array.isArray(obj.dataRevisao)) return false;
-        const data = new Date(obj.dataRevisao[0], obj.dataRevisao[1] - 1, obj.dataRevisao[2]); // Ajusta mês
-        return data.getFullYear() === ano && mesesSelecionados.includes(data.getMonth() + 1);
+        const dateObj = parseDateArray(obj.dataRevisao);
+        if (!dateObj) return false;
+        return dateObj.getFullYear() === ano && mesesSelecionados.includes(dateObj.getMonth() + 1);
     });
 }
 
-function calcularTempos(vetor) {
-    return vetor.map(obj => {
-        // As datas no seu JSON estão como [ano, mês, dia]. O construtor de Date espera (ano, mês-1, dia)
-        const dtAbertura = obj.dataAbertura ? new Date(obj.dataAbertura[0], obj.dataAbertura[1] - 1, obj.dataAbertura[2]) : new Date(2024, 0, 1);
-        const dtConclusao = obj.dataConclusao ? new Date(obj.dataConclusao[0], obj.dataConclusao[1] - 1, obj.dataConclusao[2]) : new Date(2024, 0, 2);
-        const diffMs = dtConclusao - dtAbertura;
-        const diffHoras = Math.floor(diffMs / (1000 * 60 * 60));
-        return diffHoras;
+// Função para calcular a média do tempo de produção (usa dataHoraCriacao e dataEncerramento)
+function calcularMediaTempoProducao(vetor) {
+    if (!vetor || vetor.length === 0) {
+        return "0.00"; // Retorna string "0.00" se não houver demandas ou vetor vazio
+    }
+
+    let somaTempos = 0;
+    let demandasValidas = 0;
+
+    vetor.forEach(obj => {
+        const dtCriacao = parseDateArray(obj.dataHoraCriacao);
+        const dtEncerramento = parseDateArray(obj.dataEncerramento);
+
+        // Apenas calcula o tempo se ambas as datas existirem e forem válidas, e dataEncerramento for posterior a dataCriacao
+        if (dtCriacao && dtEncerramento && !isNaN(dtCriacao.getTime()) && !isNaN(dtEncerramento.getTime()) && dtEncerramento > dtCriacao) {
+            const diffMs = dtEncerramento.getTime() - dtCriacao.getTime();
+            const diffHoras = diffMs / (1000 * 60 * 60);
+            somaTempos += diffHoras;
+            demandasValidas++;
+        }
     });
+
+    if (demandasValidas === 0) {
+        return "0.00"; // Nenhuma demanda válida para cálculo
+    }
+
+    const media = somaTempos / demandasValidas;
+    return media.toFixed(2); // Retorna a média formatada com 2 casas decimais
 }
 
-// --- Nova Função de Processamento de Dados para o Gráfico de Falhas ---
+// Função para exibir a média do tempo de produção na tela
+function exibeMediaTempoProducao(media, filtroAtivo) {
+    const textoFiltro = filtroAtivo ? "(filtrado)" : "(total)";
+    if (mediaTempoProducaoElement) {
+        mediaTempoProducaoElement.innerHTML = `
+            <p>Média de Demora: <strong>${media} horas</strong> ${textoFiltro}</p>
+            ${media === "0.00" ? '<p class="aviso-sem-dados">Nenhuma demanda válida encontrada para o período selecionado.</p>' : ''}
+        `;
+    }
+}
+
+
 function processarDadosFalhas(vetor) {
-    const contagemFalhas = {}; // Objeto para armazenar a contagem de cada falha
+    const contagemFalhas = {};
 
     vetor.forEach(falha => {
         const nomeFalha = falha.falhaEncontrada;
@@ -212,9 +252,9 @@ function processarDadosFalhas(vetor) {
         }
     });
 
-    // Converter o objeto para um formato que o Chart.js entenda (labels e data)
-    const labels = Object.keys(contagemFalhas);
-    const data = Object.values(contagemFalhas);
+    // Ordena por ocorrência decrescente
+    const labels = Object.keys(contagemFalhas).sort((a, b) => contagemFalhas[b] - contagemFalhas[a]);
+    const data = labels.map(label => contagemFalhas[label]);
 
     return { labels, data };
 }
@@ -245,7 +285,6 @@ async function getDemandas(url) {
     }
 }
 
-// --- Nova Função de Requisição para Falhas ---
 async function getFalhas(url) {
     try {
         const resposta = await fetch(url);
@@ -265,7 +304,6 @@ function criaGraficoDepositos() {
         vetorDepositos = depositos;
 
         if (vetorDepositos.length === 0) {
-            // alert("Nenhum depósito encontrado."); // Comentado para não poluir com muitos alertas
             return;
         }
 
@@ -277,13 +315,12 @@ function criaGraficoDepositos() {
             return `${obj.tipoDeposito} (${percentual}%)`;
         });
 
-        // Verifica se já existe um gráfico e o destrói para evitar sobreposição
         if (Chart.getChart(ctxDepEquip)) {
             Chart.getChart(ctxDepEquip).destroy();
         }
 
         new Chart(ctxDepEquip, {
-            type: 'bar',
+            type: 'pie',
             data: {
                 labels: nomes,
                 datasets: [{
@@ -302,50 +339,23 @@ function criaGraficoDepositos() {
             },
             options: {
                 responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribuição dos Tipos de Depósitos'
+                    }
                 }
             }
         });
     });
 }
 
-function plotaGraficoTempoProducao(dados, filtroAtivo) {
-    if (chartTempoProducao) chartTempoProducao.destroy();
-
-    // Verifique se 'dados' está vazio ou é nulo para evitar erros no Chart.js
-    const labels = dados.length > 0 ? dados.map((_, i) => `Demanda ${i + 1}`) : [];
-    const chartData = dados.length > 0 ? dados : [];
-
-    chartTempoProducao = new Chart(ctxTempoProducao, {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: filtroAtivo ? "Tempo Médio (filtrado) em horas" : "Tempo Médio em horas",
-                data: chartData,
-                borderColor: "rgba(75, 192, 192, 1)",
-                backgroundColor: "rgba(75, 192, 192, 0.3)",
-                fill: true,
-                tension: 0.2,
-                pointRadius: 4,
-                pointHoverRadius: 6
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: { beginAtZero: true }
-            }
-        }
-    });
-}
-
-// --- Nova Função para Plotar o Gráfico de Falhas ---
 function plotaGraficoFalhas(dados, filtroAtivo) {
     if (chartFalhas) chartFalhas.destroy();
 
-    // Verifique se 'dados.labels' ou 'dados.data' estão vazios/nulos
     const labels = dados.labels && dados.labels.length > 0 ? dados.labels : [];
     const chartData = dados.data && dados.data.length > 0 ? dados.data : [];
     const totalFalhas = chartData.reduce((sum, count) => sum + count, 0);
@@ -357,7 +367,7 @@ function plotaGraficoFalhas(dados, filtroAtivo) {
             datasets: [{
                 label: filtroAtivo ? `Ocorrências de Falhas (filtrado) - Total: ${totalFalhas}` : `Ocorrências de Falhas - Total: ${totalFalhas}`,
                 data: chartData,
-                backgroundColor: 'rgba(99, 193, 255, 0.7)', // Cor vermelha para falhas
+                backgroundColor: 'rgba(99, 193, 255, 0.7)',
                 borderColor: 'rgb(99, 195, 255)',
                 borderWidth: 1
             }]
@@ -373,7 +383,7 @@ function plotaGraficoFalhas(dados, filtroAtivo) {
                 },
                 y: {
                     beginAtZero: true,
-                    precision: 0, // Garante que o eixo Y não mostre casas decimais para contagens
+                    precision: 0,
                     title: {
                         display: true,
                         text: 'Número de Ocorrências'
@@ -401,6 +411,5 @@ function plotaGraficoFalhas(dados, filtroAtivo) {
 
     if (totalFalhas === 0 && filtroAtivo) {
         // Você pode adicionar uma mensagem aqui ou estilizar para indicar que não há dados
-        // console.log("Nenhuma falha encontrada para o período filtrado.");
     }
 }
