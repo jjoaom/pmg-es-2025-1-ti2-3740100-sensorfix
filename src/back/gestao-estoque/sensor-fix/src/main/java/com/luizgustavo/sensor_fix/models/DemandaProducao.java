@@ -57,8 +57,8 @@ public class DemandaProducao {
 
     @NotNull(message = "O insumo é obrigatório")
     @ManyToOne
-    @JoinColumn(name = "id_insumo", nullable = false)
-    private Insumo insumo;
+    @JoinColumn(name = "id_equipamento", nullable = false)
+    private Equipamento equipamento;
 
     @Size(max = 255, message = "Descrição deve ter no máximo 255 caracteres")
     @Column(name = "descricao_item", length = 255)
@@ -236,12 +236,12 @@ public class DemandaProducao {
         this.responsavel = responsavel;
     }
 
-    public Insumo getInsumo() {
-        return insumo;
+    public Equipamento geEquipamento() {
+        return equipamento;
     }
 
-    public void setInsumo(Insumo insumo) {
-        this.insumo = insumo;
+    public void setEquipamento(Equipamento equipamento) {
+        this.equipamento = equipamento;
     }
 
     public List<PecaDefeituosa> getPecasDefeituosas() {
