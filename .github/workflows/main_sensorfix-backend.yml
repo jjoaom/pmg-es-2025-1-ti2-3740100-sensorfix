@@ -24,9 +24,9 @@ jobs:
           java-version: '17'
           distribution: 'microsoft'
 
-      - name: Run tests with debug mode
+      - name: Build with Maven
         working-directory: src/back/producao/sensor-fix
-        run: mvn test -X
+        run: mvn clean install
 
 
       - name: Upload artifact for deployment job
