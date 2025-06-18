@@ -4,32 +4,31 @@ import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
 import java.util.Date;
 import com.luizgustavo.sensor_fix.models.Role;
 import java.security.Key;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
+import io.jsonwebtoken.security.Keys;
+import java.security.Key;
 
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "secret";
 
-    private static final Key KEY = new SecretKeySpec(
-    SECRET_KEY != null ? SECRET_KEY.getBytes(StandardCharsets.UTF_8) : "fallback-secret".getBytes(StandardCharsets.UTF_8),
-    SignatureAlgorithm.HS256.getJcaName()
-);
+    private static final Key KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
 
     public String generateToken(String username, Role role) {
-        return Jwts.builder()
-                .setSubject(username)
-                .claim("role", role.name())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hora
-                .signWith(KEY, SignatureAlgorithm.HS256)
-                .compact();
-    }
+    return Jwts.builder()
+            .setSubject(username)
+            .claim("role", role.name())
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hora
+            .signWith(KEY, SignatureAlgorithm.HS256)
+            .compact();
+}
+
 
     public Claims extractClaims(String token) {
     try {
