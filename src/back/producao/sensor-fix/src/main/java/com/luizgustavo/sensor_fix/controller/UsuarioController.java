@@ -1,6 +1,7 @@
 package com.luizgustavo.sensor_fix.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +32,13 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Usuario criar(@RequestBody Usuario usuario) {
+    public ResponseEntity<?> criar(@RequestBody Usuario usuario) {
+        if (repo.findByUsername(usuario.getUsername()).isPresent()) {
+            return ResponseEntity.status(400).body("Username já existe!");
+        }
+
         usuario.setPassword(encoder.encode(usuario.getPassword()));
-        return repo.save(usuario);
+        return ResponseEntity.ok(repo.save(usuario));
     }
 
     @PutMapping("/{id}")
