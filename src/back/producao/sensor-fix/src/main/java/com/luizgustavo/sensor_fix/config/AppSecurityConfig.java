@@ -1,4 +1,4 @@
-package com.luizgustavo.sensor_fix.config;
+/* package com.luizgustavo.sensor_fix.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -27,3 +27,4 @@ public class AppSecurityConfig {
     //     System.out.println("Usuário: " + username + ", Senha: " + password);
     // }
 }
+ */
