@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;
@@ -33,18 +34,22 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
         try {
+            System.out.println("Tentando autenticar usuário: " + authRequest.getUsername());
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
-            );
+                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
             Usuario user = usuarioRepository.findByUsername(authRequest.getUsername())
-                    .orElseThrow();
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+
+            System.out.println("Usuário encontrado: " + user.getUsername());
             String token = jwtService.generateToken(user.getUsername(), user.getRole());
 
             return ResponseEntity.ok(new AuthResponse(token, user.getRole().name()));
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(401).body("Credenciais inválidas");
+        } catch (Exception e) {
+            e.printStackTrace(); // Exibir erro completo no log
+            return ResponseEntity.status(500).body("Erro interno no servidor: " + e.getMessage());
         }
     }
+
 }
 
 @Data

@@ -14,7 +14,12 @@ import java.nio.charset.StandardCharsets;
 public class JwtService {
 
     private static final String SECRET_KEY = "secret";
-    private static final Key KEY = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
+
+    private static final Key KEY = new SecretKeySpec(
+    SECRET_KEY != null ? SECRET_KEY.getBytes(StandardCharsets.UTF_8) : "fallback-secret".getBytes(StandardCharsets.UTF_8),
+    SignatureAlgorithm.HS256.getJcaName()
+);
+
 
     public String generateToken(String username, Role role) {
         return Jwts.builder()
@@ -27,8 +32,13 @@ public class JwtService {
     }
 
     public Claims extractClaims(String token) {
+    try {
         return Jwts.parserBuilder().setSigningKey(KEY).build().parseClaimsJws(token).getBody();
+    } catch (Exception e) {
+        throw new IllegalStateException("Token inválido ou expirado.");
     }
+}
+
 
     public String extractUsername(String token) {
         return extractClaims(token).getSubject();
