@@ -24,10 +24,6 @@ jobs:
           java-version: '17'
           distribution: 'microsoft'
 
-      - name: Build with Maven
-        working-directory: src/back/producao/sensor-fix
-        run: mvn clean install
-
       - name: Run tests with debug mode
         working-directory: src/back/producao/sensor-fix
         run: mvn test -X
