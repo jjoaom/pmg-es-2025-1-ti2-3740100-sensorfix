@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import IndicadoresDemanda from "./IndicadoresDemanda";
 import { api } from "../../utils/api";
+import PageLayout from "../../components/PageLayout";
 
 export default function Indicadores() {
-     const [demanda, setDemanda] = useState(null);
+  const [demanda, setDemanda] = useState(null);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(null);
 
@@ -30,12 +31,14 @@ export default function Indicadores() {
   if (erro) return <p style={{ color: "red" }}>{erro}</p>;
   return (
     <>
-      <div className="container text-center py-5 ">
-        <h1 className="display-2 mb-5 text-blue">Bem vindo a Sensor Fix</h1>
-        <div className="d-flex flex-column align-items-center glass-div">
+      <PageLayout>
+        <div className="container text-center py-5 ">
+          <h1 className="display-2 mb-5 text-blue">Indicadores</h1>
+          <div className="d-flex flex-column align-items-center glass-div">
             {demanda && <IndicadoresDemanda demanda={demanda} />}
+          </div>
         </div>
-      </div>
+      </PageLayout>
     </>
   );
 }

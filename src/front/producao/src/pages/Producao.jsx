@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import PageLayout from "../components/PageLayout";
 import { GoPlus } from "react-icons/go";
-import { FaSave } from "react-icons/fa";
-import { FaFilter } from "react-icons/fa";
+import { FaSave, FaFilter } from "react-icons/fa";
 import { HiMiniXMark } from "react-icons/hi2";
 import Select from "react-select";
 import { api } from "../utils/api";
 
-// Hook para loading global
+// Hook para gerenciar loading global
 function useLoading() {
   const [loading, setLoading] = useState(false);
   const withLoading = useCallback(async (fn) => {
@@ -21,13 +20,8 @@ function useLoading() {
   return [loading, withLoading];
 }
 
-// Componente reutilizável para lista de peças defeituosas
-function ListaPecasDefeituosas({
-  pecas,
-  pecasDefeituosas,
-  onRemove,
-  disabled,
-}) {
+// Componente para lista de peças defeituosas (reutilizável)
+function ListaPecasDefeituosas({ pecas, pecasDefeituosas, onRemove, disabled }) {
   const lista = Array.isArray(pecasDefeituosas) ? pecasDefeituosas : [];
 
   return (
@@ -38,9 +32,8 @@ function ListaPecasDefeituosas({
         </li>
       )}
       {lista.map((pd, idx) => {
-        const pecaId = pd.peca?.id ?? pd.pecaId;
-        const nomePeca =
-          pecas.find((p) => p.id === pecaId)?.nome || `ID: ${pecaId}`;
+        const pecaId = pd.peca?.id || pd.pecaId;
+        const nomePeca = pecas.find((p) => p.id === pecaId)?.nome || `ID: ${pecaId}`;
         return (
           <li
             key={`peca-${pecaId}-${idx}`}
@@ -66,8 +59,8 @@ function ListaPecasDefeituosas({
   );
 }
 
-// Modal component (melhor acessibilidade)
-function ConfirmModal({ show, title, message, onConfirm, onCancel }) {
+// Componente Modal para confirmação (melhorando acessibilidade)
+function ConfirmModal({ show, title = "Confirmação", message, onConfirm, onCancel }) {
   if (!show) return null;
   return (
     <div
@@ -82,7 +75,7 @@ function ConfirmModal({ show, title, message, onConfirm, onCancel }) {
         <div className="modal-content btn-design">
           <div className="modal-header">
             <h5 className="modal-title" id="modalTitle">
-              {title || "Confirmação"}
+              {title}
             </h5>
             <button
               type="button"
@@ -108,20 +101,16 @@ function ConfirmModal({ show, title, message, onConfirm, onCancel }) {
   );
 }
 
-// ItemDemanda: mostra resumo da demanda na lista
-const ItemDemanda = React.memo(({ demanda, onClick, selected }) => (
+// ItemDemanda: mostra o resumo da demanda na lista
+const ItemDemanda = memo(({ demanda, onClick, selected }) => (
   <div
-    className={`card glass-div rounded shiny ${
-      selected ? "border-primary border-2" : ""
-    }`}
+    className={`card glass-div rounded shiny ${selected ? "border-primary border-2" : ""}`}
     onClick={() => onClick(demanda.id)}
     style={{ cursor: "pointer" }}
     tabIndex={0}
     aria-pressed={selected}
     aria-label={`Selecionar demanda ${demanda.id}`}
-    onKeyDown={(e) => {
-      if (e.key === "Enter") onClick(demanda.id);
-    }}
+    onKeyDown={(e) => e.key === "Enter" && onClick(demanda.id)}
   >
     <div className="card-body text-start">
       <h5 className="card-title mb-1">
@@ -135,7 +124,7 @@ const ItemDemanda = React.memo(({ demanda, onClick, selected }) => (
   </div>
 ));
 
-// DemandaAberta: detalhe da demanda
+// Componente de detalhe da demanda (DemandaAberta)
 function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
   const [pecas, setPecas] = useState([]);
   const [pecaSelecionada, setPecaSelecionada] = useState(null);
@@ -153,7 +142,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
     withLoading(async () => {
       try {
         const [pecasData, historicoData] = await Promise.all([
-          api.get(`/api/pecas`),
+          api.get("/api/pecas"),
           api.get(`/api/demandas/${demanda.id}/historico`),
         ]);
         setPecas(pecasData);
@@ -169,42 +158,31 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
     });
   }, [demanda, withLoading]);
 
-  if (!demanda)
-    return <p className="text-muted">Nenhuma demanda selecionada.</p>;
+  if (!demanda) return <p className="text-muted">Nenhuma demanda selecionada.</p>;
 
-  // Adicionar peça defeituosa
   const handleAddPeca = () => {
     setErro("");
-    if (
-      !pecaSelecionada ||
-      !quantidadeSelecionada ||
-      quantidadeSelecionada < 1
-    ) {
+    if (!pecaSelecionada || quantidadeSelecionada < 1) {
       setErro("Selecione uma peça e uma quantidade válida.");
       return;
     }
     setPecasDefeituosasLocal((prev) => [
       ...prev,
-      {
-        pecaId: pecaSelecionada.value,
-        quantidade: Number(quantidadeSelecionada),
-      },
+      { pecaId: pecaSelecionada.value, quantidade: Number(quantidadeSelecionada) },
     ]);
     setPecaSelecionada(null);
     setQuantidadeSelecionada(1);
   };
 
-  // Remover peça defeituosa
   const handleRemovePecaDefeituosa = (idx) => {
     setPecasDefeituosasLocal((prev) => prev.filter((_, i) => i !== idx));
   };
 
-  // Limpeza toggle logic
   const handleLimpezaToggle = () => {
+    // Somente confirma a limpeza se ainda não foi realizada.
     if (!demanda.limpezaRealizada) setShowConfirmLimpeza(true);
   };
 
-  // Confirma Limpeza
   const confirmLimpeza = async () => {
     setErro("");
     await withLoading(async () => {
@@ -225,7 +203,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
     });
   };
 
-  // Confirm modal para outros eventos
+  // Lida com a confirmação de outros eventos (início/fim de testes, finalizar ou descartar)
   const handleConfirmEvent = (type) => {
     setConfirmModal({ show: true, type });
   };
@@ -248,32 +226,16 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
 
     switch (confirmModal.type) {
       case "inicioTestes":
-        payload = {
-          ...payload,
-          dataInicioTestes: now,
-          statusDemanda: "EM_TESTES",
-        };
+        payload = { ...payload, dataInicioTestes: now, statusDemanda: "EM_TESTES" };
         break;
       case "fimTestes":
-        payload = {
-          ...payload,
-          dataFimTestes: now,
-          statusDemanda: "AGUARDANDO_FINALIZACAO",
-        };
+        payload = { ...payload, dataFimTestes: now, statusDemanda: "AGUARDANDO_FINALIZACAO" };
         break;
       case "finalizar":
-        payload = {
-          ...payload,
-          dataConclusao: now,
-          statusDemanda: "FINALIZADA",
-        };
+        payload = { ...payload, dataConclusao: now, statusDemanda: "FINALIZADA" };
         break;
       case "descartar":
-        payload = {
-          ...payload,
-          dataEncerramento: now,
-          statusDemanda: "DESCARTADA",
-        };
+        payload = { ...payload, dataEncerramento: now, statusDemanda: "DESCARTADA" };
         break;
       default:
         return;
@@ -290,7 +252,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       <ConfirmModal
         show={showConfirmLimpeza}
         title="Confirmar Limpeza"
-        message="Você tem certeza que deseja confirmar a limpeza? Após isso não será possível reverter."
+        message="Você tem certeza que deseja confirmar a limpeza? Esta ação não poderá ser revertida."
         onConfirm={confirmLimpeza}
         onCancel={() => setShowConfirmLimpeza(false)}
       />
@@ -318,12 +280,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
           </h4>
         </div>
         <div className="col-2 text-end">
-          <button
-            type="button"
-            className="btn-close"
-            aria-label="Fechar"
-            onClick={onClose}
-          ></button>
+          <button type="button" className="btn-close" aria-label="Fechar" onClick={onClose}></button>
         </div>
       </div>
       <div className="row mb-2">
@@ -332,10 +289,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
             Gerado em:{" "}
             <span>
               {(() => {
-                if (
-                  demanda.dataHoraCriacao &&
-                  demanda.dataHoraCriacao.length >= 5
-                ) {
+                if (demanda.dataHoraCriacao?.length >= 5) {
                   const [ano, mes, dia, hora, minuto] = demanda.dataHoraCriacao;
                   const dt = new Date(ano, mes - 1, dia, hora, minuto);
                   return dt.toLocaleString("pt-BR", {
@@ -352,13 +306,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
           </p>
         </div>
       </div>
-      {/* Limpeza realizada */}
+      {/* Seção de Limpeza e adição de peças defeituosas */}
       <div className="row g-2 mb-2">
         <div className="col-12 col-md-8 d-flex align-items-center border border-primary-subtle rounded-3 mb-2 mb-md-0 px-3">
-          <label
-            className="form-check-label fs-6 me-3"
-            htmlFor="switchLimpezaCheck"
-          >
+          <label className="form-check-label fs-6 me-3" htmlFor="switchLimpezaCheck">
             Limpeza realizada?
           </label>
           <div className="form-check form-switch mb-0">
@@ -374,15 +325,11 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
             />
           </div>
         </div>
-        {/* Adicionar peça defeituosa */}
         <div className="col-12 col-md-4 text-md-end">
           <div className="d-flex gap-2 align-items-center">
             <Select
               id="idPeca"
-              options={pecas.map((peca) => ({
-                value: peca.id,
-                label: peca.nome,
-              }))}
+              options={pecas.map((peca) => ({ value: peca.id, label: peca.nome }))}
               value={pecaSelecionada}
               onChange={setPecaSelecionada}
               placeholder="Selecionar Peça"
@@ -405,12 +352,9 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
             <button
               className="btn btn-outline-primary"
               onClick={handleAddPeca}
-              disabled={
-                !pecaSelecionada ||
-                !quantidadeSelecionada ||
-                !!demanda.limpezaRealizada
-              }
+              disabled={!pecaSelecionada || !quantidadeSelecionada || !!demanda.limpezaRealizada}
               type="button"
+              aria-label="Adicionar peça defeituosa"
             >
               <GoPlus /> Adicionar
             </button>
@@ -438,10 +382,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       {/* Testes */}
       <div className="row mb-2 align-items-center">
         <div className="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-          <label
-            className="form-check-label fs-6 me-2"
-            htmlFor="switchTesteRealizado"
-          >
+          <label className="form-check-label fs-6 me-2" htmlFor="switchTesteRealizado">
             Teste realizado?
           </label>
           <div className="form-check form-switch mb-0">
@@ -451,31 +392,24 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
               role="switch"
               id="switchTesteRealizado"
               checked={!!demanda.dataFimTestes}
-              disabled={!!demanda.limpezaRealizada === false}
+              disabled={!demanda.limpezaRealizada}
               onChange={() =>
-                handleConfirmEvent(
-                  demanda.dataInicioTestes ? "fimTestes" : "inicioTestes"
-                )
+                handleConfirmEvent(demanda.dataInicioTestes ? "fimTestes" : "inicioTestes")
               }
               aria-checked={!!demanda.dataFimTestes}
             />
           </div>
         </div>
       </div>
-      {/* Finalização */}
+      {/* Finalização da demanda */}
       <div className="row mb-2 align-items-center">
         <div className="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-          <label
-            className="form-check-label fs-6 me-2"
-            htmlFor="finalizarDemanda"
-          >
+          <label className="form-check-label fs-6 me-2" htmlFor="finalizarDemanda">
             Finalizar Demanda:
           </label>
           <button
             className="btn btn-green-submit btn-sm me-2"
-            disabled={
-              !demanda.dataFimTestes || demanda.statusDemanda === "FINALIZADA"
-            }
+            disabled={!demanda.dataFimTestes || demanda.statusDemanda === "FINALIZADA"}
             onClick={() => handleConfirmEvent("finalizar")}
             id="finalizarDemanda"
             type="button"
@@ -492,7 +426,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
           </button>
         </div>
       </div>
-      {/* Histórico */}
+      {/* Histórico da demanda */}
       <div className="row mt-3">
         <div className="col-12">
           <h6>Histórico</h6>
@@ -533,7 +467,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
   );
 }
 
-// Formulário para criar demanda
+// Formulário para criar nova demanda
 function FormCriarDemanda({ onCreated }) {
   const [insumos, setInsumos] = useState([]);
   const [insumoSelecionado, setInsumoSelecionado] = useState(null);
@@ -566,20 +500,13 @@ function FormCriarDemanda({ onCreated }) {
 
   const handleAddPeca = () => {
     setErro("");
-    if (
-      !pecaSelecionada ||
-      !quantidadeSelecionada ||
-      quantidadeSelecionada < 1
-    ) {
+    if (!pecaSelecionada || quantidadeSelecionada < 1) {
       setErro("Selecione uma peça e uma quantidade válida.");
       return;
     }
     setPecasDefeituosas((prev) => [
       ...prev,
-      {
-        peca: { id: pecaSelecionada.value },
-        quantidade: Number(quantidadeSelecionada),
-      },
+      { peca: { id: pecaSelecionada.value }, quantidade: Number(quantidadeSelecionada) },
     ]);
     setPecaSelecionada(null);
     setQuantidadeSelecionada(1);
@@ -603,21 +530,12 @@ function FormCriarDemanda({ onCreated }) {
         setorResponsavel: "Produção",
         responsavel: "João Marcos",
         pecasDefeituosas: pecasDefeituosas.map((pd) => ({
-          peca: {
-            id:
-              pd.peca?.id ??
-              pd.pecaId ??
-              pd.peca?.value ??
-              pd.pecaSelecionada?.value ??
-              pd.peca,
-          },
+          peca: { id: pd.peca?.id || pd.pecaId || pd.peca?.value },
           quantidade: pd.quantidade,
         })),
       };
-      console.log("Payload enviado:", JSON.stringify(payload, null, 2));
       try {
         const created = await api.post("/api/demandas", payload);
-        console.log("Resposta da API:", created);
         onCreated(created);
       } catch (e) {
         if (e.response) {
@@ -643,10 +561,7 @@ function FormCriarDemanda({ onCreated }) {
         <div className="col-12">
           <Select
             id="idInsumo"
-            options={insumos.map((insumo) => ({
-              value: insumo.id,
-              label: insumo.nome,
-            }))}
+            options={insumos.map((insumo) => ({ value: insumo.id, label: insumo.nome }))}
             value={insumoSelecionado}
             onChange={setInsumoSelecionado}
             placeholder="Selecionar Insumo"
@@ -671,16 +586,13 @@ function FormCriarDemanda({ onCreated }) {
           ></textarea>
         </div>
       </div>
-      {/* Peças defeituosas */}
+      {/* Seção de peças defeituosas */}
       <div className="row mb-3">
         <div className="col-12">
           <div className="d-flex gap-2 align-items-center mb-2">
             <Select
               id="idPeca"
-              options={pecas.map((peca) => ({
-                value: peca.id,
-                label: peca.nome,
-              }))}
+              options={pecas.map((peca) => ({ value: peca.id, label: peca.nome }))}
               value={pecaSelecionada}
               onChange={setPecaSelecionada}
               placeholder="Selecionar Peça"
@@ -697,14 +609,15 @@ function FormCriarDemanda({ onCreated }) {
               style={{ width: 70 }}
               value={quantidadeSelecionada}
               onChange={(e) => setQuantidadeSelecionada(Number(e.target.value))}
-              aria-label="Quantidade"
               disabled={loading}
+              aria-label="Quantidade"
             />
             <button
               className="btn btn-outline-primary"
               type="button"
               onClick={handleAddPeca}
               disabled={!pecaSelecionada || !quantidadeSelecionada || loading}
+              aria-label="Adicionar peça defeituosa"
             >
               <GoPlus /> Adicionar
             </button>
@@ -741,7 +654,7 @@ function FormCriarDemanda({ onCreated }) {
   );
 }
 
-// Main page
+// Página principal - Componente Producao
 export default function Producao() {
   const [demandas, setDemandas] = useState([]);
   const [demandaSelecionada, setDemandaSelecionada] = useState(null);
@@ -749,7 +662,6 @@ export default function Producao() {
   const [loading, withLoading] = useLoading();
   const [erro, setErro] = useState("");
 
-  // Carregar lista de demandas
   const loadDemandas = useCallback(async () => {
     setErro("");
     await withLoading(async () => {
@@ -768,7 +680,6 @@ export default function Producao() {
     loadDemandas();
   }, [loadDemandas]);
 
-  // Selecionar demanda específica
   const handleSelectDemanda = async (id) => {
     setErro("");
     await withLoading(async () => {
@@ -783,13 +694,11 @@ export default function Producao() {
     });
   };
 
-  // Após update, recarrega demanda e lista
   const handleDemandaUpdated = (updated) => {
     setDemandaSelecionada(updated);
     loadDemandas();
   };
 
-  // Após criar, recarrega lista e seleciona nova
   const handleDemandaCreated = (created) => {
     setShowCriarDemanda(false);
     loadDemandas();
@@ -801,19 +710,19 @@ export default function Producao() {
       <div className="container-fluid py-0 position-relative">
         <h3 className="display-5 text-start text-blue mb-4">Produção</h3>
         <div className="row g-4 flex-lg-nowrap">
-          {/* Coluna da esquerda */}
+          {/* Coluna das demandas */}
           <div className="col-lg-4 col-md-6 col-12 mb-3 mb-lg-0 d-flex flex-column">
             <div className="card glass-div rounded flex-grow-1 d-flex flex-column h-100">
               <div className="container-fluid">
                 <div className="row align-items-center border-bottom shadow-sm">
-                  <div className="col-6 text-start ">
-                    <p className="fs-4 mb-1 ">Demandas</p>
+                  <div className="col-6">
+                    <p className="fs-4 mb-1">Demandas</p>
                   </div>
                   <div className="col-6 d-flex justify-content-end gap-2">
                     <button
                       type="button"
                       className="btn btn-primary-subtle btn-sm"
-                      title="Filtrar"
+                      title="Filtrar demandas"
                       aria-label="Filtrar demandas"
                       disabled
                     >
@@ -830,10 +739,7 @@ export default function Producao() {
                   </div>
                 </div>
               </div>
-              <div
-                className="card-body p-3 overflow-auto"
-                style={{ maxHeight: "60vh" }}
-              >
+              <div className="card-body p-3 overflow-auto" style={{ maxHeight: "60vh" }}>
                 <div className="d-flex flex-column gap-2">
                   {demandas.map((d) => (
                     <ItemDemanda
@@ -847,16 +753,14 @@ export default function Producao() {
               </div>
             </div>
           </div>
-          {/* Coluna da direita */}
+          {/* Coluna do detalhe da demanda ou formulário */}
           <div className="col-lg-8 col-md-6 col-12 d-flex flex-column">
             <div className="card glass-div rounded flex-grow-1 d-flex flex-column h-100">
               <div className="card-body p-3 position-relative">
                 {showCriarDemanda ? (
                   <div className="p-0 p-md-3">
                     <div className="d-flex justify-content-between align-items-center flex-wrap gap-2">
-                      <h1 className="fs-4 text-start mb-0">
-                        Criar nova Demanda
-                      </h1>
+                      <h1 className="fs-4 mb-0">Criar nova Demanda</h1>
                       <button
                         type="button"
                         className="btn btn-close"

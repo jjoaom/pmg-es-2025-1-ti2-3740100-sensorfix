@@ -17,34 +17,48 @@ import EditarInsumo from "./pages/gestao-estoque/EditarInsumo.jsx";
 import Entrada  from "./pages/gestao-estoque/Entrada.jsx";
 import FastEquip from "./pages/gestao-estoque/FastEquip.jsx";
 import FastInsumo from "./pages/gestao-estoque/FastInsumo.jsx";
-//import Login from "./pages/login/Login.jsx";
+import Movimentacao from "./pages/movimentacao/Movimentacao.jsx";
+
+import Login from "./pages/login/Login.jsx";
+import Usuarios from "./pages/login/Usuarios.jsx";
+import Profile from "./pages/login/Profile.jsx";
+
+import PrivateRoute from "./utils/PrivateRoute.jsx";
+import AdminRoute from "./utils/AdminRoute.jsx";
+
 
 export default function App() {
-
   return (
     <div className="d-flex flex-column min-vh-100">
       <Router>
         <Header/>
-        <div className="flex-grow-1 overflow-auto ">
+        <div className="flex-grow-1 overflow-auto">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/producao" element={<Producao />} />
-            <Route path="/estoque" element={<Estoque />} />
-            <Route path="/estoque/entrada" element={<Entrada />} />
-            <Route path="/estoque/buscar" element={<Pesquisa/>}></Route>
-            <Route path="/estoque/cadastrarEquipamento" element={<CadastroEquipamento/>}></Route>
-            <Route path="/indicadores" element={<Indicadores/>} />
-            <Route path="/revisaoEquipamento" element={<RevisaoEquipamento/>} />
-            <Route path="/Pesquisa" element={<Pesquisa/>} />
-            <Route path="/estoque/indicadoresDesempenho" element={<IndicadoresDesempenho/>} />
-            <Route path="/estoque/cadastroInsumo" element={<CadastroInsumo/>} />
-            <Route path="/estoque/compras" element={<Compras/>} />
-            <Route path="/estoque/Deposito" element={<Deposito/>} />
-            <Route path="/estoque/editarEquipamento" element={<EditarEquipamento/>} />
-            <Route path="/estoque/editarInsumo" element={<EditarInsumo/>} />
-            <Route path="/estoque/fastEquipamento" element={<FastEquip/>} />
-            <Route path="/estoque/fastInsumo" element={<FastInsumo/>} />
-            {/*<Route path="/login" element={<Login/>} />*/}
+            <Route path="/login" element={<Login/>} />
+
+
+
+            <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+            <Route path="/producao" element={<PrivateRoute><Producao /></PrivateRoute>} />
+            <Route path="/movimentacao" element={<PrivateRoute><Movimentacao/></PrivateRoute>} />
+            <Route path="/estoque" element={<PrivateRoute><Estoque /></PrivateRoute>} />
+            <Route path="/estoque/entrada" element={<PrivateRoute><Entrada /></PrivateRoute>} />
+            <Route path="/estoque/buscar" element={<PrivateRoute><Pesquisa/></PrivateRoute>} />
+            <Route path="/indicadores" element={<PrivateRoute><Indicadores/></PrivateRoute>} />
+            <Route path="/revisaoEquipamento" element={<PrivateRoute><RevisaoEquipamento/></PrivateRoute>} />
+            <Route path="/estoque/indicadoresDesempenho" element={<PrivateRoute><IndicadoresDesempenho/></PrivateRoute>} />
+            <Route path="/estoque/compras" element={<PrivateRoute><Compras/></PrivateRoute>} />
+            <Route path="/estoque/Deposito" element={<PrivateRoute><Deposito/></PrivateRoute>} />
+            <Route path="/estoque/fastEquipamento" element={<PrivateRoute><FastEquip/></PrivateRoute>} />
+            <Route path="/estoque/fastInsumo" element={<PrivateRoute><FastInsumo/></PrivateRoute>} />
+            <Route path="/estoque/cadastrarEquipamento" element={<PrivateRoute><CadastroEquipamento/></PrivateRoute>} />
+            <Route path="/estoque/cadastroInsumo" element={<PrivateRoute><CadastroInsumo/></PrivateRoute>} />
+            <Route path="/estoque/editarEquipamento" element={<PrivateRoute><EditarEquipamento/></PrivateRoute>} />
+            <Route path="/estoque/editarInsumo" element={<PrivateRoute><EditarInsumo/></PrivateRoute>} />
+            <Route path="/profile" element={<PrivateRoute><Profile/></PrivateRoute>} />
+
+            {/* Rotas restritas para ADMIN */}
+            <Route path="/admin/usuarios" element={<AdminRoute><Usuarios/></AdminRoute>} />
           </Routes>
         </div>
         <Footer />

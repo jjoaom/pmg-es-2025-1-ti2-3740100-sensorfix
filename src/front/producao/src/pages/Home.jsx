@@ -4,6 +4,7 @@ import { FaTools } from "react-icons/fa";
 import { MdPrecisionManufacturing } from "react-icons/md";
 import { BsBoxSeam } from "react-icons/bs";
 import { BiBarChartAlt2 } from "react-icons/bi";
+import { FaDollyFlatbed } from "react-icons/fa";
 export default function Home() {
   return (
     <>
@@ -24,6 +25,11 @@ export default function Home() {
             <div className="m-2 btn glass-div btn-design shiny">
                 <Link className="nav-link" to="/manutencao">
                   <FaTools size={30} color="color-blue" /> Manutenção{" "}
+                </Link>
+            </div>
+             <div className="m-2 btn glass-div btn-design shiny">
+                <Link className="nav-link" to="/movimentacao">
+                  <FaDollyFlatbed size={30} color="color-blue" /> Movimentação{" "}
                 </Link>
             </div>
             <div className="m-2 btn glass-div btn-design shiny">

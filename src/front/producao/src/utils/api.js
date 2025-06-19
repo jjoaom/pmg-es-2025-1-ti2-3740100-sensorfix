@@ -1,10 +1,13 @@
 const baseUrl = import.meta.env.VITE_API_URL;
 
 async function apiRequest(endpoint, method = "GET", body = null) {
+  const token = localStorage.getItem('token');
+
   const options = {
     method,
     headers: {
       "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
     body: body ? JSON.stringify(body) : undefined,
   };
@@ -18,7 +21,7 @@ async function apiRequest(endpoint, method = "GET", body = null) {
     return response.json();
   } catch (error) {
     console.error("Erro na API:", error);
-    throw error; // Propagar erro para tratamento posterior
+    throw error;
   }
 }
 

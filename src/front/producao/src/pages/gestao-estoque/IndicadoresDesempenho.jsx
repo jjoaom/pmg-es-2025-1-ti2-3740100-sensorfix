@@ -1,46 +1,57 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
-import {Chart} from "chart.js";
+import { Chart, registerables } from "chart.js";
+import { api } from "../../utils/api"; // ajuste o caminho se necessário
+
+// Registra todos os módulos necessários do Chart.js
+Chart.register(...registerables);
 
 export default function IndicadoresDesempenho() {
-  const [depositos, setDepositos] = useState([]);
   const [demandas, setDemandas] = useState([]);
   const [anoSelecionado, setAnoSelecionado] = useState("");
   const [mesesSelecionados, setMesesSelecionados] = useState([]);
-  const [chartTempoProducao, setChartTempoProducao] = useState(null);
+  const chartTempoProducaoRef = useRef(null);
+  const chartInstanceRef = useRef(null);
 
   const meses = [
-    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
   ];
 
   useEffect(() => {
-    getDepositos();
-    getDemandas();
-  }, []);
-
-  async function getDepositos() {
-    try {
-      const response = await fetch("http://localhost:8080/estoque-depositos/");
-      if (response.ok) setDepositos(await response.json());
-    } catch (error) {
-      console.error("Erro ao buscar depósitos:", error);
-    }
-  }
+    console.log("Demandas após atualização:", demandas);
+  }, [demandas]);
 
   async function getDemandas() {
     try {
-      const response = await fetch("http://localhost:8080/api/demandas/");
-      if (response.ok) setDemandas(await response.json());
+      const response = await api.get("/api/demandas/");
+      console.log("Resposta completa da API:", response);
+
+      if (Array.isArray(response.data)) {
+        setDemandas(response.data);
+      } else {
+        console.error("A resposta da API não é um array:", response.data);
+      }
     } catch (error) {
       console.error("Erro ao buscar demandas:", error);
     }
   }
 
   function calcularTempos(vetor) {
-    return vetor.map(obj => {
-      const dtAbertura = new Date(...obj.dataAbertura || [2024, 0, 1]);
-      const dtConclusao = new Date(...obj.dataConclusao || [2024, 0, 2]);
+    return vetor.map((obj) => {
+      if (!obj.dataAbertura || !obj.dataConclusao) return 0;
+      const dtAbertura = new Date(...obj.dataAbertura);
+      const dtConclusao = new Date(...obj.dataConclusao);
       return Math.floor((dtConclusao - dtAbertura) / (1000 * 60 * 60));
     });
   }
@@ -50,52 +61,55 @@ export default function IndicadoresDesempenho() {
       alert("Informe um ano e pelo menos um mês.");
       return;
     }
-    const demandasFiltradas = demandas.filter(obj => {
+    const demandasFiltradas = demandas.filter((obj) => {
+      if (!obj.dataAbertura) return false;
       const data = new Date(...obj.dataAbertura);
-      return data.getFullYear() === parseInt(anoSelecionado) && mesesSelecionados.includes(data.getMonth() + 1);
+      return (
+        data.getFullYear() === parseInt(anoSelecionado) &&
+        mesesSelecionados.includes(data.getMonth() + 1)
+      );
     });
+
     plotaGraficoTempoProducao(calcularTempos(demandasFiltradas));
   }
 
-  function limparFiltro() {
-    plotaGraficoTempoProducao(calcularTempos(demandas));
-  }
-
   function plotaGraficoTempoProducao(dados) {
-    if (chartTempoProducao) chartTempoProducao.destroy();
-    const ctx = document.getElementById("cvsTempoProducao");
-    setChartTempoProducao(new Chart(ctx, {
+    if (chartInstanceRef.current) {
+      chartInstanceRef.current.destroy();
+      chartInstanceRef.current = null;
+    }
+
+    const ctx = chartTempoProducaoRef.current;
+    if (!ctx) return;
+
+    chartInstanceRef.current = new Chart(ctx, {
       type: "line",
       data: {
         labels: dados.map((_, i) => `Demanda ${i + 1}`),
-        datasets: [{
-          label: "Tempo Médio em horas",
-          data: dados,
-          borderColor: "rgba(75, 192, 192, 1)",
-          backgroundColor: "rgba(75, 192, 192, 0.3)",
-          fill: true,
-          tension: 0.2
-        }]
+        datasets: [
+          {
+            label: "Tempo Médio em horas",
+            data: dados,
+            borderColor: "rgba(75, 192, 192, 1)",
+            backgroundColor: "rgba(75, 192, 192, 0.3)",
+            fill: true,
+            tension: 0.2,
+          },
+        ],
       },
       options: {
         responsive: true,
-        scales: { y: { beginAtZero: true } }
-      }
-    }));
+        scales: { y: { beginAtZero: true } },
+      },
+    });
   }
 
   return (
     <PageLayout>
       <div className="container-fluid py-0 position-relative">
-        <h3 className="display-5 text-start text-blue mb-4">Indicadores de Desempenho</h3>
-
-        {/* Gráfico de Depósitos */}
-        <div className="card glass-div rounded mb-4">
-          <div className="card-body p-3">
-            <h4 className="mb-3">Estado Atual dos Depósitos</h4>
-            <canvas id="cvsDepEquip"></canvas>
-          </div>
-        </div>
+        <h3 className="display-5 text-start text-blue mb-4">
+          Indicadores de Desempenho
+        </h3>
 
         {/* Filtro de Tempo Médio de Produção */}
         <div className="card glass-div rounded mb-4">
@@ -121,11 +135,13 @@ export default function IndicadoresDesempenho() {
                     type="checkbox"
                     className="form-check-input"
                     value={i + 1}
+                    checked={mesesSelecionados.includes(i + 1)}
                     onChange={(e) => {
                       const value = parseInt(e.target.value);
-                      setMesesSelecionados(prev => prev.includes(value)
-                        ? prev.filter(m => m !== value)
-                        : [...prev, value]
+                      setMesesSelecionados((prev) =>
+                        prev.includes(value)
+                          ? prev.filter((m) => m !== value)
+                          : [...prev, value]
                       );
                     }}
                   />
@@ -133,11 +149,9 @@ export default function IndicadoresDesempenho() {
                 </label>
               ))}
             </div>
-
-            <div className="d-flex gap-2">
-              <button className="btn btn-success w-50" onClick={aplicarFiltro}>Aplicar Filtro</button>
-              <button className="btn btn-outline-danger w-50" onClick={limparFiltro}>Limpar Filtro</button>
-            </div>
+            <button className="btn btn-primary" onClick={aplicarFiltro}>
+              Aplicar Filtro
+            </button>
           </div>
         </div>
 
@@ -145,7 +159,7 @@ export default function IndicadoresDesempenho() {
         <div className="card glass-div rounded">
           <div className="card-body p-3">
             <h4 className="mb-3">Gráfico de Tempo Médio</h4>
-            <canvas id="cvsTempoProducao"></canvas>
+            <canvas id="cvsTempoProducao" ref={chartTempoProducaoRef}></canvas>
           </div>
         </div>
       </div>
