@@ -34,7 +34,7 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<?> criar(@RequestBody Usuario usuario) {
         if (repo.findByUsername(usuario.getUsername()).isPresent()) {
-            return ResponseEntity.status(400).body("Username já existe!");
+            return ResponseEntity.status(400).body("Nome de usuário já existe!");
         }
 
         usuario.setPassword(encoder.encode(usuario.getPassword()));
