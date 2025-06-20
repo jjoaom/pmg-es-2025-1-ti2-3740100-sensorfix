@@ -1,5 +1,4 @@
-// src/pages/Manutencao/RevisaoEquipamento.jsx
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
 import { api } from "../../utils/api";
 
@@ -16,7 +15,7 @@ export default function RevisaoEquipamento() {
   const [falhas, setFalhas] = useState([]);
   const nextRowId = useRef(0);
 
-  // 1) Buscar equipamento pelo ID
+  // 1) busca equipamento
   const fetchEquipamento = async () => {
     if (!idEquipamento) {
       alert("Informe o ID do equipamento");
@@ -25,13 +24,12 @@ export default function RevisaoEquipamento() {
     try {
       const data = await api.get(`/equipamentos/${idEquipamento}`);
       setEquipamentoName(data.nome || "Nome não disponível");
-    } catch (err) {
-      console.error("Erro ao buscar equipamento:", err);
+    } catch {
       setEquipamentoName("Equipamento não encontrado.");
     }
   };
 
-  // 2) Adicionar/remover linhas de falhas
+  // 2) adiciona/remova falhas
   const handleAddFalha = () => {
     const newId = ++nextRowId.current;
     setFalhas((prev) => [
@@ -39,25 +37,23 @@ export default function RevisaoEquipamento() {
       { id: newId, sintoma: "", falhaEncontrada: "", causaProvavel: "", acao: "" },
     ]);
   };
-
   const handleRemoveFalha = (id) => {
     setFalhas((prev) => prev.filter((f) => f.id !== id));
   };
-
   const handleFalhaChange = (id, field, value) => {
     setFalhas((prev) =>
       prev.map((f) => (f.id === id ? { ...f, [field]: value } : f))
     );
   };
 
-  // 3) Toggle dos checkboxes de “Trabalho a Ser Realizado”
+  // 3) checkboxes
   const handleCheckboxChange = (field) => {
     setTrabalhoRealizado((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
-  // 4) Envio final dos dados
+  // 4) salva tudo
   const handleSave = async () => {
-    const jsonFinal = {
+    const payload = {
       idEquipamento,
       estadoHardware,
       observacoes,
@@ -69,200 +65,231 @@ export default function RevisaoEquipamento() {
         acao,
       })),
     };
-
     try {
-      await api.post("/api/demandas", jsonFinal);
+      await api.post("/api/demandas", payload);
       alert("Registro de manutenção salvo com sucesso!");
-      // opcional: limpar formulário aqui
+      // aqui você pode limpar o formulário, se quiser
     } catch (err) {
-      console.error("Erro ao salvar registro:", err);
+      console.error(err);
       alert("Erro ao salvar o registro de manutenção.");
     }
   };
 
-  return (
+return (
     <PageLayout>
-      <div className="container">
-        <h2>Revisão de Equipamento</h2>
+        <div className="container py-4">
+            <h1 className=" display-5 text-blue mb-2">
+                Revisão de Equipamento
+            </h1>
 
-        <div className="section">
-          <div className="content">
-            <div className="form-group">
-              <label htmlFor="idEquipamento">ID do Equipamento:</label>
-              <br />
-              <input
-                type="number"
-                id="idEquipamento"
-                value={idEquipamento}
-                onChange={(e) => setIdEquipamento(e.target.value)}
-                placeholder="Digite o ID aqui..."
-              />
+            <div className="row g-4">
+                {/* ===== Coluna da esquerda ===== */}
+                <div className="col-lg-4 col-md-6 mb-4 ">
+                    <div className="card shadow-sm h-100 glass-div">
+                        <div className="card-header bg-light border-bottom">
+                            <h5 className="mb-0">Dados do Equipamento</h5>
+                        </div>
+                        <div className="card-body">
+                            <div className="mb-3">
+                                <label htmlFor="idEquipamento" className="form-label">ID do Equipamento</label>
+                                <input
+                                    type="text"
+                                    id="idEquipamento"
+                                    className="form-control"
+                                    placeholder="Digite o ID aqui..."
+                                    value={idEquipamento}
+                                    onChange={(e) => setIdEquipamento(e.target.value)}
+                                />
+                            </div>
+                            <div className="d-grid mb-3">
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={fetchEquipamento}
+                                >
+                                    Buscar Equipamento
+                                </button>
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label fw-semibold">Nome do Equipamento:</label>
+                                <div className="text-secondary">{equipamentoName}</div>
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Estado do Hardware</label>
+                                <select
+                                    className="form-select"
+                                    value={estadoHardware}
+                                    onChange={(e) => setEstadoHardware(e.target.value)}
+                                >
+                                    <option value="" disabled>
+                                        Selecione...
+                                    </option>
+                                    <option>Sem danos físicos externos</option>
+                                    <option>Com danos físicos externos</option>
+                                </select>
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Observações</label>
+                                <textarea
+                                    rows={3}
+                                    className="form-control"
+                                    value={observacoes}
+                                    onChange={(e) => setObservacoes(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label className="form-label mb-1">Trabalho a Ser Realizado</label>
+                                {["perdaTotal", "revisao", "refuncionalizacao"].map((field) => (
+                                    <div className="form-check" key={field}>
+                                        <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            id={field}
+                                            checked={trabalhoRealizado[field]}
+                                            onChange={() => handleCheckboxChange(field)}
+                                        />
+                                        <label className="form-check-label" htmlFor={field}>
+                                            {field === "perdaTotal"
+                                                ? "Perda Total"
+                                                : field === "revisao"
+                                                ? "Revisão"
+                                                : "Refuncionalização"}
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ===== Coluna da direita ===== */}
+                <div className="col-lg-8 col-md-6 mb-4">
+                    <div className="card h-100 glass-div">
+                        <div className="card-header border-bottom ">
+                            <h5 className="mb-0">Registro de Falhas</h5>
+                        </div>
+                        <div className="card-body ">
+                            <div className="table-responsive mb-3">
+                                <table className="table table-bordered align-middle">
+                                    <thead className="table-light">
+                                        <tr>
+                                            <th>Sintoma</th>
+                                            <th>Falha Encontrada</th>
+                                            <th>Causa Provável</th>
+                                            <th>Ação</th>
+                                            <th style={{ width: 50 }}></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {falhas.map((f) => (
+                                            <tr key={f.id}>
+                                                <td>
+                                                    <select
+                                                        className="form-select"
+                                                        value={f.sintoma}
+                                                        onChange={(e) =>
+                                                            handleFalhaChange(f.id, "sintoma", e.target.value)
+                                                        }
+                                                    >
+                                                        <option value="" disabled>
+                                                            Selecione...
+                                                        </option>
+                                                        <option>Equipamento Não Liga</option>
+                                                        <option>Equipamento Sem Sinal</option>
+                                                        <option>LED constante</option>
+                                                        <option>Sensor Não Carrega</option>
+                                                        <option>Equipamento Descalibrado</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select
+                                                        className="form-select"
+                                                        value={f.falhaEncontrada}
+                                                        onChange={(e) =>
+                                                            handleFalhaChange(
+                                                                f.id,
+                                                                "falhaEncontrada",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    >
+                                                        <option value="" disabled>
+                                                            Selecione...
+                                                        </option>
+                                                        <option>Membrana Rompida</option>
+                                                        <option>Solda</option>
+                                                        <option>Fusível Queimado</option>
+                                                        <option>Fio desconectado</option>
+                                                        <option>Falha No Alimentador</option>
+                                                        <option>Equipamento Quebrado</option>
+                                                        <option>Erro De Calibragem</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select
+                                                        className="form-select"
+                                                        value={f.causaProvavel}
+                                                        onChange={(e) =>
+                                                            handleFalhaChange(
+                                                                f.id,
+                                                                "causaProvavel",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    >
+                                                        <option value="" disabled>
+                                                            Selecione...
+                                                        </option>
+                                                        <option>Mal Uso Do Equipamento</option>
+                                                        <option>Falha De Fabricação</option>
+                                                        <option>Armazenamento Inadequado</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select
+                                                        className="form-select"
+                                                        value={f.acao}
+                                                        onChange={(e) =>
+                                                            handleFalhaChange(f.id, "acao", e.target.value)
+                                                        }
+                                                    >
+                                                        <option value="" disabled>
+                                                            Selecione...
+                                                        </option>
+                                                        <option>Encaminhar para Descarte</option>
+                                                        <option>Encaminhar para Manutenção</option>
+                                                        <option>Encaminhar para Aproveitamento de Componentes</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <button
+                                                        className="btn btn-outline-danger btn-sm"
+                                                        title="Remover"
+                                                        onClick={() => handleRemoveFalha(f.id)}
+                                                    >
+                                                        <span aria-hidden="true">🗑️</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="d-flex gap-2">
+                                <button
+                                    className="btn btn-outline-success"
+                                    onClick={handleAddFalha}
+                                >
+                                    Adicionar Falha
+                                </button>
+                                <button className="btn btn-primary ms-auto" onClick={handleSave}>
+                                    Guardar Dados
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button className="btn" onClick={fetchEquipamento}>
-              Buscar Equipamento
-            </button>
-            <div style={{ marginTop: 10 }}>
-              <strong>Nome do Equipamento:</strong>{" "}
-              <span style={{ fontWeight: "bold", color: "#2c3e50" }}>
-                {equipamentoName}
-              </span>
-            </div>
-          </div>
-
-          <label>Estado do Hardware:</label>
-          <select
-            id="estadoHardware"
-            value={estadoHardware}
-            onChange={(e) => setEstadoHardware(e.target.value)}
-          >
-            <option value="" disabled>
-              Selecione...
-            </option>
-            <option>Sem danos físicos externos</option>
-            <option>Com danos físicos externos</option>
-          </select>
-
-          <label>Observações:</label>
-          <textarea
-            id="observacoes"
-            rows={3}
-            value={observacoes}
-            onChange={(e) => setObservacoes(e.target.value)}
-          />
         </div>
-
-        <div className="section">
-          <div className="section-title">Trabalho a Ser Realizado</div>
-          <div className="checkbox-group">
-            <label>
-              <input
-                type="checkbox"
-                checked={trabalhoRealizado.perdaTotal}
-                onChange={() => handleCheckboxChange("perdaTotal")}
-              />{" "}
-              Perda Total
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={trabalhoRealizado.revisao}
-                onChange={() => handleCheckboxChange("revisao")}
-              />{" "}
-              Revisão
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={trabalhoRealizado.refuncionalizacao}
-                onChange={() => handleCheckboxChange("refuncionalizacao")}
-              />{" "}
-              Refuncionalização
-            </label>
-          </div>
-        </div>
-
-        <div className="section">
-          <div className="section-title">Registro de Falhas</div>
-          <table id="falhas-table" className="table table-striped">
-            <thead>
-              <tr>
-                <th>Sintoma</th>
-                <th>Falha Encontrada</th>
-                <th>Causa Provável</th>
-                <th>Ação</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody id="falhas-body">
-              {falhas.map((f) => (
-                <tr key={f.id}>
-                  <td>
-                    <select
-                      value={f.sintoma}
-                      onChange={(e) =>
-                        handleFalhaChange(f.id, "sintoma", e.target.value)
-                      }
-                    >
-                      <option value="" disabled>
-                        Selecione...
-                      </option>
-                      <option>Equipamento Não Liga</option>
-                      <option>Equipamento Sem Sinal</option>
-                      <option>LED constante</option>
-                      <option>Sensor Não Carrega</option>
-                      <option>Equipamento Descalibrado</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select
-                      value={f.falhaEncontrada}
-                      onChange={(e) =>
-                        handleFalhaChange(f.id, "falhaEncontrada", e.target.value)
-                      }
-                    >
-                      <option value="" disabled>
-                        Selecione...
-                      </option>
-                      <option>Membrana Rompida</option>
-                      <option>Solda</option>
-                      <option>Fusivel Queimado</option>
-                      <option>Fio desconectado</option>
-                      <option>Falha No Alimentador</option>
-                      <option>Equipamento Quebrado</option>
-                      <option>Erro De Calibragem</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select
-                      value={f.causaProvavel}
-                      onChange={(e) =>
-                        handleFalhaChange(f.id, "causaProvavel", e.target.value)
-                      }
-                    >
-                      <option value="" disabled>
-                        Selecione...
-                      </option>
-                      <option>Mal Uso Do Equipamento</option>
-                      <option>Falha De Fabricação</option>
-                      <option>Armazenamento Inadequado</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select
-                      value={f.acao}
-                      onChange={(e) =>
-                        handleFalhaChange(f.id, "acao", e.target.value)
-                      }
-                    >
-                      <option value="" disabled>
-                        Selecione...
-                      </option>
-                      <option>Encaminhar para Descarte</option>
-                      <option>Encaminhar para Manutenção</option>
-                      <option>Encaminhar para Aproveitamento de Componentes</option>
-                    </select>
-                  </td>
-                  <td className="acao-coluna">
-                    <button
-                      className="btn-remover"
-                      onClick={() => handleRemoveFalha(f.id)}
-                    >
-                      🗑️
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button className="btn btn-add" onClick={handleAddFalha}>
-            Adicionar
-          </button>
-        </div>
-
-        <button className="btn" onClick={handleSave}>
-          Guardar Dados
-        </button>
-      </div>
     </PageLayout>
-  );
+);
 }

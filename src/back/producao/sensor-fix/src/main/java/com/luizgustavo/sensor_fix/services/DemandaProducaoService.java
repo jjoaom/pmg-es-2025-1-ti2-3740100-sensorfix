@@ -27,6 +27,12 @@ public class DemandaProducaoService {
         if (demanda.getDataHoraCriacao() == null) {
             demanda.setDataHoraCriacao(LocalDateTime.now());
         }
+
+        // Vincula a demanda em cada peça defeituosa
+        if (demanda.getPecasDefeituosas() != null) {
+            demanda.getPecasDefeituosas().forEach(p -> p.setDemanda(demanda));
+        }
+
         return repository.save(demanda);
     }
 
@@ -37,7 +43,13 @@ public class DemandaProducaoService {
     public DemandaProducao atualizar(Long id, DemandaProducao novaDemanda) {
         return repository.findById(id).map(demandaExistente -> {
             novaDemanda.setId(demandaExistente.getId());
+
+            if (novaDemanda.getPecasDefeituosas() != null) {
+                novaDemanda.getPecasDefeituosas().forEach(p -> p.setDemanda(novaDemanda));
+            }
+
             return repository.save(novaDemanda);
         }).orElseThrow(() -> new RuntimeException("Demanda não encontrada com ID: " + id));
     }
+
 }

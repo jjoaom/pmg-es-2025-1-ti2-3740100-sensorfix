@@ -469,8 +469,8 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
 
 // Formulário para criar nova demanda
 function FormCriarDemanda({ onCreated }) {
-  const [insumos, setInsumos] = useState([]);
-  const [insumoSelecionado, setInsumoSelecionado] = useState(null);
+  const [equipamentos, setequipamentos] = useState([]);
+  const [equipamentoSelecionado, setequipamentoSelecionado] = useState(null);
   const [descricao, setDescricao] = useState("");
   const [pecas, setPecas] = useState([]);
   const [pecasDefeituosas, setPecasDefeituosas] = useState([]);
@@ -483,16 +483,16 @@ function FormCriarDemanda({ onCreated }) {
     setErro("");
     withLoading(async () => {
       try {
-        const [insumosData, pecasData] = await Promise.all([
-          api.get("/insumo"),
+        const [equipamentosData, pecasData] = await Promise.all([
+          api.get("/equipamento"),
           api.get("/api/pecas"),
         ]);
-        setInsumos(insumosData);
+        setequipamentos(equipamentosData);
         setPecas(pecasData);
       } catch (err) {
-        setInsumos([]);
+        setequipamentos([]);
         setPecas([]);
-        setErro("Erro ao carregar insumos ou peças.");
+        setErro("Erro ao carregar equipamentos ou peças.");
         console.error(err);
       }
     });
@@ -519,13 +519,13 @@ function FormCriarDemanda({ onCreated }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErro("");
-    if (!insumoSelecionado || !descricao.trim()) {
-      setErro("Selecione um insumo e preencha a descrição.");
+    if (!equipamentoSelecionado || !descricao.trim()) {
+      setErro("Selecione um equipamento e preencha a descrição.");
       return;
     }
     await withLoading(async () => {
       const payload = {
-        insumo: { id: insumoSelecionado.value },
+        equipamento: { id: equipamentoSelecionado.value },
         descricaoItem: descricao,
         setorResponsavel: "Produção",
         responsavel: "João Marcos",
@@ -560,14 +560,14 @@ function FormCriarDemanda({ onCreated }) {
       <div className="row mb-3">
         <div className="col-12">
           <Select
-            id="idInsumo"
-            options={insumos.map((insumo) => ({ value: insumo.id, label: insumo.nome }))}
-            value={insumoSelecionado}
-            onChange={setInsumoSelecionado}
-            placeholder="Selecionar Insumo"
+            id="idequipamento"
+            options={equipamentos.map((equipamento) => ({ value: equipamento.id, label: equipamento.nome }))}
+            value={equipamentoSelecionado}
+            onChange={setequipamentoSelecionado}
+            placeholder="Selecionar equipamento"
             isSearchable
             noOptionsMessage={() => "Não encontrado"}
-            aria-label="Selecionar insumo"
+            aria-label="Selecionar equipamento"
           />
         </div>
       </div>

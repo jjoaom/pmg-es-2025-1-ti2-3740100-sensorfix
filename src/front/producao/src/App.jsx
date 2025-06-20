@@ -22,9 +22,7 @@ import Deposito from "./pages/deposito/Deposito.jsx";
 
 import Movimentacao from "./pages/movimentacao/Movimentacao.jsx";
 
-import RevisaoEquipamento from "./pages/gestao-estoque/RevisaoEquipamento.jsx";
-import RevisaoEquipamento1 from "./pages/registro/RevisaoEquipamento.jsx";
-
+import RevisaoEquipamento from "./pages/registro/RevisaoEquipamento.jsx";
 
 import Login from "./pages/login/Login.jsx";
 import Usuarios from "./pages/login/Usuarios.jsx";
@@ -55,7 +53,6 @@ export default function App() {
             <Route path="/indicadores" element={<PrivateRoute><Indicadores/></PrivateRoute>} />
             <Route path="/estoque/indicadoresDesempenho" element={<PrivateRoute><IndicadoresDesempenho/></PrivateRoute>} />
             <Route path="/estoque/compras" element={<PrivateRoute><Compras/></PrivateRoute>} />
-            <Route path="/estoque/Deposito" element={<PrivateRoute><Deposito/></PrivateRoute>} />
             <Route path="/estoque/fastEquipamento" element={<PrivateRoute><FastEquip/></PrivateRoute>} />
             <Route path="/estoque/fastInsumo" element={<PrivateRoute><FastInsumo/></PrivateRoute>} />
             <Route path="/estoque/cadastrarEquipamento" element={<PrivateRoute><CadastroEquipamento/></PrivateRoute>} />
@@ -63,8 +60,9 @@ export default function App() {
             <Route path="/estoque/editarEquipamento" element={<PrivateRoute><EditarEquipamento/></PrivateRoute>} />
             <Route path="/estoque/editarInsumo" element={<PrivateRoute><EditarInsumo/></PrivateRoute>} />
 
+            <Route path="/deposito" element={<PrivateRoute><Deposito/></PrivateRoute>} />
+
             <Route path="/revisaoEquipamento" element={<PrivateRoute><RevisaoEquipamento/></PrivateRoute>} />
-            <Route path="/revisaoEquipamento1" element={<PrivateRoute><RevisaoEquipamento1/></PrivateRoute>} />
 
             <Route path="/profile" element={<PrivateRoute><Profile/></PrivateRoute>} />
 
