@@ -31,6 +31,7 @@ import Profile from "./pages/login/Profile.jsx";
 import PrivateRoute from "./utils/PrivateRoute.jsx";
 import AdminRoute from "./utils/AdminRoute.jsx";
 
+import Indicator from "./pages/indicadores/Indicator.jsx";
 
 export default function App() {
   return (
@@ -50,7 +51,7 @@ export default function App() {
             <Route path="/estoque" element={<PrivateRoute><Estoque /></PrivateRoute>} />
             <Route path="/estoque/entrada" element={<PrivateRoute><Entrada /></PrivateRoute>} />
             <Route path="/estoque/buscar" element={<PrivateRoute><Pesquisa/></PrivateRoute>} />
-            <Route path="/indicadores" element={<PrivateRoute><Indicadores/></PrivateRoute>} />
+            <Route path="/indicadores" element={<PrivateRoute><Indicator/></PrivateRoute>} />
             <Route path="/estoque/indicadoresDesempenho" element={<PrivateRoute><IndicadoresDesempenho/></PrivateRoute>} />
             <Route path="/estoque/compras" element={<PrivateRoute><Compras/></PrivateRoute>} />
             <Route path="/estoque/fastEquipamento" element={<PrivateRoute><FastEquip/></PrivateRoute>} />
