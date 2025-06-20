@@ -24,6 +24,10 @@ public class DemandaProducaoService {
     }
 
     public DemandaProducao salvar(DemandaProducao demanda) {
+        if (demanda.getStatusDemanda() == null) {
+            demanda.setStatusDemanda(DemandaProducao.StatusDemanda.CRIADA);
+        }
+
         if (demanda.getDataHoraCriacao() == null) {
             demanda.setDataHoraCriacao(LocalDateTime.now());
         }
