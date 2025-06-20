@@ -6,6 +6,24 @@ import { HiMiniXMark } from "react-icons/hi2";
 import Select from "react-select";
 import { api } from "../utils/api";
 
+// Função utilitária para exibir datas ISO
+function formatarDataISO(dataIso) {
+  if (!dataIso) return "-";
+  try {
+    const dt = new Date(dataIso);
+    if (isNaN(dt.getTime())) return "-";
+    return dt.toLocaleString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  } catch {
+    return "-";
+  }
+}
+
 // Hook para gerenciar loading global
 function useLoading() {
   const [loading, setLoading] = useState(false);
@@ -135,10 +153,19 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
   const [loading, withLoading] = useLoading();
   const [confirmModal, setConfirmModal] = useState({ show: false, type: null });
   const [erro, setErro] = useState("");
+  // Novos campos
+  const [produtoRecuperado, setProdutoRecuperado] = useState(!!demanda?.produtoRecuperado);
+  const [testeBemSucedido, setTesteBemSucedido] = useState(!!demanda?.testeBemSucedido);
+  const [observacoes, setObservacoes] = useState(demanda?.observacoes || "");
+  const [relatorioTestes, setRelatorioTestes] = useState(demanda?.relatorioTestes || "");
 
   useEffect(() => {
     if (!demanda) return;
     setErro("");
+    setProdutoRecuperado(!!demanda.produtoRecuperado);
+    setTesteBemSucedido(!!demanda.testeBemSucedido);
+    setObservacoes(demanda.observacoes || "");
+    setRelatorioTestes(demanda.relatorioTestes || "");
     withLoading(async () => {
       try {
         const [pecasData, historicoData] = await Promise.all([
@@ -179,7 +206,6 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
   };
 
   const handleLimpezaToggle = () => {
-    // Somente confirma a limpeza se ainda não foi realizada.
     if (!demanda.limpezaRealizada) setShowConfirmLimpeza(true);
   };
 
@@ -192,6 +218,8 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
         statusDemanda: "EM_RECUPERACAO",
         limpezaRealizada: true,
         pecasDefeituosas: pecasDefeituosasLocal,
+        produtoRecuperado,
+        observacoes,
       };
       try {
         const updated = await api.put(`/api/demandas/${demanda.id}`, payload);
@@ -203,7 +231,6 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
     });
   };
 
-  // Lida com a confirmação de outros eventos (início/fim de testes, finalizar ou descartar)
   const handleConfirmEvent = (type) => {
     setConfirmModal({ show: true, type });
   };
@@ -226,16 +253,36 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
 
     switch (confirmModal.type) {
       case "inicioTestes":
-        payload = { ...payload, dataInicioTestes: now, statusDemanda: "EM_TESTES" };
+        payload = {
+          ...payload,
+          dataInicioTestes: now,
+          statusDemanda: "EM_TESTE",
+          produtoRecuperado,
+          observacoes,
+        };
         break;
       case "fimTestes":
-        payload = { ...payload, dataFimTestes: now, statusDemanda: "AGUARDANDO_FINALIZACAO" };
+        payload = {
+          ...payload,
+          dataFimTestes: now,
+          statusDemanda: testeBemSucedido ? "FINALIZADA" : "FALHA_TESTE",
+          testeBemSucedido,
+          relatorioTestes,
+        };
         break;
       case "finalizar":
-        payload = { ...payload, dataConclusao: now, statusDemanda: "FINALIZADA" };
+        payload = {
+          ...payload,
+          dataConclusao: now,
+          statusDemanda: "FINALIZADA",
+        };
         break;
       case "descartar":
-        payload = { ...payload, dataEncerramento: now, statusDemanda: "DESCARTADA" };
+        payload = {
+          ...payload,
+          dataEncerramento: now,
+          statusDemanda: "DESCARTADA",
+        };
         break;
       default:
         return;
@@ -286,23 +333,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       <div className="row mb-2">
         <div className="col-12 text-start">
           <p className="fs-6 mb-1">
-            Gerado em:{" "}
-            <span>
-              {(() => {
-                if (demanda.dataHoraCriacao?.length >= 5) {
-                  const [ano, mes, dia, hora, minuto] = demanda.dataHoraCriacao;
-                  const dt = new Date(ano, mes - 1, dia, hora, minuto);
-                  return dt.toLocaleString("pt-BR", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  });
-                }
-                return "-";
-              })()}
-            </span>
+            Gerado em: <span>{formatarDataISO(demanda.dataHoraCriacao)}</span>
           </p>
         </div>
       </div>
@@ -372,6 +403,26 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
           />
         </div>
       </div>
+      {/* Produto recuperado */}
+      <div className="row mb-2">
+        <div className="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
+          <label className="form-check-label fs-6 me-2" htmlFor="switchProdutoRecuperado">
+            Produto recuperado?
+          </label>
+          <div className="form-check form-switch mb-0">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="switchProdutoRecuperado"
+              checked={produtoRecuperado}
+              disabled={!demanda.limpezaRealizada || demanda.statusDemanda !== "EM_RECUPERACAO"}
+              onChange={() => setProdutoRecuperado((v) => !v)}
+              aria-checked={produtoRecuperado}
+            />
+          </div>
+        </div>
+      </div>
       {/* Descrição do problema */}
       <div className="row mb-2">
         <div className="col-12 text-start">
@@ -392,13 +443,60 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
               role="switch"
               id="switchTesteRealizado"
               checked={!!demanda.dataFimTestes}
-              disabled={!demanda.limpezaRealizada}
+              disabled={!demanda.limpezaRealizada || !produtoRecuperado}
               onChange={() =>
                 handleConfirmEvent(demanda.dataInicioTestes ? "fimTestes" : "inicioTestes")
               }
               aria-checked={!!demanda.dataFimTestes}
             />
           </div>
+        </div>
+        {/* Teste bem-sucedido */}
+        <div className="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
+          <label className="form-check-label fs-6 me-2" htmlFor="switchTesteBemSucedido">
+            Teste bem-sucedido?
+          </label>
+          <div className="form-check form-switch mb-0">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="switchTesteBemSucedido"
+              checked={testeBemSucedido}
+              disabled={!demanda.dataInicioTestes || !!demanda.dataFimTestes}
+              onChange={() => setTesteBemSucedido((v) => !v)}
+              aria-checked={testeBemSucedido}
+            />
+          </div>
+        </div>
+      </div>
+      {/* Observações e Relatório de Testes */}
+      <div className="row mb-2">
+        <div className="col-12 col-md-6 mb-2 mb-md-0">
+          <label htmlFor="observacoes" className="form-label">
+            Observações
+          </label>
+          <textarea
+            id="observacoes"
+            className="form-control"
+            rows={2}
+            value={observacoes}
+            onChange={(e) => setObservacoes(e.target.value)}
+            disabled={demanda.statusDemanda === "FINALIZADA" || demanda.statusDemanda === "DESCARTADA"}
+          />
+        </div>
+        <div className="col-12 col-md-6">
+          <label htmlFor="relatorioTestes" className="form-label">
+            Relatório de Testes
+          </label>
+          <textarea
+            id="relatorioTestes"
+            className="form-control"
+            rows={2}
+            value={relatorioTestes}
+            onChange={(e) => setRelatorioTestes(e.target.value)}
+            disabled={!demanda.dataInicioTestes || !!demanda.dataFimTestes}
+          />
         </div>
       </div>
       {/* Finalização da demanda */}
@@ -437,13 +535,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
             {historico.map((h) => (
               <li key={h.id} className="list-group-item">
                 [
-                {new Date(h.dataHora).toLocaleString("pt-BR", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                {formatarDataISO(h.dataHora)}
                 ] {h.acao} — {h.descricao}
               </li>
             ))}
@@ -476,6 +568,8 @@ function FormCriarDemanda({ onCreated }) {
   const [pecasDefeituosas, setPecasDefeituosas] = useState([]);
   const [pecaSelecionada, setPecaSelecionada] = useState(null);
   const [quantidadeSelecionada, setQuantidadeSelecionada] = useState(1);
+  const [produtoRecuperado, setProdutoRecuperado] = useState(false);
+  const [observacoes, setObservacoes] = useState("");
   const [loading, withLoading] = useLoading();
   const [erro, setErro] = useState("");
 
@@ -533,6 +627,8 @@ function FormCriarDemanda({ onCreated }) {
           peca: { id: pd.peca?.id || pd.pecaId || pd.peca?.value },
           quantidade: pd.quantidade,
         })),
+        produtoRecuperado,
+        observacoes,
       };
       try {
         const created = await api.post("/api/demandas", payload);
@@ -627,6 +723,37 @@ function FormCriarDemanda({ onCreated }) {
             pecasDefeituosas={pecasDefeituosas}
             onRemove={handleRemovePeca}
             disabled={loading}
+          />
+        </div>
+      </div>
+      {/* Produto recuperado e observações */}
+      <div className="row mb-3">
+        <div className="col-12 col-md-6 mb-2 mb-md-0">
+          <label className="form-check-label fs-6 me-2" htmlFor="switchProdutoRecuperadoNovo">
+            Produto recuperado?
+          </label>
+          <div className="form-check form-switch mb-0">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="switchProdutoRecuperadoNovo"
+              checked={produtoRecuperado}
+              onChange={() => setProdutoRecuperado((v) => !v)}
+              aria-checked={produtoRecuperado}
+            />
+          </div>
+        </div>
+        <div className="col-12 col-md-6">
+          <label htmlFor="observacoesNovo" className="form-label">
+            Observações
+          </label>
+          <textarea
+            id="observacoesNovo"
+            className="form-control"
+            rows={2}
+            value={observacoes}
+            onChange={(e) => setObservacoes(e.target.value)}
           />
         </div>
       </div>
