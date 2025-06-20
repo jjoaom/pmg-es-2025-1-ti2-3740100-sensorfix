@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
 import { api } from "../../utils/api";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function RevisaoEquipamento() {
   const [idEquipamento, setIdEquipamento] = useState("");
@@ -266,7 +267,7 @@ return (
                                                         title="Remover"
                                                         onClick={() => handleRemoveFalha(f.id)}
                                                     >
-                                                        <span aria-hidden="true">🗑️</span>
+                                                        <span aria-hidden="true"><FaRegTrashAlt /></span>
                                                     </button>
                                                 </td>
                                             </tr>
