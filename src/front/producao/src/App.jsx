@@ -2,22 +2,29 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home.jsx";
+
 import Producao from "./pages/Producao.jsx";
+
 import Estoque from './pages/gestao-estoque/Estoque.jsx';
 import CadastroEquipamento from "./pages/gestao-estoque/CadastroEquipamento.jsx";
 import Indicadores from "./pages/indicadores/Indicadores.jsx";
-import RevisaoEquipamento from "./pages/gestao-estoque/RevisaoEquipamento.jsx";
 import Pesquisa from "./pages/gestao-estoque/Pesquisa.jsx";
 import IndicadoresDesempenho from "./pages/gestao-estoque/IndicadoresDesempenho.jsx";
 import CadastroInsumo from "./pages/gestao-estoque/CadastroInsumo.jsx";
 import Compras from "./pages/gestao-estoque/Compras.jsx";
-import Deposito from "./pages/gestao-estoque/Deposito.jsx";
 import EditarEquipamento from "./pages/gestao-estoque/EditarEquipamento.jsx";
 import EditarInsumo from "./pages/gestao-estoque/EditarInsumo.jsx";
 import Entrada  from "./pages/gestao-estoque/Entrada.jsx";
 import FastEquip from "./pages/gestao-estoque/FastEquip.jsx";
 import FastInsumo from "./pages/gestao-estoque/FastInsumo.jsx";
+
+import Deposito from "./pages/deposito/Deposito.jsx";
+
 import Movimentacao from "./pages/movimentacao/Movimentacao.jsx";
+
+import RevisaoEquipamento from "./pages/gestao-estoque/RevisaoEquipamento.jsx";
+import RevisaoEquipamento1 from "./pages/registro/RevisaoEquipamento.jsx";
+
 
 import Login from "./pages/login/Login.jsx";
 import Usuarios from "./pages/login/Usuarios.jsx";
@@ -36,16 +43,16 @@ export default function App() {
           <Routes>
             <Route path="/login" element={<Login/>} />
 
-
-
             <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+
             <Route path="/producao" element={<PrivateRoute><Producao /></PrivateRoute>} />
+
             <Route path="/movimentacao" element={<PrivateRoute><Movimentacao/></PrivateRoute>} />
+
             <Route path="/estoque" element={<PrivateRoute><Estoque /></PrivateRoute>} />
             <Route path="/estoque/entrada" element={<PrivateRoute><Entrada /></PrivateRoute>} />
             <Route path="/estoque/buscar" element={<PrivateRoute><Pesquisa/></PrivateRoute>} />
             <Route path="/indicadores" element={<PrivateRoute><Indicadores/></PrivateRoute>} />
-            <Route path="/revisaoEquipamento" element={<PrivateRoute><RevisaoEquipamento/></PrivateRoute>} />
             <Route path="/estoque/indicadoresDesempenho" element={<PrivateRoute><IndicadoresDesempenho/></PrivateRoute>} />
             <Route path="/estoque/compras" element={<PrivateRoute><Compras/></PrivateRoute>} />
             <Route path="/estoque/Deposito" element={<PrivateRoute><Deposito/></PrivateRoute>} />
@@ -55,6 +62,10 @@ export default function App() {
             <Route path="/estoque/cadastroInsumo" element={<PrivateRoute><CadastroInsumo/></PrivateRoute>} />
             <Route path="/estoque/editarEquipamento" element={<PrivateRoute><EditarEquipamento/></PrivateRoute>} />
             <Route path="/estoque/editarInsumo" element={<PrivateRoute><EditarInsumo/></PrivateRoute>} />
+
+            <Route path="/revisaoEquipamento" element={<PrivateRoute><RevisaoEquipamento/></PrivateRoute>} />
+            <Route path="/revisaoEquipamento1" element={<PrivateRoute><RevisaoEquipamento1/></PrivateRoute>} />
+
             <Route path="/profile" element={<PrivateRoute><Profile/></PrivateRoute>} />
 
             {/* Rotas restritas para ADMIN */}
