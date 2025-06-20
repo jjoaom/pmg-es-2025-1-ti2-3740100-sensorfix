@@ -56,8 +56,8 @@ public class DemandaProducao {
 
     @NotNull(message = "O insumo é obrigatório")
     @ManyToOne
-    @JoinColumn(name = "id_insumo", nullable = false)
-    private Insumo insumo;
+    @JoinColumn(name = "equipamento", nullable = false)
+    private Equipamento equipamento;
 
     @Size(max = 255, message = "Descrição deve ter no máximo 255 caracteres")
     @Column(name = "descricao_item", length = 255)
