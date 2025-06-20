@@ -1,16 +1,43 @@
 
 ## 6. Interface do sistema
 
-_Visão geral da interação do usuário por meio das telas do sistema. Apresente as principais interfaces da plataforma._
+1. Barra de Navegação Superior
+Logo do sistema: “SensorFix” com um ícone estilizado de engrenagem e ondas de sinal.
 
-## 6.1. Tela principal do sistema
+Menus disponíveis:
 
-_Descrição da tela principal do sistema._
+🏠 Home
 
-Tela principal do sistema
+🔧 Produção
+
+📦 Estoque
+
+🛠️ Manutenção
+
+🖥️ Movimentação
+
+Esses menus indicam que o sistema possui múltiplas funcionalidades operacionais, acessíveis após o login.
+
+2. Área de Login
+Título: “Login” em destaque com fonte azul.
+
+Campos de entrada:
+
+Usuário: Campo para digitar o nome ou ID do usuário.
+
+Senha: Campo para digitar a senha, com ocultação dos caracteres.
+
+Botão “Entrar”: Com gradiente azul e aparência tridimensional, sugere a ação de autenticação ao sistema.
+
+3. Design e Estética
+Fundo com padrão geométrico azul claro lembrando conexões ou redes, reforçando a ideia de tecnologia e automação.
+
+Interface limpa, moderna, com foco em usabilidade e clareza visual._
 
 
-## 6.2. Telas do processo 1
+
+
+## 6.1. Telas do processo 1
 
 _Descrição da tela relativa à atividade 1._
 
