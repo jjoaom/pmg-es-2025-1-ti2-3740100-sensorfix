@@ -60,9 +60,9 @@ export default function App() {
             <Route path="/estoque/editarEquipamento" element={<PrivateRoute><EditarEquipamento/></PrivateRoute>} />
             <Route path="/estoque/editarInsumo" element={<PrivateRoute><EditarInsumo/></PrivateRoute>} />
 
-            <Route path="/deposito" element={<PrivateRoute><Deposito/></PrivateRoute>} />
+            <Route path="/movimentacao" element={<PrivateRoute><Deposito/></PrivateRoute>} />
 
-            <Route path="/revisaoEquipamento" element={<PrivateRoute><RevisaoEquipamento/></PrivateRoute>} />
+            <Route path="/manutencao" element={<PrivateRoute><RevisaoEquipamento/></PrivateRoute>} />
 
             <Route path="/profile" element={<PrivateRoute><Profile/></PrivateRoute>} />
 
