@@ -54,7 +54,7 @@ public class DemandaProducao {
     @Column(name = "responsavel")
     private String responsavel;
 
-    @NotNull(message = "O insumo é obrigatório")
+    @NotNull(message = "O equipamento é obrigatório")
     @ManyToOne
     @JoinColumn(name = "equipamento", nullable = false)
     private Equipamento equipamento;
@@ -235,12 +235,12 @@ public class DemandaProducao {
         this.responsavel = responsavel;
     }
 
-    public Insumo getInsumo() {
-        return insumo;
+    public Equipamento getEquipamento() {
+        return equipamento;
     }
 
-    public void setInsumo(Insumo insumo) {
-        this.insumo = insumo;
+    public void setEquipamento(Equipamento equipamento) {
+        this.equipamento = equipamento;
     }
 
     public List<PecaDefeituosa> getPecasDefeituosas() {
