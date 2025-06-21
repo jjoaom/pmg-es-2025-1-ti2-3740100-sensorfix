@@ -16,7 +16,11 @@ import java.security.Key;
 public class JwtService {
 
 
-    private static final Key KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private static final Key KEY;
+
+    public JwtService(@Value("${jwt.secret}") String secret) {
+        this.KEY = Keys.hmacShaKeyFor(Base64.getEncoder().encodeToString(secret.getBytes()).getBytes());
+    }
 
 
     public String generateToken(String username, Role role) {
