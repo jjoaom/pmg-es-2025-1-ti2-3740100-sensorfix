@@ -5,6 +5,7 @@ import { FaSave, FaFilter } from "react-icons/fa";
 import { HiMiniXMark } from "react-icons/hi2";
 import Select from "react-select";
 import { api } from "../utils/api";
+import { getUsername } from "../utils/auth";
 
 // Função utilitária para exibir datas ISO
 function formatarDataISO(dataIso) {
@@ -39,7 +40,12 @@ function useLoading() {
 }
 
 // Componente para lista de peças defeituosas (reutilizável)
-function ListaPecasDefeituosas({ pecas, pecasDefeituosas, onRemove, disabled }) {
+function ListaPecasDefeituosas({
+  pecas,
+  pecasDefeituosas,
+  onRemove,
+  disabled,
+}) {
   const lista = Array.isArray(pecasDefeituosas) ? pecasDefeituosas : [];
 
   return (
@@ -51,7 +57,8 @@ function ListaPecasDefeituosas({ pecas, pecasDefeituosas, onRemove, disabled }) 
       )}
       {lista.map((pd, idx) => {
         const pecaId = pd.peca?.id || pd.pecaId;
-        const nomePeca = pecas.find((p) => p.id === pecaId)?.nome || `ID: ${pecaId}`;
+        const nomePeca =
+          pecas.find((p) => p.id === pecaId)?.nome || `ID: ${pecaId}`;
         return (
           <li
             key={`peca-${pecaId}-${idx}`}
@@ -78,7 +85,13 @@ function ListaPecasDefeituosas({ pecas, pecasDefeituosas, onRemove, disabled }) 
 }
 
 // Componente Modal para confirmação (melhorando acessibilidade)
-function ConfirmModal({ show, title = "Confirmação", message, onConfirm, onCancel }) {
+function ConfirmModal({
+  show,
+  title = "Confirmação",
+  message,
+  onConfirm,
+  onCancel,
+}) {
   if (!show) return null;
   return (
     <div
@@ -122,7 +135,9 @@ function ConfirmModal({ show, title = "Confirmação", message, onConfirm, onCan
 // ItemDemanda: mostra o resumo da demanda na lista
 const ItemDemanda = memo(({ demanda, onClick, selected }) => (
   <div
-    className={`card glass-div rounded shiny ${selected ? "border-primary border-2" : ""}`}
+    className={`card glass-div rounded shiny ${
+      selected ? "border-primary border-2" : ""
+    }`}
     onClick={() => onClick(demanda.id)}
     style={{ cursor: "pointer" }}
     tabIndex={0}
@@ -154,10 +169,16 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
   const [confirmModal, setConfirmModal] = useState({ show: false, type: null });
   const [erro, setErro] = useState("");
   // Novos campos
-  const [produtoRecuperado, setProdutoRecuperado] = useState(!!demanda?.produtoRecuperado);
-  const [testeBemSucedido, setTesteBemSucedido] = useState(!!demanda?.testeBemSucedido);
+  const [produtoRecuperado, setProdutoRecuperado] = useState(
+    !!demanda?.produtoRecuperado
+  );
+  const [testeBemSucedido, setTesteBemSucedido] = useState(
+    !!demanda?.testeBemSucedido
+  );
   const [observacoes, setObservacoes] = useState(demanda?.observacoes || "");
-  const [relatorioTestes, setRelatorioTestes] = useState(demanda?.relatorioTestes || "");
+  const [relatorioTestes, setRelatorioTestes] = useState(
+    demanda?.relatorioTestes || ""
+  );
 
   useEffect(() => {
     if (!demanda) return;
@@ -185,7 +206,8 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
     });
   }, [demanda, withLoading]);
 
-  if (!demanda) return <p className="text-muted">Nenhuma demanda selecionada.</p>;
+  if (!demanda)
+    return <p className="text-muted">Nenhuma demanda selecionada.</p>;
 
   const handleAddPeca = () => {
     setErro("");
@@ -195,7 +217,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
     }
     setPecasDefeituosasLocal((prev) => [
       ...prev,
-      { pecaId: pecaSelecionada.value, quantidade: Number(quantidadeSelecionada) },
+      {
+        pecaId: pecaSelecionada.value,
+        quantidade: Number(quantidadeSelecionada),
+      },
     ]);
     setPecaSelecionada(null);
     setQuantidadeSelecionada(1);
@@ -327,7 +352,12 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
           </h4>
         </div>
         <div className="col-2 text-end">
-          <button type="button" className="btn-close" aria-label="Fechar" onClick={onClose}></button>
+          <button
+            type="button"
+            className="btn-close"
+            aria-label="Fechar"
+            onClick={onClose}
+          ></button>
         </div>
       </div>
       <div className="row mb-2">
@@ -340,7 +370,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       {/* Seção de Limpeza e adição de peças defeituosas */}
       <div className="row g-2 mb-2">
         <div className="col-12 col-md-8 d-flex align-items-center border border-primary-subtle rounded-3 mb-2 mb-md-0 px-3">
-          <label className="form-check-label fs-6 me-3" htmlFor="switchLimpezaCheck">
+          <label
+            className="form-check-label fs-6 me-3"
+            htmlFor="switchLimpezaCheck"
+          >
             Limpeza realizada?
           </label>
           <div className="form-check form-switch mb-0">
@@ -360,7 +393,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
           <div className="d-flex gap-2 align-items-center">
             <Select
               id="idPeca"
-              options={pecas.map((peca) => ({ value: peca.id, label: peca.nome }))}
+              options={pecas.map((peca) => ({
+                value: peca.id,
+                label: peca.nome,
+              }))}
               value={pecaSelecionada}
               onChange={setPecaSelecionada}
               placeholder="Selecionar Peça"
@@ -383,7 +419,11 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
             <button
               className="btn btn-outline-primary"
               onClick={handleAddPeca}
-              disabled={!pecaSelecionada || !quantidadeSelecionada || !!demanda.limpezaRealizada}
+              disabled={
+                !pecaSelecionada ||
+                !quantidadeSelecionada ||
+                !!demanda.limpezaRealizada
+              }
               type="button"
               aria-label="Adicionar peça defeituosa"
             >
@@ -406,7 +446,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       {/* Produto recuperado */}
       <div className="row mb-2">
         <div className="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-          <label className="form-check-label fs-6 me-2" htmlFor="switchProdutoRecuperado">
+          <label
+            className="form-check-label fs-6 me-2"
+            htmlFor="switchProdutoRecuperado"
+          >
             Produto recuperado?
           </label>
           <div className="form-check form-switch mb-0">
@@ -416,7 +459,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
               role="switch"
               id="switchProdutoRecuperado"
               checked={produtoRecuperado}
-              disabled={!demanda.limpezaRealizada || demanda.statusDemanda !== "EM_RECUPERACAO"}
+              disabled={
+                !demanda.limpezaRealizada ||
+                demanda.statusDemanda !== "EM_RECUPERACAO"
+              }
               onChange={() => setProdutoRecuperado((v) => !v)}
               aria-checked={produtoRecuperado}
             />
@@ -433,7 +479,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       {/* Testes */}
       <div className="row mb-2 align-items-center">
         <div className="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-          <label className="form-check-label fs-6 me-2" htmlFor="switchTesteRealizado">
+          <label
+            className="form-check-label fs-6 me-2"
+            htmlFor="switchTesteRealizado"
+          >
             Teste realizado?
           </label>
           <div className="form-check form-switch mb-0">
@@ -445,7 +494,9 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
               checked={!!demanda.dataFimTestes}
               disabled={!demanda.limpezaRealizada || !produtoRecuperado}
               onChange={() =>
-                handleConfirmEvent(demanda.dataInicioTestes ? "fimTestes" : "inicioTestes")
+                handleConfirmEvent(
+                  demanda.dataInicioTestes ? "fimTestes" : "inicioTestes"
+                )
               }
               aria-checked={!!demanda.dataFimTestes}
             />
@@ -453,7 +504,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
         </div>
         {/* Teste bem-sucedido */}
         <div className="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-          <label className="form-check-label fs-6 me-2" htmlFor="switchTesteBemSucedido">
+          <label
+            className="form-check-label fs-6 me-2"
+            htmlFor="switchTesteBemSucedido"
+          >
             Teste bem-sucedido?
           </label>
           <div className="form-check form-switch mb-0">
@@ -482,7 +536,10 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
             rows={2}
             value={observacoes}
             onChange={(e) => setObservacoes(e.target.value)}
-            disabled={demanda.statusDemanda === "FINALIZADA" || demanda.statusDemanda === "DESCARTADA"}
+            disabled={
+              demanda.statusDemanda === "FINALIZADA" ||
+              demanda.statusDemanda === "DESCARTADA"
+            }
           />
         </div>
         <div className="col-12 col-md-6">
@@ -502,12 +559,17 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
       {/* Finalização da demanda */}
       <div className="row mb-2 align-items-center">
         <div className="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-          <label className="form-check-label fs-6 me-2" htmlFor="finalizarDemanda">
+          <label
+            className="form-check-label fs-6 me-2"
+            htmlFor="finalizarDemanda"
+          >
             Finalizar Demanda:
           </label>
           <button
             className="btn btn-green-submit btn-sm me-2"
-            disabled={!demanda.dataFimTestes || demanda.statusDemanda === "FINALIZADA"}
+            disabled={
+              !demanda.dataFimTestes || demanda.statusDemanda === "FINALIZADA"
+            }
             onClick={() => handleConfirmEvent("finalizar")}
             id="finalizarDemanda"
             type="button"
@@ -534,9 +596,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
             )}
             {historico.map((h) => (
               <li key={h.id} className="list-group-item">
-                [
-                {formatarDataISO(h.dataHora)}
-                ] {h.acao} — {h.descricao}
+                [{formatarDataISO(h.dataHora)}] {h.acao} — {h.descricao}
               </li>
             ))}
           </ul>
@@ -578,7 +638,7 @@ function FormCriarDemanda({ onCreated }) {
     withLoading(async () => {
       try {
         const [equipamentosData, pecasData] = await Promise.all([
-          api.get("/equipamento"),
+          api.get("/equipamentos"),
           api.get("/api/pecas"),
         ]);
         setequipamentos(equipamentosData);
@@ -600,7 +660,10 @@ function FormCriarDemanda({ onCreated }) {
     }
     setPecasDefeituosas((prev) => [
       ...prev,
-      { peca: { id: pecaSelecionada.value }, quantidade: Number(quantidadeSelecionada) },
+      {
+        peca: { id: pecaSelecionada.value },
+        quantidade: Number(quantidadeSelecionada),
+      },
     ]);
     setPecaSelecionada(null);
     setQuantidadeSelecionada(1);
@@ -622,14 +685,16 @@ function FormCriarDemanda({ onCreated }) {
         equipamento: { id: equipamentoSelecionado.value },
         descricaoItem: descricao,
         setorResponsavel: "Produção",
-        responsavel: "João Marcos",
+        responsavel: getUsername(),
         pecasDefeituosas: pecasDefeituosas.map((pd) => ({
-          peca: { id: pd.peca?.id || pd.pecaId || pd.peca?.value },
+          peca: { id: pd.peca.id },
           quantidade: pd.quantidade,
         })),
         produtoRecuperado,
         observacoes,
+        statusDemanda: "CRIADA",
       };
+      console.log(payload);
       try {
         const created = await api.post("/api/demandas", payload);
         onCreated(created);
@@ -657,7 +722,10 @@ function FormCriarDemanda({ onCreated }) {
         <div className="col-12">
           <Select
             id="idequipamento"
-            options={equipamentos.map((equipamento) => ({ value: equipamento.id, label: equipamento.nome }))}
+            options={equipamentos.map((equipamento) => ({
+              value: equipamento.id,
+              label: equipamento.nome,
+            }))}
             value={equipamentoSelecionado}
             onChange={setequipamentoSelecionado}
             placeholder="Selecionar equipamento"
@@ -688,7 +756,10 @@ function FormCriarDemanda({ onCreated }) {
           <div className="d-flex gap-2 align-items-center mb-2">
             <Select
               id="idPeca"
-              options={pecas.map((peca) => ({ value: peca.id, label: peca.nome }))}
+              options={pecas.map((peca) => ({
+                value: peca.id,
+                label: peca.nome,
+              }))}
               value={pecaSelecionada}
               onChange={setPecaSelecionada}
               placeholder="Selecionar Peça"
@@ -729,7 +800,10 @@ function FormCriarDemanda({ onCreated }) {
       {/* Produto recuperado e observações */}
       <div className="row mb-3">
         <div className="col-12 col-md-6 mb-2 mb-md-0">
-          <label className="form-check-label fs-6 me-2" htmlFor="switchProdutoRecuperadoNovo">
+          <label
+            className="form-check-label fs-6 me-2"
+            htmlFor="switchProdutoRecuperadoNovo"
+          >
             Produto recuperado?
           </label>
           <div className="form-check form-switch mb-0">
@@ -866,7 +940,10 @@ export default function Producao() {
                   </div>
                 </div>
               </div>
-              <div className="card-body p-3 overflow-auto" style={{ maxHeight: "60vh" }}>
+              <div
+                className="card-body p-3 overflow-auto"
+                style={{ maxHeight: "60vh" }}
+              >
                 <div className="d-flex flex-column gap-2">
                   {demandas.map((d) => (
                     <ItemDemanda

@@ -55,7 +55,7 @@ public class DemandaProducao {
     private String responsavel;
 
     @ManyToOne
-    @JoinColumn(name = "equipamento")
+    @JoinColumn(name="id_equipamento", nullable=false)
     private Equipamento equipamento;
 
     @Size(max = 255, message = "Descrição deve ter no máximo 255 caracteres")

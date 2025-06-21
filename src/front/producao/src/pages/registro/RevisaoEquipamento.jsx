@@ -85,7 +85,7 @@ return (
 
             <div className="row g-4">
                 {/* ===== Coluna da esquerda ===== */}
-                <div className="col-lg-4 col-md-6 mb-4 ">
+                <div className="col-lg-4 col-md-6 ">
                     <div className="card shadow-sm h-100 glass-div">
                         <div className="card-header bg-light border-bottom">
                             <h5 className="mb-0">Dados do Equipamento</h5>
@@ -102,9 +102,9 @@ return (
                                     onChange={(e) => setIdEquipamento(e.target.value)}
                                 />
                             </div>
-                            <div className="d-grid mb-3">
+                            <div className="d-grid mb-2">
                                 <button
-                                    className="btn btn-outline-primary"
+                                    className="btn btn-design btn-outline-primary"
                                     onClick={fetchEquipamento}
                                 >
                                     Buscar Equipamento
@@ -163,7 +163,7 @@ return (
                 </div>
 
                 {/* ===== Coluna da direita ===== */}
-                <div className="col-lg-8 col-md-6 mb-4">
+                <div className="col-lg-8 col-md-6">
                     <div className="card h-100 glass-div">
                         <div className="card-header border-bottom ">
                             <h5 className="mb-0">Registro de Falhas</h5>
@@ -277,12 +277,12 @@ return (
                             </div>
                             <div className="d-flex gap-2">
                                 <button
-                                    className="btn btn-outline-success"
+                                    className="btn btn-design btn-outline-success"
                                     onClick={handleAddFalha}
                                 >
                                     Adicionar Falha
                                 </button>
-                                <button className="btn btn-primary ms-auto" onClick={handleSave}>
+                                <button className="btn btn-design btn-primary ms-auto" onClick={handleSave}>
                                     Guardar Dados
                                 </button>
                             </div>
