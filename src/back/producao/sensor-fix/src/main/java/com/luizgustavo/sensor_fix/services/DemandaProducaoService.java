@@ -9,10 +9,10 @@ import com.luizgustavo.sensor_fix.repositories.PecaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.Hibernate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 public class DemandaProducaoService {
@@ -30,8 +30,9 @@ public class DemandaProducaoService {
         return repository.findAllComPecas();
     }
 
+    @Transactional
     public Optional<DemandaProducao> buscarPorId(Long id) {
-        return repository.findById(id);
+        return repository.findByIdComPecas(id);
     }
 
     @Transactional
@@ -42,14 +43,12 @@ public class DemandaProducaoService {
         if (demanda.getDataHoraCriacao() == null)
             demanda.setDataHoraCriacao(LocalDateTime.now());
 
-
         if (demanda.getEquipamento() == null || demanda.getEquipamento().getId() == null)
             throw new RuntimeException("equipamento.id é obrigatório");
         Long eqId = demanda.getEquipamento().getId();
         Equipamento eq = equipamentoRepo.findById(eqId)
                 .orElseThrow(() -> new RuntimeException("Equipamento não encontrado: " + eqId));
         demanda.setEquipamento(eq);
-
 
         if (demanda.getPecasDefeituosas() != null) {
             for (PecaDefeituosa pd : demanda.getPecasDefeituosas()) {
@@ -61,7 +60,6 @@ public class DemandaProducaoService {
                 pd.setDemanda(demanda);
             }
         }
-
 
         return repository.save(demanda);
     }
