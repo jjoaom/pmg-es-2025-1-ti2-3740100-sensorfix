@@ -37,6 +37,7 @@ public class AuthController {
             System.out.println("Tentando autenticar usuário: " + authRequest.getUsername());
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+
             Usuario user = usuarioRepository.findByUsername(authRequest.getUsername())
                     .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
@@ -44,23 +45,27 @@ public class AuthController {
             String token = jwtService.generateToken(user.getUsername(), user.getRole());
 
             return ResponseEntity.ok(new AuthResponse(token, user.getRole().name()));
+
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(404).body("Usuário não encontrado");
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(401).body("Credenciais inválidas");
         } catch (Exception e) {
-            e.printStackTrace(); // Exibir erro completo no log
+            e.printStackTrace();
             return ResponseEntity.status(500).body("Erro interno no servidor: " + e.getMessage());
         }
     }
 
-}
+    @Data
+    static class AuthRequest {
+        private String username;
+        private String password;
+    }
 
-@Data
-class AuthRequest {
-    private String username;
-    private String password;
-}
-
-@Data
-@AllArgsConstructor
-class AuthResponse {
-    private String token;
-    private String role;
+    @Data
+    @AllArgsConstructor
+    static class AuthResponse {
+        private String token;
+        private String role;
+    }
 }
