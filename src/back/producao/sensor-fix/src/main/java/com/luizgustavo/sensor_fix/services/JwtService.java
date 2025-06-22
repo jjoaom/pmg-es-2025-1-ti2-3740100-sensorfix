@@ -2,15 +2,13 @@ package com.luizgustavo.sensor_fix.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.security.Key;
-
 import com.luizgustavo.sensor_fix.models.Role;
 
 @Service
