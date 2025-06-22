@@ -1,7 +1,9 @@
 package com.luizgustavo.sensor_fix.controller;
 
 import com.luizgustavo.sensor_fix.models.DemandaProducao;
+import com.luizgustavo.sensor_fix.models.HistoricoDemanda;
 import com.luizgustavo.sensor_fix.services.DemandaProducaoService;
+import com.luizgustavo.sensor_fix.services.HistoricoDemandaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ public class DemandaProducaoController {
 
     @Autowired
     private DemandaProducaoService service;
+
+    @Autowired
+    private HistoricoDemandaService historicoService;
 
     @GetMapping
     public ResponseEntity<List<DemandaProducao>> listarTodas() {
@@ -35,7 +40,8 @@ public class DemandaProducaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DemandaProducao> atualizar(@PathVariable Long id, @Valid @RequestBody DemandaProducao novaDemanda) {
+    public ResponseEntity<DemandaProducao> atualizar(@PathVariable Long id,
+            @Valid @RequestBody DemandaProducao novaDemanda) {
         try {
             return ResponseEntity.ok(service.atualizar(id, novaDemanda));
         } catch (RuntimeException e) {
@@ -48,4 +54,11 @@ public class DemandaProducaoController {
         service.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/historico")
+    public ResponseEntity<List<HistoricoDemanda>> buscarHistorico(@PathVariable Long id) {
+        List<HistoricoDemanda> historico = historicoService.buscarPorDemandaId(id);
+        return ResponseEntity.ok(historico);
+    }
+
 }

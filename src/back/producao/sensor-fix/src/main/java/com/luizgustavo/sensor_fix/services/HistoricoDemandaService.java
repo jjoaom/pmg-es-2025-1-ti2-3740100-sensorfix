@@ -40,4 +40,9 @@ public class HistoricoDemandaService {
             return repository.save(novaDemanda);
         }).orElseThrow(() -> new RuntimeException("Demanda não encontrada com ID: " + id));
     }
+
+    public List<HistoricoDemanda> buscarPorDemandaId(Long demandaId) {
+        return repository.findByDemandaIdOrderByDataHoraAsc(demandaId);
+    }
+
 }
