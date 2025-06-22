@@ -339,7 +339,7 @@ export default function Indicator() {
             <div className="card shadow-sm h-100">
               <div className="card-body">
                 <h2 className="card-title fs-5 mb-3">Estado Atual Depósitos</h2>
-                <canvas className="glass-div" ref={depEquipRef} />
+                <canvas ref={depEquipRef} />
               </div>
             </div>
           </div>
