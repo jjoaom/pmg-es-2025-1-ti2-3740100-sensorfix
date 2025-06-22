@@ -3,7 +3,7 @@ const baseUrl = import.meta.env.VITE_API_URL;
 async function apiRequest(endpoint, method = "GET", body = null) {
   const token = localStorage.getItem('token');
 
-  const shouldSendToken = !endpoint.startsWith("/auth/login");
+  const shouldSendToken = !["/auth/login"].includes(endpoint);
 
   const options = {
     method,
