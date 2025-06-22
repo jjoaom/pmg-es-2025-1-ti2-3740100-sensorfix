@@ -171,43 +171,69 @@ export default function Indicator() {
   }, [falhas]);
 
   useEffect(() => {
-    if (!depEquipRef.current || !depositos.length) return;
-    const quantidades = depositos.map((d) => Number(d.quantidade));
-    const soma = quantidades.reduce((a, b) => a + b, 0);
-    const labels = depositos.map((d, i) => {
-      const perc = ((quantidades[i] / soma) * 100).toFixed(1);
-      return `${d.tipoDeposito} (${perc}%)`;
-    });
-    if (chartDepRef.current) chartDepRef.current.destroy();
-    chartDepRef.current = new Chart(depEquipRef.current, {
-      type: "pie",
-      data: {
-        labels,
-        datasets: [
-          {
-            label: "Quantidade",
-            data: quantidades,
-            backgroundColor: [
-              "#E5EB36",
-              "#72EB36",
-              "#EB3636",
-              "#36A2EB",
-              "#9436EB",
-            ].map((c) => c + "B3"),
-            borderColor: "black",
-            borderWidth: 1,
+  if (!depEquipRef.current || !depositos.length) return;
+
+  const ctx = depEquipRef.current.getContext("2d");
+  const quantidades = depositos.map((d) => Number(d.quantidade));
+  const soma = quantidades.reduce((a, b) => a + b, 0);
+  const labels = depositos.map((d, i) => {
+    const perc = ((quantidades[i] / soma) * 100).toFixed(1);
+    return `${d.tipoDeposito} (${perc}%)`;
+  });
+
+  if (chartDepRef.current) chartDepRef.current.destroy();
+
+  const glassyColors = [
+    "rgba(0, 255, 255, 0.4)",
+    "rgba(0, 128, 255, 0.4)",
+    "rgba(144, 238, 144, 0.4)",
+    "rgba(255, 105, 180, 0.4)",
+    "rgba(173, 216, 230, 0.4)",
+  ];
+
+  chartDepRef.current = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Quantidade",
+          data: quantidades,
+          backgroundColor: glassyColors,
+          borderColor: "rgba(255, 255, 255, 0.6)",
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+          labels: {
+            color: "#e0f7ff",
+            font: {
+              family: "Segoe UI, sans-serif",
+              size: 14,
+              weight: "400",
+            },
           },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: "top" },
-          title: { display: true, text: "Distribuição dos Tipos de Depósitos" },
+        },
+        title: {
+          display: true,
+          text: "Distribuição dos Tipos de Depósitos",
+          color: "#ffffff",
+          font: {
+            family: "Segoe UI, sans-serif",
+            size: 18,
+            weight: "600",
+          },
         },
       },
-    });
-  }, [depositos]);
+    },
+  });
+}, [depositos]);
+
 
   useEffect(() => {
     if (!falhasRef.current) return;
@@ -314,7 +340,7 @@ export default function Indicator() {
             <div className="card shadow-sm h-100">
               <div className="card-body">
                 <h2 className="card-title fs-5 mb-3">Estado Atual Depósitos</h2>
-                <canvas ref={depEquipRef} />
+                <canvas className="glass-div" ref={depEquipRef} />
               </div>
             </div>
           </div>
