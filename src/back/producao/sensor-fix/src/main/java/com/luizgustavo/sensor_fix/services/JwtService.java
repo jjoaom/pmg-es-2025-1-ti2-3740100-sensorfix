@@ -19,8 +19,7 @@ public class JwtService {
     private final Key key;
 
     public JwtService(@Value("${jwt.secret}") String secret) {
-        // chave precisa mínimo de 32 bytes para HS256
-        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateToken(String username, Role role) {
@@ -35,11 +34,7 @@ public class JwtService {
 
     public Claims extractClaims(String token) {
         try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
         } catch (Exception e) {
             throw new IllegalStateException("Token inválido ou expirado.");
         }
