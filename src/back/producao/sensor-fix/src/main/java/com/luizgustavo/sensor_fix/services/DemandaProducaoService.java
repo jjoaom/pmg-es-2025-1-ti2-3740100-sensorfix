@@ -27,7 +27,7 @@ public class DemandaProducaoService {
     private PecaRepository pecaRepo;
 
     public List<DemandaProducao> listarTodos() {
-        return repository.findAll();
+        return repository.findAllComPecas();
     }
 
     public Optional<DemandaProducao> buscarPorId(Long id) {
