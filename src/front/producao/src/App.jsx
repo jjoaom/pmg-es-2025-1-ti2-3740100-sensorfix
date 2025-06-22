@@ -48,10 +48,11 @@ export default function App() {
 
             <Route path="/movimentacao" element={<PrivateRoute><Movimentacao/></PrivateRoute>} />
 
+            <Route path="/indicadores" element={<PrivateRoute><Indicator/></PrivateRoute>} />
+
             <Route path="/estoque" element={<PrivateRoute><Estoque /></PrivateRoute>} />
             <Route path="/estoque/entrada" element={<PrivateRoute><Entrada /></PrivateRoute>} />
             <Route path="/estoque/buscar" element={<PrivateRoute><Pesquisa/></PrivateRoute>} />
-            <Route path="/indicadores" element={<PrivateRoute><Indicator/></PrivateRoute>} />
             <Route path="/estoque/indicadoresDesempenho" element={<PrivateRoute><IndicadoresDesempenho/></PrivateRoute>} />
             <Route path="/estoque/compras" element={<PrivateRoute><Compras/></PrivateRoute>} />
             <Route path="/estoque/fastEquipamento" element={<PrivateRoute><FastEquip/></PrivateRoute>} />
@@ -60,8 +61,6 @@ export default function App() {
             <Route path="/estoque/cadastroInsumo" element={<PrivateRoute><CadastroInsumo/></PrivateRoute>} />
             <Route path="/estoque/editarEquipamento" element={<PrivateRoute><EditarEquipamento/></PrivateRoute>} />
             <Route path="/estoque/editarInsumo" element={<PrivateRoute><EditarInsumo/></PrivateRoute>} />
-
-            <Route path="/movimentacao" element={<PrivateRoute><Deposito/></PrivateRoute>} />
 
             <Route path="/manutencao" element={<PrivateRoute><RevisaoEquipamento/></PrivateRoute>} />
 

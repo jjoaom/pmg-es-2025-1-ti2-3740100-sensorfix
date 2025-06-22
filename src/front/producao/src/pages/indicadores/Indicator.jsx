@@ -3,9 +3,9 @@ import Chart from "chart.js/auto";
 import { api } from "../../utils/api";
 import PageLayout from "../../components/PageLayout";
 
-const urlDepositos = "/estoque-depositos/";
-const urlDemandas = "/api/demandas/";
-const urlFalhas = "/falhas//todas_falhas";
+const urlDepositos = "estoque-depositos";
+const urlDemandas = "api/demandas";
+const urlFalhas = "falhas/todas_falhas";
 
 const meses = [
   "Janeiro",
@@ -34,24 +34,11 @@ function parseDateArray(arr) {
   return new Date(year, month, day, hour, minute, second, millisecond);
 }
 
-async function getDepositos(url) {
+async function fetchDataFromApi(url, label = "") {
   try {
     return await api.get(url);
-  } catch {
-    return [];
-  }
-}
-async function getDemandas(url) {
-  try {
-    return await api.get(url);
-  } catch {
-    return [];
-  }
-}
-async function getFalhas(url) {
-  try {
-    return await api.get(url);
-  } catch {
+  } catch (error) {
+    console.error(`Erro ao buscar ${label}:`, error);
     return [];
   }
 }
@@ -118,101 +105,96 @@ function filtrarFalhasPorAnoEMes(vetor, ano, mesesSelecionados) {
 }
 
 export default function Indicator() {
-  // Estados para dados
   const [depositos, setDepositos] = useState([]);
   const [demandas, setDemandas] = useState([]);
   const [falhas, setFalhas] = useState([]);
 
-  // Filtros Demandas
   const [anosDemandas, setAnosDemandas] = useState([]);
   const [anoFiltro, setAnoFiltro] = useState("");
   const [mesesFiltro, setMesesFiltro] = useState([]);
   const [mediaTempo, setMediaTempo] = useState("0.00");
   const [mediaFiltroAtivo, setMediaFiltroAtivo] = useState(false);
 
-  // Filtros Falhas
   const [anosFalhas, setAnosFalhas] = useState([]);
   const [anoFalhaFiltro, setAnoFalhaFiltro] = useState("");
   const [mesesFalhaFiltro, setMesesFalhaFiltro] = useState([]);
   const [dadosFalhas, setDadosFalhas] = useState({ labels: [], data: [] });
   const [falhaFiltroAtivo, setFalhaFiltroAtivo] = useState(false);
 
-  // Refs para canvas
   const depEquipRef = useRef(null);
   const falhasRef = useRef(null);
 
-  // Chart instances
   const chartDepRef = useRef(null);
   const chartFalhasRef = useRef(null);
 
-  // Carregar dados iniciais
   useEffect(() => {
-    async function fetchData() {
-      const dep = await getDepositos(urlDepositos);
-      setDepositos(dep);
-
-      const dem = await getDemandas(urlDemandas);
-      setDemandas(dem);
-
-      const fal = await getFalhas(urlFalhas);
-      setFalhas(fal);
+    async function fetchAll() {
+      setDepositos(await fetchDataFromApi(urlDepositos, "depósitos"));
+      setDemandas(await fetchDataFromApi(urlDemandas, "demandas"));
+      setFalhas(await fetchDataFromApi(urlFalhas, "falhas"));
     }
-    fetchData();
+    fetchAll();
   }, []);
 
-  // Atualizar anos disponíveis para filtro de demandas
   useEffect(() => {
-    const anos = demandas
-      .map((obj) => {
-        const dateObj = parseDateArray(obj.dataHoraCriacao);
-        return dateObj ? dateObj.getFullYear() : null;
-      })
-      .filter((ano) => ano !== null);
-    setAnosDemandas([...new Set(anos)].sort((a, b) => a - b));
-    // Média inicial
+    if (!demandas.length) return;
+    const anos = [
+      ...new Set(
+        demandas
+          .map((obj) => {
+            const d = parseDateArray(obj.dataHoraCriacao);
+            return d ? d.getFullYear() : null;
+          })
+          .filter(Boolean)
+      ),
+    ].sort((a, b) => a - b);
+    setAnosDemandas(anos);
     setMediaTempo(calcularMediaTempoProducao(demandas));
     setMediaFiltroAtivo(false);
   }, [demandas]);
 
-  // Atualizar anos disponíveis para filtro de falhas
   useEffect(() => {
-    const anos = falhas
-      .map((obj) => {
-        const dateObj = parseDateArray(obj.dataRevisao);
-        return dateObj ? dateObj.getFullYear() : null;
-      })
-      .filter((ano) => ano !== null);
-    setAnosFalhas([...new Set(anos)].sort((a, b) => a - b));
+    if (!falhas.length) return;
+    const anos = [
+      ...new Set(
+        falhas
+          .map((obj) => {
+            const d = parseDateArray(obj.dataRevisao);
+            return d ? d.getFullYear() : null;
+          })
+          .filter(Boolean)
+      ),
+    ].sort((a, b) => a - b);
+    setAnosFalhas(anos);
     setDadosFalhas(processarDadosFalhas(falhas));
     setFalhaFiltroAtivo(false);
   }, [falhas]);
 
-  // Gráfico de depósitos
   useEffect(() => {
-    if (!depEquipRef.current || depositos.length === 0) return;
-    const quantidades = depositos.map((obj) => Number(obj.quantidade));
-    const soma = quantidades.reduce((acc, val) => acc + val, 0);
-    const nomes = depositos.map((obj, i) => {
-      const percentual = ((quantidades[i] / soma) * 100).toFixed(1);
-      return `${obj.tipoDeposito} (${percentual}%)`;
+    if (!depEquipRef.current || !depositos.length) return;
+    const quantidades = depositos.map((d) => Number(d.quantidade));
+    const soma = quantidades.reduce((a, b) => a + b, 0);
+    const labels = depositos.map((d, i) => {
+      const perc = ((quantidades[i] / soma) * 100).toFixed(1);
+      return `${d.tipoDeposito} (${perc}%)`;
     });
     if (chartDepRef.current) chartDepRef.current.destroy();
     chartDepRef.current = new Chart(depEquipRef.current, {
       type: "pie",
       data: {
-        labels: nomes,
+        labels,
         datasets: [
           {
             label: "Quantidade",
             data: quantidades,
             backgroundColor: [
-              "rgba(229, 235, 54, 0.7)",
-              "rgba(114, 235, 54, 0.7)",
-              "rgba(235, 54, 54, 0.7)",
-              "rgba(54, 162, 235, 0.7)",
-              "rgba(148, 54, 235, 0.7)",
-            ],
-            borderColor: "rgb(0, 0, 0)",
+              "#E5EB36",
+              "#72EB36",
+              "#EB3636",
+              "#36A2EB",
+              "#9436EB",
+            ].map((c) => c + "B3"),
+            borderColor: "black",
             borderWidth: 1,
           },
         ],
@@ -225,30 +207,22 @@ export default function Indicator() {
         },
       },
     });
-    // eslint-disable-next-line
   }, [depositos]);
 
-  // Gráfico de falhas
   useEffect(() => {
     if (!falhasRef.current) return;
     if (chartFalhasRef.current) chartFalhasRef.current.destroy();
-    const labels =
-      dadosFalhas.labels && dadosFalhas.labels.length > 0
-        ? dadosFalhas.labels
-        : [];
-    const chartData =
-      dadosFalhas.data && dadosFalhas.data.length > 0 ? dadosFalhas.data : [];
-    const totalFalhas = chartData.reduce((sum, count) => sum + count, 0);
+    const totalFalhas = dadosFalhas.data.reduce((a, b) => a + b, 0);
     chartFalhasRef.current = new Chart(falhasRef.current, {
       type: "bar",
       data: {
-        labels: labels,
+        labels: dadosFalhas.labels,
         datasets: [
           {
             label: falhaFiltroAtivo
               ? `Ocorrências de Falhas (filtrado) - Total: ${totalFalhas}`
               : `Ocorrências de Falhas - Total: ${totalFalhas}`,
-            data: chartData,
+            data: dadosFalhas.data,
             backgroundColor: "rgba(99, 193, 255, 0.7)",
             borderColor: "rgb(99, 195, 255)",
             borderWidth: 1,
@@ -261,25 +235,11 @@ export default function Indicator() {
           x: { title: { display: true, text: "Falha Encontrada" } },
           y: {
             beginAtZero: true,
-            precision: 0,
-            title: { display: true, text: "Número de Ocorrências" },
-          },
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                let label = context.dataset.label || "";
-                if (label) label += ": ";
-                if (context.parsed.y !== null) label += context.parsed.y;
-                return label;
-              },
-            },
+            title: { display: true, text: "Ocorrências" },
           },
         },
       },
     });
-    // eslint-disable-next-line
   }, [dadosFalhas, falhaFiltroAtivo]);
 
   // Handlers filtro demandas
