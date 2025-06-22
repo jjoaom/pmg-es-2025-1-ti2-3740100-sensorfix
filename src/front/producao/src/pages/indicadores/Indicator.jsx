@@ -234,7 +234,6 @@ export default function Indicator() {
   });
 }, [depositos]);
 
-
   useEffect(() => {
     if (!falhasRef.current) return;
     if (chartFalhasRef.current) chartFalhasRef.current.destroy();

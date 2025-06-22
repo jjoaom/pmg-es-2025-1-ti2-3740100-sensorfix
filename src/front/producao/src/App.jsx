@@ -18,7 +18,6 @@ import Entrada  from "./pages/gestao-estoque/Entrada.jsx";
 import FastEquip from "./pages/gestao-estoque/FastEquip.jsx";
 import FastInsumo from "./pages/gestao-estoque/FastInsumo.jsx";
 
-import Deposito from "./pages/deposito/Deposito.jsx";
 
 import Movimentacao from "./pages/movimentacao/Movimentacao.jsx";
 
