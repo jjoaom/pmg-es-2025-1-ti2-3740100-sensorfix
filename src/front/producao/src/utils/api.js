@@ -3,11 +3,13 @@ const baseUrl = import.meta.env.VITE_API_URL;
 async function apiRequest(endpoint, method = "GET", body = null) {
   const token = localStorage.getItem('token');
 
+  const shouldSendToken = !endpoint.startsWith("/auth/login");
+
   const options = {
     method,
     headers: {
       "Content-Type": "application/json",
-      ...(token && { Authorization: `Bearer ${token}` }),
+      ...(shouldSendToken && token && { Authorization: `Bearer ${token}` }),
     },
     body: body ? JSON.stringify(body) : undefined,
   };
@@ -24,6 +26,7 @@ async function apiRequest(endpoint, method = "GET", body = null) {
     throw error;
   }
 }
+
 
 export const api = {
   get: (endpoint) => apiRequest(endpoint),
