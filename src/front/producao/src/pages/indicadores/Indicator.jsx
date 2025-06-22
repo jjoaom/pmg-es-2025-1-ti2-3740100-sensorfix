@@ -3,9 +3,9 @@ import Chart from "chart.js/auto";
 import { api } from "../../utils/api";
 import PageLayout from "../../components/PageLayout";
 
-const urlDepositos = "estoque-depositos";
-const urlDemandas = "api/demandas";
-const urlFalhas = "falhas/todas_falhas";
+const urlDepositos = "/estoque-depositos";
+const urlDemandas = "/api/demandas";
+const urlFalhas = "/falhas/todas_falhas";
 
 const meses = [
   "Janeiro",
