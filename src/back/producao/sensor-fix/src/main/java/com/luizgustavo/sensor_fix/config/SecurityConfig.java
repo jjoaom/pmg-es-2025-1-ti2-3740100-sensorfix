@@ -53,9 +53,9 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().and()
                 .authorizeHttpRequests()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/users/**").hasRole("ADMIN")
-                .anyRequest().authenticated() // Protege os demais endpoints
+                .antMatchers("/auth/**").permitAll() // login, register, etc.
+                .antMatchers("/users/**").hasRole("ADMIN") // só ADMIN acessa
+                .anyRequest().hasAnyRole("ADMIN", "USER") // tudo mais é liberado p/ ambos
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
