@@ -33,6 +33,23 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>11.1.1</version>
+				<configuration>
+					<failBuildOnCVSS>7</failBuildOnCVSS> <!-- falha se CVSS >= 7 -->
+					<nvdApiKey>b05af210-227a-490b-8374-d85d0bf43996</nvdApiKey>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+s
 		</plugins>
 		<finalName>todosimpleapp</finalName>
 	</build>
