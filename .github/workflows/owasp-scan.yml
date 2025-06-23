@@ -5,6 +5,7 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:  # permite rodar manualmente 
 
 jobs:
   dependency-check:
@@ -12,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configurar Java
         uses: actions/setup-java@v4
@@ -20,16 +21,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Rodar Dependency-Check gerando relatório em docs/
+      - name: Rodar Dependency-Check gerando relatório
         run: |
           mvn -f src/back/producao/sensor-fix/pom.xml clean org.owasp:dependency-check-maven:check \
             -Dformat=HTML \
-            -DoutputDirectory=docs/dependency-check-report
+            -DoutputDirectory=dependency-check-report
 
-      - name: Commitar relatório para docs/
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/dependency-check-report/dependency-check-report.html
-          git commit -m "Atualiza relatório OWASP Dependency-Check"
-          git push
+      - name: Upload relatório OWASP como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: owasp-dependency-check-report
+          path: dependency-check-report/**
