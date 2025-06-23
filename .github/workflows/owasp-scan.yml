@@ -20,14 +20,16 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Dependency Check
-        uses: dependency-check/Dependency-Check_Action@main
-        with:
-          project: 'sensor-fix'
-          scanPath: 'src/back/producao/sensor-fix'
+      - name: Rodar Dependency-Check gerando relatório em docs/
+        run: |
+          mvn -f src/back/producao/sensor-fix/pom.xml clean org.owasp:dependency-check-maven:check \
+            -Dformat=HTML \
+            -DoutputDirectory=docs/dependency-check-report
 
-      - name: Upload relatório
-        uses: actions/upload-artifact@v3
-        with:
-          name: dependency-check-report
-          path: '**/dependency-check-report.*'
+      - name: Commitar relatório para docs/
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/dependency-check-report/dependency-check-report.html
+          git commit -m "Atualiza relatório OWASP Dependency-Check"
+          git push
