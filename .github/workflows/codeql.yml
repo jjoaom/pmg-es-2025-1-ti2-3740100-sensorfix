@@ -65,19 +65,8 @@ jobs:
         with:
           output: results-${{ matrix.language }}.sarif
 
-      - name: Criar pasta para relatório CodeQL
-        run: mkdir -p docs/codeql
-
-      - name: Mover SARIF para docs/codeql
-        run: |
-          mv results-${{ matrix.language }}.sarif docs/codeql/
-
-      - name: Commitar e push relatório SARIF
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/codeql/results-${{ matrix.language }}.sarif
-          git commit -m "Atualiza relatório CodeQL para ${{ matrix.language }}" || echo "No changes to commit"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload CodeQL SARIF artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: codeql-report-${{ matrix.language }}
+          path: results-${{ matrix.language }}.sarif
