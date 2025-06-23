@@ -4,35 +4,39 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.security.Keys;
+import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.security.Key;
 import com.luizgustavo.sensor_fix.models.Role;
 
 @Service
 public class JwtService {
 
-    private final Key key;
+    private final SecretKey key;
+    private final JwtParser parser;
 
     public JwtService(@Value("${jwt.secret}") String secret) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        this.parser = Jwts.parser().verifyWith(key).build(); // novo padrão
     }
 
     public String generateToken(String username, Role role) {
         return Jwts.builder()
-                .setSubject(username)
+                .subject(username)
                 .claim("role", role.name())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hora
-                .signWith(key, SignatureAlgorithm.HS256)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .signWith(key)
                 .compact();
     }
 
     public Claims extractClaims(String token) {
         try {
-            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+            Jws<Claims> jws = parser.parseSignedClaims(token);
+            return jws.getPayload();
         } catch (Exception e) {
             throw new IllegalStateException("Token inválido ou expirado.");
         }
