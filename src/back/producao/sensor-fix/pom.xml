@@ -39,7 +39,6 @@
 				<version>12.0.2</version>
 				<configuration>
 					<failBuildOnCVSS>7</failBuildOnCVSS> <!-- falha se CVSS >= 7 -->
-					<nvdApiKey>b05af210-227a-490b-8374-d85d0bf43996</nvdApiKey>
 				</configuration>
 				<executions>
 					<execution>
