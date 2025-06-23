@@ -24,9 +24,9 @@ jobs:
           java-version: '17'
           distribution: 'microsoft'
 
-      - name: Build with Maven
+      - name: Build with Maven (com atualização de dependências)
         working-directory: src/back/producao/sensor-fix
-        run: mvn clean install
+        run: mvn clean package -U
 
 
       - name: Upload artifact for deployment job
