@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/back/producao/sensor-fix/**'
   workflow_dispatch:
 
 jobs:

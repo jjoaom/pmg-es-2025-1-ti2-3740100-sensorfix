@@ -2,39 +2,34 @@ name: OWASP Dependency-Check
 
 on:
   push:
-    branches: [main]
+    branches: ["main"]
   pull_request:
+    branches: ["main"]
 
 jobs:
-  owasp-scan:
+  dependency-check:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout código
         uses: actions/checkout@v3
 
-      - name: Set up Java
-        uses: actions/setup-java@v3
+      - name: Configurar Java
+        uses: actions/setup-java@v4
         with:
-          distribution: 'microsoft'
+          distribution: 'temurin'
           java-version: '17'
 
-      - name: Run OWASP Dependency-Check
-        uses: dependency-check/Dependency-Check_Action@main
-        with:
-          project: "sensorfix-backend"
-          path: "src/back/producao/sensor-fix"
-          format: "HTML"
-          out: "reports"
-
-      - name: List full workspace for debug
+      - name: Rodar Dependency-Check gerando relatório em docs/
         run: |
-          ls -l
-          ls -l src/back/producao/sensor-fix
-          ls -l reports
+          mvn -f src/back/producao/sensor-fix/pom.xml clean org.owasp:dependency-check-maven:check \
+            -Dformat=HTML \
+            -DoutputDirectory=docs/dependency-check-report
 
-      - name: Upload OWASP Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: dependency-check-report
-          path: reports/dependency-check-report.html
+      - name: Commitar relatório para docs/
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/dependency-check-report/dependency-check-report.html
+          git commit -m "Atualiza relatório OWASP Dependency-Check"
+          git push
