@@ -1,0 +1,64 @@
+name: CodeQL Security Analysis
+
+on:
+  workflow_dispatch:  # Executa manualmente
+
+jobs:
+  analyze:
+    name: Analyze backend and frontend (Java + JavaScript)
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java-kotlin', 'javascript-typescript' ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java (para backend)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # 🔥 Mapeando diretórios manualmente
+      - name: Move backend para raiz temporária
+        run: |
+          mkdir backend
+          cp -R src/back/producao/sensor-fix/* backend/
+
+      - name: Move frontend para raiz temporária
+        run: |
+          mkdir frontend
+          cp -R src/front/producao/* frontend/
+
+      # 🔍 Inicializar CodeQL
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: manual
+
+      # 🛠️ Build manual do backend
+      - if: matrix.language == 'java-kotlin'
+        name: Build backend (Maven)
+        run: |
+          cd backend
+          mvn clean package -DskipTests
+
+      # 🛠️ Build manual do frontend
+      - if: matrix.language == 'javascript-typescript'
+        name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
+
+      # 🔍 Rodar análise
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
