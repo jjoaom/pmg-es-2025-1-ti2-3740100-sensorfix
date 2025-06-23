@@ -5,7 +5,7 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-  workflow_dispatch:  # permite rodar manualmente 
+  workflow_dispatch:
 
 jobs:
   dependency-check:
@@ -21,11 +21,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Rodar Dependency-Check gerando relatório
+      - name: Rodar Dependency-Check com chave NVD no workflow
         run: |
           mvn -f src/back/producao/sensor-fix/pom.xml clean org.owasp:dependency-check-maven:check \
             -Dformat=HTML \
-            -DoutputDirectory=dependency-check-report
+            -DoutputDirectory=dependency-check-report \
+            -Dnvd.api.key=b05af210-227a-490b-8374-d85d0bf43996
 
       - name: Upload relatório OWASP como artifact
         uses: actions/upload-artifact@v4
@@ -41,9 +42,8 @@ jobs:
           fi
 
       - name: Upload relatório OWASP do servidor como artifact
-        if: success()  # só tenta se o passo anterior não falhou
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: owasp-dependency-check-server
           path: local-server-report/**
-
