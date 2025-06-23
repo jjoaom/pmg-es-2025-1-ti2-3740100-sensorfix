@@ -200,7 +200,7 @@ export default function Indicator() {
           label: "Quantidade",
           data: quantidades,
           backgroundColor: glassyColors,
-          borderColor: "rgba(255, 255, 255, 0.6)",
+          borderColor: "rgba(114, 114, 114, 0.6)",
           borderWidth: 2,
         },
       ],
@@ -211,7 +211,7 @@ export default function Indicator() {
         legend: {
           position: "top",
           labels: {
-            color: "#e0f7ff",
+            color: "#8ba8b3",
             font: {
               family: "Segoe UI, sans-serif",
               size: 14,
@@ -222,7 +222,7 @@ export default function Indicator() {
         title: {
           display: true,
           text: "Distribuição dos Tipos de Depósitos",
-          color: "#ffffff",
+          color: "#8ba8b3",
           font: {
             family: "Segoe UI, sans-serif",
             size: 18,
@@ -331,22 +331,21 @@ export default function Indicator() {
 
   return (
     <PageLayout>
-      <div className="container py-4">
+      <div className="container py-2">
         <h1 className="mb-4 text-primary">Indicadores de Desempenho</h1>
-        <div className="row g-4">
+        <div className="row g-2">
           {/* Gráfico Depósitos */}
-          <div className="col-lg-4 col-md-6">
-            <div className="card shadow-sm h-100">
+          <div className="col-lg-5 col-md-6">
+            <div className="card glass-div h-100">
               <div className="card-body">
-                <h2 className="card-title fs-5 mb-3">Estado Atual Depósitos</h2>
                 <canvas ref={depEquipRef} />
               </div>
             </div>
           </div>
 
           {/* Média de Demora de Produção */}
-          <div className="col-lg-4 col-md-6">
-            <div className="card shadow-sm h-100">
+          <div className="col-lg-3 col-md-6">
+            <div className="card glass-div h-100">
               <div className="card-body">
                 <h2 className="card-title fs-5 mb-3">
                   Média de Demora de Produção
@@ -417,7 +416,7 @@ export default function Indicator() {
                     </button>
                   </div>
                 </form>
-                <div className="alert alert-info py-2" id="mediaTempoProducao">
+                <div className="alert alert-light py-2" id="mediaTempoProducao">
                   <p className="mb-1">
                     Média de Demora: <strong>{mediaTempo} horas</strong>{" "}
                     {mediaFiltroAtivo ? "(filtrado)" : "(total)"}
@@ -435,7 +434,7 @@ export default function Indicator() {
 
           {/* Apuração de defeitos por revisão */}
           <div className="col-lg-4 col-md-12">
-            <div className="card shadow-sm h-100">
+            <div className="card glass-div h-100">
               <div className="card-body">
                 <h2 className="card-title fs-5 mb-3">
                   Apuração de defeitos por revisão
