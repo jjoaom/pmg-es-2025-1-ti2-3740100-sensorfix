@@ -1,11 +1,43 @@
-import React, { useState, useEffect, useCallback, memo } from "react";
-import PageLayout from "../components/PageLayout";
+import { useState, useEffect, useCallback, memo, useMemo } from "react";
+import PageLayout from "../../components/PageLayout";
 import { GoPlus } from "react-icons/go";
-import { FaSave, FaFilter } from "react-icons/fa";
+import { FaSave } from "react-icons/fa";
 import { HiMiniXMark } from "react-icons/hi2";
 import Select from "react-select";
-import { api } from "../utils/api";
-import { getUsername } from "../utils/auth";
+import { api } from "../../utils/api";
+import { getUsername } from "../../utils/auth";
+
+const StatusDemanda = {
+  CRIADA: "CRIADA",
+  ABERTA: "ABERTA",
+  EM_ANALISE: "EM_ANALISE",
+  EM_RECUPERACAO: "EM_RECUPERACAO",
+  EM_TESTE: "EM_TESTE",
+  FALHA_TESTE: "FALHA_TESTE",
+  FINALIZADA: "FINALIZADA",
+  DESCARTADA: "DESCARTADA",
+};
+
+function useFiltroDemandas(demandas) {
+  const [statusSelecionado, setStatusSelecionado] = useState("");
+
+  const demandasFiltradas = useMemo(() => {
+    if (!statusSelecionado) return demandas;
+    return demandas.filter((demanda) => demanda.statusDemanda === statusSelecionado);
+  }, [statusSelecionado, demandas]);
+
+  const handleStatusChange = (e) => {
+    setStatusSelecionado(e.target.value);
+  };
+
+  return {
+    statusSelecionado,
+    setStatusSelecionado,
+    handleStatusChange,
+    demandasFiltradas,
+    StatusDemanda,
+  };
+}
 
 // Função utilitária para exibir datas ISO
 function formatarDataISO(dataIso) {
@@ -207,7 +239,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
   }, [demanda, withLoading]);
 
   if (!demanda)
-    return <p className="text-muted">Nenhuma demanda selecionada.</p>;
+    return <p className="text-muted text-center">Nenhuma demanda selecionada.</p>;
 
   const handleAddPeca = () => {
     setErro("");
@@ -857,7 +889,14 @@ function FormCriarDemanda({ onCreated }) {
 
 // Página principal - Componente Producao
 export default function Producao() {
-  const [demandas, setDemandas] = useState([]);
+  const [todasDemandas, setTodasDemandas] = useState([]);
+  const {
+    statusSelecionado,
+    handleStatusChange,
+    demandasFiltradas,
+    StatusDemanda,
+  } = useFiltroDemandas(todasDemandas);
+
   const [demandaSelecionada, setDemandaSelecionada] = useState(null);
   const [showCriarDemanda, setShowCriarDemanda] = useState(false);
   const [loading, withLoading] = useLoading();
@@ -868,9 +907,9 @@ export default function Producao() {
     await withLoading(async () => {
       try {
         const data = await api.get("/api/demandas");
-        setDemandas(data);
+        setTodasDemandas(data);
       } catch (e) {
-        setDemandas([]);
+        setTodasDemandas([]);
         setErro("Erro ao carregar demandas.");
         console.error(e);
       }
@@ -920,15 +959,20 @@ export default function Producao() {
                     <p className="fs-4 mb-1">Demandas</p>
                   </div>
                   <div className="col-6 d-flex justify-content-end gap-2">
-                    <button
-                      type="button"
-                      className="btn btn-primary-subtle btn-sm"
-                      title="Filtrar demandas"
-                      aria-label="Filtrar demandas"
-                      disabled
+                    <select
+                      className="form-select form-select-sm w-auto glass-select"
+                      value={statusSelecionado}
+                      onChange={handleStatusChange}
+                      title="Filtrar por status"
                     >
-                      <FaFilter />
-                    </button>
+                      <option value="">Todos os status </option>
+                      {Object.values(StatusDemanda).map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
+
                     <button
                       type="button"
                       className="btn btn-outline-primary btn-sm"
@@ -944,16 +988,14 @@ export default function Producao() {
                 className="card-body p-3 overflow-auto"
                 style={{ maxHeight: "60vh" }}
               >
-                <div className="d-flex flex-column gap-2">
-                  {demandas.map((d) => (
-                    <ItemDemanda
-                      key={d.id}
-                      demanda={d}
-                      onClick={handleSelectDemanda}
-                      selected={demandaSelecionada?.id === d.id}
-                    />
-                  ))}
-                </div>
+                {demandasFiltradas.map((d) => (
+                  <ItemDemanda
+                    key={d.id}
+                    demanda={d}
+                    onClick={handleSelectDemanda}
+                    selected={demandaSelecionada?.id === d.id}
+                  />
+                ))}
               </div>
             </div>
           </div>

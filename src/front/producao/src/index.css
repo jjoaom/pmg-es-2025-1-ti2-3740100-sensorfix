@@ -34,6 +34,51 @@ body {
   color: #007bff;
 }
 
+.glass-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: linear-gradient(to bottom right,
+      rgba(255, 255, 255, 0.4),
+      rgba(200, 255, 255, 0.2));
+  backdrop-filter: blur(10px);
+  border: 1px solid #007bffe5;
+  color: #007bff;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+
+.glass-select:focus {
+  border: 1.5px solid #007bff;
+  box-shadow: 0 0 0 2px #007bff33;
+}
+
+.glass-select option {
+  background: #fff;
+  color: #007bff;
+}
+
+/* seta customizada */
+.glass-select::-ms-expand {
+  display: none;
+}
+.glass-select::after {
+  content: '';
+  position: absolute;
+  right: 1em;
+  top: 50%;
+  width: 0.8em;
+  height: 0.5em;
+  pointer-events: none;
+  background: none;
+  border-left: 0.25em solid transparent;
+  border-right: 0.25em solid transparent;
+  border-top: 0.4em solid #007bff;
+  transform: translateY(-50%);
+}
+
 .glass-button {
   font-size: 1em;
   font-weight: bold;

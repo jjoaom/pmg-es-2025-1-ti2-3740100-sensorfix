@@ -4,7 +4,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer-div py-1 mt-auto d-flex align-items-center justify-content-between">
+    <footer className="footer-div py-0 mt-auto d-flex align-items-center justify-content-between">
       <div className="text-center flex-grow-1 d-flex justify-content-end">
         <p className="mb-0 text-white">© {currentYear} SensorFix. Todos os direitos reservados.</p>
       </div>

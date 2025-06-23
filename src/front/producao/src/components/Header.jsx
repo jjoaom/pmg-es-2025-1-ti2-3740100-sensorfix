@@ -89,7 +89,7 @@ export default function Header() {
               <li className="nav-item">
                 <Link
                   className="nav-link text-white d-flex align-items-center gap-1 py-2"
-                  to="/admin/usuarios"
+                  to="/admin"
                 >
                   <LuUserCog /> <span title={`Bem vindo, ${username}`}>Usuários</span>
                 </Link>

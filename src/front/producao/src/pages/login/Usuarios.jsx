@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function Usuarios() {
   const navigate = useNavigate();
-  
   const userLogado = getUsername();
 
   const [usuarios, setUsuarios] = useState([]);
@@ -36,7 +35,7 @@ export default function Usuarios() {
 
       if (editandoId) {
         if (!password) {
-          delete usuario.password; // Não manda senha se campo estiver vazio
+          delete usuario.password;
         }
         await api.put(`/users/${editandoId}`, usuario);
       } else {
@@ -57,7 +56,7 @@ export default function Usuarios() {
 
   const handleEditar = (usuario) => {
     setUsername(usuario.username);
-    setPassword(""); // Senha não vem
+    setPassword("");
     setRole(usuario.role);
     setEditandoId(usuario.id);
   };
@@ -98,88 +97,122 @@ export default function Usuarios() {
 
   return (
     <PageLayout>
-      <div className="container-fluid p-4">
-        <h1 className="text-blue text-center">Bem vindo, {userLogado}.</h1>
-        <h2 className="text-blue">Gestão de Usuários</h2>
-
-        <form
-          className="glass-div p-3 mb-4"
-          onSubmit={handleCriarOuAtualizar}
-        >
-          <h5>{editandoId ? "Editar Usuário" : "Criar Novo Usuário"}</h5>
-          <div className="row g-2">
-            <div className="col-md-4">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
+      <div className="container-fluid">
+        <div className="row justify-content-center">
+          <div className="col-lg-9">
+            <div className="text-center mb-3">
+              <h1 className="text-primary">Bem vindo, {userLogado}.</h1>
+              <h2 className="text-secondary">Gestão de Usuários</h2>
             </div>
-            <div className="col-md-4">
-              <input
-                type="password"
-                className="form-control"
-                placeholder={
-                  editandoId ? "Nova senha (opcional)" : "Senha"
-                }
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required={!editandoId}
-              />
+            <div className="card shadow-sm mb-4">
+              <div className="card-body">
+                <form onSubmit={handleCriarOuAtualizar}>
+                  <h5 className="mb-3">{editandoId ? "Editar Usuário" : "Criar Novo Usuário"}</h5>
+                  <div className="row g-3 align-items-end">
+                    <div className="col-md-3">
+                      <label className="form-label">Username</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="col-md-3">
+                      <label className="form-label">
+                        {editandoId ? "Nova senha (opcional)" : "Senha"}
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder={editandoId ? "Nova senha (opcional)" : "Senha"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required={!editandoId}
+                      />
+                    </div>
+                    <div className="col-md-3">
+                      <label className="form-label">Perfil</label>
+                      <select
+                        className="form-select"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        required
+                      >
+                        <option value="USER">USER</option>
+                        <option value="ADMIN">ADMIN</option>
+                      </select>
+                    </div>
+                    <div className="col-md-1 d-grid">
+                      <button type="submit" className="btn btn-success btn-design">
+                        {editandoId ? "Salvar" : "Criar"}
+                      </button>
+                    </div>
+                  </div>
+                  {editandoId && (
+                    <div className="mt-3">
+                      <button
+                        type="button"
+                        className="btn btn-outline-secondary btn-design btn-sm"
+                        onClick={resetarFormulario}
+                      >
+                        Cancelar edição
+                      </button>
+                    </div>
+                  )}
+                </form>
+              </div>
             </div>
-            <div className="col-md-3">
-              <select
-                className="form-select"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                required
-              >
-                <option value="USER">USER</option>
-                <option value="ADMIN">ADMIN</option>
-              </select>
-            </div>
-            <div className="col-md-1">
-              <button type="submit" className="btn btn-success w-100">
-                {editandoId ? "Salvar" : "Criar"}
-              </button>
+            <div className="card shadow-sm">
+              <div className="card-body">
+                <table className="table table-hover align-middle mb-0">
+                  <thead className="table-light">
+                    <tr>
+                      <th>Username</th>
+                      <th>Role</th>
+                      <th style={{ width: "200px" }}>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {usuarios.map((u) => (
+                      <tr key={u.id}>
+                        <td>{u.username}</td>
+                        <td>
+                          <span className={`badge ${u.role === "ADMIN" ? "bg-primary" : "bg-secondary"}`}>
+                            {u.role}
+                          </span>
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-sm btn-outline-primary btn-design me-2"
+                            onClick={() => handleEditar(u)}
+                          >
+                            Editar
+                          </button>
+                          <button
+                            className="btn btn-sm btn-outline-danger btn-design"
+                            onClick={() => handleDeletar(u.id, u.username)}
+                          >
+                            Excluir
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                    {usuarios.length === 0 && (
+                      <tr>
+                        <td colSpan={3} className="text-center text-muted">
+                          Nenhum usuário cadastrado.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </form>
-
-        <table className="table glass-div">
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Role</th>
-              <th style={{ width: "200px" }}>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usuarios.map((u) => (
-              <tr key={u.id}>
-                <td>{u.username}</td>
-                <td>{u.role}</td>
-                <td>
-                  <button
-                    className="btn btn-sm btn-primary me-2"
-                    onClick={() => handleEditar(u)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn btn-sm btn-danger"
-                    onClick={() => handleDeletar(u.id, u.username)}
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        </div>
       </div>
     </PageLayout>
   );

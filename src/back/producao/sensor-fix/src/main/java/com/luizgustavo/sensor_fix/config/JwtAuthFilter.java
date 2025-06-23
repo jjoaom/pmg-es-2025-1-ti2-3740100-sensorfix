@@ -2,7 +2,6 @@ package com.luizgustavo.sensor_fix.config;
 
 import com.luizgustavo.sensor_fix.services.CustomUserDetailsService;
 import com.luizgustavo.sensor_fix.services.JwtService;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
