@@ -49,7 +49,7 @@
 					</execution>
 				</executions>
 			</plugin>
-s
+
 		</plugins>
 		<finalName>todosimpleapp</finalName>
 	</build>

@@ -32,3 +32,18 @@ jobs:
         with:
           name: owasp-dependency-check-report
           path: dependency-check-report/**
+
+      - name: Copiar relatório local do servidor (se existir)
+        run: |
+          if [ -f src/back/producao/sensor-fix/target/dependency-check-report.html ]; then
+            mkdir -p local-server-report
+            cp src/back/producao/sensor-fix/target/dependency-check-report.html local-server-report/
+          fi
+
+      - name: Upload relatório OWASP do servidor como artifact
+        if: success()  # só tenta se o passo anterior não falhou
+        uses: actions/upload-artifact@v4
+        with:
+          name: owasp-dependency-check-server
+          path: local-server-report/**
+
