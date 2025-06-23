@@ -2,6 +2,10 @@ name: CodeQL Security Analysis
 
 on:
   workflow_dispatch:  # Executa manualmente
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - 'docs/codeql/**'  # evita loop no commit dos relatórios
 
 jobs:
   analyze:
@@ -27,7 +31,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # 🔥 Mapeando diretórios manualmente
       - name: Move backend para raiz temporária
         run: |
           mkdir backend
@@ -38,27 +41,43 @@ jobs:
           mkdir frontend
           cp -R src/front/producao/* frontend/
 
-      # 🔍 Inicializar CodeQL
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          build-mode: manual
+          build-mode: ${{ matrix.language == 'java-kotlin' && 'manual' || 'none' }}
 
-      # 🛠️ Build manual do backend
       - if: matrix.language == 'java-kotlin'
         name: Build backend (Maven)
         run: |
           cd backend
           mvn clean package -DskipTests
 
-      # 🛠️ Build manual do frontend
       - if: matrix.language == 'javascript-typescript'
         name: Install frontend dependencies
         run: |
           cd frontend
           npm install
 
-      # 🔍 Rodar análise
-      - name: Perform CodeQL Analysis
+      - name: Perform CodeQL Analysis and save SARIF
+        id: analyze
         uses: github/codeql-action/analyze@v3
+        with:
+          output: results-${{ matrix.language }}.sarif
+
+      - name: Criar pasta para relatório CodeQL
+        run: mkdir -p docs/codeql
+
+      - name: Mover SARIF para docs/codeql
+        run: |
+          mv results-${{ matrix.language }}.sarif docs/codeql/
+
+      - name: Commitar e push relatório SARIF
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/codeql/results-${{ matrix.language }}.sarif
+          git commit -m "Atualiza relatório CodeQL para ${{ matrix.language }}" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
