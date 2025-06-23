@@ -2,7 +2,10 @@ package com.luizgustavo.sensor_fix.config;
 
 import com.luizgustavo.sensor_fix.services.JwtService;
 import com.luizgustavo.sensor_fix.services.CustomUserDetailsService;
+import com.luizgustavo.sensor_fix.config.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +32,9 @@ public class SecurityConfig {
     private final JwtService jwtService;
     private final CustomUserDetailsService customUserDetailsService;
 
+    @Autowired
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
     @Bean
     public JwtAuthFilter jwtAuthFilter() {
         return new JwtAuthFilter(jwtService, customUserDetailsService);
@@ -52,6 +58,9 @@ public class SecurityConfig {
         http
                 .cors().and()
                 .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(customAuthenticationEntryPoint)
+                .and()
                 .authorizeHttpRequests()
                 .antMatchers("/auth/**").permitAll() // login, register, etc.
                 .antMatchers("/users/**").hasRole("ADMIN") // só ADMIN acessa
