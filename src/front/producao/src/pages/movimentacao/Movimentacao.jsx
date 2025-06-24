@@ -26,6 +26,11 @@ export default function Movimentacao() {
     return correspondeData && correspondeTipo;
   });
 
+  // Função para filtrar pelo tipo ao clicar na sidebar
+  function handleSidebarFilter(tipo) {
+    setFilterType(tipo.toLowerCase());
+  }
+
   return (
     <PageLayout>
       <div className="container-fluid py-0 position-relative">
@@ -45,16 +50,23 @@ export default function Movimentacao() {
                     "Danificado",
                     "Estoque",
                     "Manutenção",
-                  ].map((label) => (
-                    <li className="mb-2" key={label}>
-                      <button
-                        className="btn btn-design btn-light hover-blue w-100"
-                        style={{ minWidth: 100, minHeight: 40 }}
-                      >
-                        {label}
-                      </button>
-                    </li>
-                  ))}
+                  ].map((label) => {
+                    const value = label.toLowerCase();
+                    const isActive = filterType === value;
+                    return (
+                      <li className="mb-2" key={label}>
+                        <button
+                          className={`btn btn-design btn-light hover-blue w-100${isActive ? " active btn-silver" : ""}`}
+                          style={{ minWidth: 100, minHeight: 40 }}
+                          onClick={() =>
+                            setFilterType(isActive ? "" : value)
+                          }
+                        >
+                          {label || "Todos"}
+                        </button>
+                      </li>
+                    );
+                  })}
                 </ul>
               </nav>
             </div>
@@ -151,7 +163,6 @@ export default function Movimentacao() {
                                 )
                               : ""}
                           </td>
-
                           <td>{item.origem}</td>
                           <td>{item.destino}</td>
                           <td>{item.equipamento?.nome || ""}</td>
