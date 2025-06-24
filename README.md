@@ -25,10 +25,39 @@ Assim que a primeira versão do sistema estiver disponível, deverá complementa
 
 ## Histórico de versões
 
+* **0.1.0** — *Sprint 1 – Planejamento*
+  * CHANGE: Criação do backlog, documentação técnica e dos diagramas dos 4 processos principais
 * 0.1.1
     * CHANGE: Atualização das documentações. Código permaneceu inalterado.
-* 0.1.0
-    * Implementação da funcionalidade X pertencente ao processo P.
-* 0.0.1
-    * Trabalhando na modelagem do processo de negócio.
+
+* **0.2.0** — *Sprint 2 – Gestão de Estoque*
+  * ADD: Implementação do processo de Gestão de Estoque
+  * MIGRATION: Componentes React sendo desenvolvidos em estágio inicial
+    
+* **0.3.0** — *Sprint 3 – Movimentação de Depósito*
+  * ADD: Desenvolvimento do processo de Movimentação de Depósito
+  * ALTER: Ajustes visuais e de usabilidade
+  * UPDATE: Integração contínua das telas de processos para React
+  * TEST: Protótipo de sistema de login utilizando Firebase
+ 
+* **0.4.0** — *Sprint 4 – Produção*
+  * ADD: Lógica do Processo de produção
+  * ADD: Filtro na tela de produção e melhorias visuais
+  * UPDATE: Transição contínua das telas para React
+  * SETUP: Configuração de workflows de CI/CD no Github Actions com integração contínua
+  * INFRA: Backend rodando no Azure com CORS e devidas regras de segurança e Frontend hospedado no Netlify
+ 
+* **0.5.0** — *Sprint 5 – Manutenção*
+  * ADD: Implementação do processo de manutenção, com ajustes no service de demanda e repositórios
+  * UPDATE: Integração contínua das telas de processos para React
+  * ADD: Nova lógica e sistema de Login integrado ao Banco de Dados utilizando Spring Security e Jwt
+  * SEC: Ajustes de segurança OWASP, CSRF e JWT
+
+* **0.5.0** — *Sprint 6 – Finalização*
+  * UPDATE: Integração contínua das telas de processos para React
+  * SETUP: Configuração de workflows de CI/CD com CodeQL, OWASP Scan, Semgrep e integração contínua
+  * SEC: Verificação de falsos positivos e dependências desatualizadas no código
+
+    
+
 
