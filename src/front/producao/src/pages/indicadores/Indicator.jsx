@@ -22,16 +22,22 @@ const meses = [
   "Dezembro",
 ];
 
-function parseDateArray(arr) {
-  if (!Array.isArray(arr) || arr.length < 3) return null;
-  const year = arr[0];
-  const month = arr[1] - 1;
-  const day = arr[2];
-  const hour = arr[3] || 0;
-  const minute = arr[4] || 0;
-  const second = arr[5] || 0;
-  const millisecond = arr[6] ? Math.floor(arr[6] / 1000000) : 0;
-  return new Date(year, month, day, hour, minute, second, millisecond);
+function parseDateArray(value) {
+  if (Array.isArray(value)) {
+    const year = value[0];
+    const month = value[1] - 1;
+    const day = value[2];
+    const hour = value[3] || 0;
+    const minute = value[4] || 0;
+    const second = value[5] || 0;
+    const millisecond = value[6] ? Math.floor(value[6] / 1000000) : 0;
+    return new Date(year, month, day, hour, minute, second, millisecond);
+  } else if (typeof value === "string") {
+    const date = new Date(value);
+    return isNaN(date.getTime()) ? null : date;
+  } else {
+    return null;
+  }
 }
 
 async function fetchDataFromApi(url, label = "") {
@@ -171,68 +177,68 @@ export default function Indicator() {
   }, [falhas]);
 
   useEffect(() => {
-  if (!depEquipRef.current || !depositos.length) return;
+    if (!depEquipRef.current || !depositos.length) return;
 
-  const ctx = depEquipRef.current.getContext("2d");
-  const quantidades = depositos.map((d) => Number(d.quantidade));
-  const soma = quantidades.reduce((a, b) => a + b, 0);
-  const labels = depositos.map((d, i) => {
-    const perc = ((quantidades[i] / soma) * 100).toFixed(1);
-    return `${d.tipoDeposito} (${perc}%)`;
-  });
+    const ctx = depEquipRef.current.getContext("2d");
+    const quantidades = depositos.map((d) => Number(d.quantidade));
+    const soma = quantidades.reduce((a, b) => a + b, 0);
+    const labels = depositos.map((d, i) => {
+      const perc = ((quantidades[i] / soma) * 100).toFixed(1);
+      return `${d.tipoDeposito} (${perc}%)`;
+    });
 
-  if (chartDepRef.current) chartDepRef.current.destroy();
+    if (chartDepRef.current) chartDepRef.current.destroy();
 
-  const glassyColors = [
-    "rgba(0, 255, 255, 0.4)",
-    "rgba(0, 128, 255, 0.4)",
-    "rgba(144, 238, 144, 0.4)",
-    "rgba(255, 105, 180, 0.4)",
-    "rgba(173, 216, 230, 0.4)",
-  ];
+    const glassyColors = [
+      "rgba(0, 255, 255, 0.4)",
+      "rgba(0, 128, 255, 0.4)",
+      "rgba(144, 238, 144, 0.4)",
+      "rgba(255, 105, 180, 0.4)",
+      "rgba(173, 216, 230, 0.4)",
+    ];
 
-  chartDepRef.current = new Chart(ctx, {
-    type: "pie",
-    data: {
-      labels,
-      datasets: [
-        {
-          label: "Quantidade",
-          data: quantidades,
-          backgroundColor: glassyColors,
-          borderColor: "rgba(114, 114, 114, 0.6)",
-          borderWidth: 2,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: "top",
-          labels: {
+    chartDepRef.current = new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "Quantidade",
+            data: quantidades,
+            backgroundColor: glassyColors,
+            borderColor: "rgba(114, 114, 114, 0.6)",
+            borderWidth: 2,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "top",
+            labels: {
+              color: "#8ba8b3",
+              font: {
+                family: "Segoe UI, sans-serif",
+                size: 14,
+                weight: "400",
+              },
+            },
+          },
+          title: {
+            display: true,
+            text: "Distribuição dos Tipos de Depósitos",
             color: "#8ba8b3",
             font: {
               family: "Segoe UI, sans-serif",
-              size: 14,
-              weight: "400",
+              size: 18,
+              weight: "600",
             },
           },
         },
-        title: {
-          display: true,
-          text: "Distribuição dos Tipos de Depósitos",
-          color: "#8ba8b3",
-          font: {
-            family: "Segoe UI, sans-serif",
-            size: 18,
-            weight: "600",
-          },
-        },
       },
-    },
-  });
-}, [depositos]);
+    });
+  }, [depositos]);
 
   useEffect(() => {
     if (!falhasRef.current) return;

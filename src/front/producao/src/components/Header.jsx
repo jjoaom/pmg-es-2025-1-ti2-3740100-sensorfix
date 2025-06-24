@@ -5,6 +5,7 @@ import { BsBoxSeam } from "react-icons/bs";
 import { LuUserCog } from "react-icons/lu";
 import { IoLogOutOutline } from "react-icons/io5";
 import { isAuthenticated, logout, getRole, getUsername } from "../utils/auth";
+import { BiBarChartAlt2 } from "react-icons/bi";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -79,6 +80,14 @@ export default function Header() {
                 to="/movimentacao"
               >
                 <FaDollyFlatbed /> <span>Movimentação</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link text-white d-flex align-items-center gap-1 py-2"
+                to="/indicadores"
+              >
+                <BiBarChartAlt2/> <span>Indicadores</span>
               </Link>
             </li>
           </ul>
