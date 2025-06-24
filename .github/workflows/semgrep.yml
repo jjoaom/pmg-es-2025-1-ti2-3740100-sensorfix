@@ -1,0 +1,35 @@
+name: Semgrep - Backend Only
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  security-events: write
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run Semgrep on backend
+        run: |
+          semgrep \
+            --config p/owasp-top-ten \
+            --sarif \
+            --output semgrep.sarif \
+            --metrics=off \
+            src/back/producao/sensor-fix
+
+      - name: Upload Semgrep SARIF to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
