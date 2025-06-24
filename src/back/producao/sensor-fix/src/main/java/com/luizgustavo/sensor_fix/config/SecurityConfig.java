@@ -63,14 +63,20 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .antMatchers("/auth/**").permitAll() // login, register, etc.
+                .antMatchers("/h2-console/**").denyAll() // Bloqueia H2 em produção
                 .antMatchers("/users/**").hasRole("ADMIN") // só ADMIN acessa
                 .anyRequest().hasAnyRole("ADMIN", "USER") // tudo mais é liberado p/ ambos
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authenticationProvider(authenticationProvider()) // 🔥 Essencial
+                .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        // Protege dispatcher types
+        http
+                .requestCache().disable()
+                .securityContext().requireExplicitSave(false);
 
         return http.build();
     }
