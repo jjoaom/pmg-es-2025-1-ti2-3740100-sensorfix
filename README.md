@@ -51,12 +51,12 @@ Assim que a primeira versão do sistema estiver disponível, deverá complementa
   * ADD: Implementação do processo de manutenção, com ajustes no service de demanda e repositórios
   * UPDATE: Integração contínua das telas de processos para React
   * ADD: Nova lógica e sistema de Login integrado ao Banco de Dados utilizando Spring Security e Jwt
-  * SEC: Ajustes de segurança OWASP, CSRF e JWT
 
 * **0.5.0** — *Sprint 6 – Finalização*
   * UPDATE: Integração contínua das telas de processos para React
   * SETUP: Configuração de workflows de CI/CD com CodeQL, OWASP Scan, Semgrep e integração contínua
   * SEC: Verificação de falsos positivos e dependências desatualizadas no código
+  * SEC: Ajustes de segurança OWASP, CSRF e JWT
 
     
 
