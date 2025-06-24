@@ -1,6 +1,7 @@
 package com.luizgustavo.sensor_fix.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Usuario {
@@ -9,11 +10,14 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(nullable = false,unique = true)
     private String username;
+    @Column(nullable = false)
+    @Size(min = 8, max = 72, message = "A senha deve ter entre 8 e 72 caracteres")
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
     public Usuario() {
