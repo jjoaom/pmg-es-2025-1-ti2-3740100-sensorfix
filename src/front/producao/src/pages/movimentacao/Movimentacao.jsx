@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { api } from "../../utils/api";
 import PageLayout from "../../components/PageLayout";
 import dayjs from "dayjs";
+import { ModalAlert } from "../../components/ModalAlert";
 
 export default function Movimentacao() {
   const [movimentacoes, setMovimentacoes] = useState([]);
@@ -9,11 +10,31 @@ export default function Movimentacao() {
   const [filterType, setFilterType] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [equipId, setEquipId] = useState("");
-  const [equipamento, setEquipamento] = useState(null);
   const [equipamentos, setEquipamentos] = useState([]);
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
   const [quantidade, setQuantidade] = useState("");
+  const [modalAlert, setModalAlert] = useState({
+    show: false,
+    message: "",
+    type: "success"
+  });
+
+  const showAlert = (message, type = "success") => {
+    setModalAlert({
+      show: true,
+      message,
+      type
+    });
+  };
+
+  const closeAlert = () => {
+    setModalAlert({
+      show: false,
+      message: "",
+      type: "success"
+    });
+  };
 
   const urlEquipamento = "/equipamentos/";
   const urlMovimentacao = "/movimentacoes/";
@@ -31,7 +52,9 @@ export default function Movimentacao() {
   async function getQuantidadeDeposito(id) {
     try {
       const response = await api.get(`${urlEstoqueDeposito}/${id}`);
-      return response.data.quantidade ?? 0;
+      console.log("Resposta getQuantidadeDeposito:", response);
+      // A API customizada retorna diretamente o objeto, não dentro de .data
+      return response.quantidade ?? 0;
     } catch (error) {
       console.error("Erro ao buscar estoque depósito:", error);
       return 0;
@@ -40,11 +63,39 @@ export default function Movimentacao() {
 
   async function atualizarQuantidadeDeposito(idDeposito, novaQuantidade) {
     try {
-      await api.patch(`${urlEstoqueDeposito}/${idDeposito}/quantidade`, {
+      console.log(`Atualizando depósito ${idDeposito} para quantidade ${novaQuantidade}`);
+      
+      // Tenta com PATCH primeiro (mais apropriado para atualizações parciais)
+      try {
+        await api.patch(`${urlEstoqueDeposito}/${idDeposito}/quantidade`, {
+          quantidade: novaQuantidade,
+        });
+        console.log(`Depósito ${idDeposito} atualizado com sucesso via PATCH`);
+        return;
+      } catch {
+        console.log("PATCH falhou, tentando com PUT...");
+      }
+      
+      // Se PATCH falhar, tenta com PUT
+      try {
+        await api.put(`${urlEstoqueDeposito}/${idDeposito}/quantidade`, {
+          quantidade: novaQuantidade,
+        });
+        console.log(`Depósito ${idDeposito} atualizado com sucesso via PUT`);
+        return;
+      } catch {
+        console.log("PUT falhou, tentando com POST...");
+      }
+      
+      // Se PUT falhar, tenta com POST
+      await api.post(`${urlEstoqueDeposito}/${idDeposito}/quantidade`, {
         quantidade: novaQuantidade,
       });
+      console.log(`Depósito ${idDeposito} atualizado com sucesso via POST`);
+      
     } catch (error) {
       console.error("Erro ao atualizar depósito:", error);
+      showAlert(`Erro ao atualizar depósito: ${error.message}`, "danger");
     }
   }
 
@@ -58,17 +109,22 @@ export default function Movimentacao() {
     };
 
     try {
+      console.log("Enviando movimentação:", novaMov);
       const response = await api.post(urlMovimentacao, novaMov);
+      console.log("Resposta da API ao criar movimentação:", response);
 
-      if (response.status === 201 || response.status === 200) {
-        alert("Movimentação criada com sucesso!");
+      // A API customizada retorna diretamente o objeto criado
+      if (response && response.id) {
+        showAlert("Movimentação criada com sucesso!", "success");
         return true;
       } else {
-        console.error("Erro ao criar movimentação:", response.status);
+        console.error("Resposta inválida da API:", response);
+        showAlert("Erro: Resposta inválida da API.", "danger");
         return false;
       }
     } catch (error) {
       console.error("Erro na requisição:", error);
+      showAlert(`Erro ao criar movimentação: ${error.message}`, "danger");
       return false;
     }
   }
@@ -90,16 +146,6 @@ export default function Movimentacao() {
       !filterType || item.origem === filterType || item.destino === filterType;
     return correspondeData && correspondeTipo;
   });
-
-  // Atualiza o equipamento selecionado ao trocar o select
-  useEffect(() => {
-    if (equipId) {
-      const eq = equipamentos.find((e) => String(e.id) === String(equipId));
-      setEquipamento(eq || null);
-    } else {
-      setEquipamento(null);
-    }
-  }, [equipId, equipamentos]);
 
   return (
     <PageLayout>
@@ -298,8 +344,9 @@ export default function Movimentacao() {
                       origem
                     );
                     if (parseInt(quantidade) > quantidadeOrigem) {
-                      alert(
-                        `Estoque insuficiente! Disponível: ${quantidadeOrigem}`
+                      showAlert(
+                        `Estoque insuficiente! Disponível: ${quantidadeOrigem}`,
+                        "warning"
                       );
                       return;
                     }
@@ -409,6 +456,12 @@ export default function Movimentacao() {
           </div>
         )}
       </div>
+      <ModalAlert
+        show={modalAlert.show}
+        message={modalAlert.message}
+        type={modalAlert.type}
+        onClose={closeAlert}
+      />
     </PageLayout>
   );
 }

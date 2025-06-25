@@ -46,6 +46,14 @@ export default function Compras() {
         setSugestoes([]);
       }
     }
+
+    // Verificar se existe um pedido salvo no localStorage
+    const pedidoSalvo = localStorage.getItem("idNovoPedido");
+    if (pedidoSalvo) {
+      console.log("Pedido encontrado no localStorage:", pedidoSalvo);
+      setNovoPedidoId(parseInt(pedidoSalvo));
+    }
+
     loadData();
   }, []);
 
@@ -55,40 +63,80 @@ export default function Compras() {
         idfornecedor: 0,
         data: new Date().toISOString().split("T")[0],
       };
+      console.log("Enviando pedido:", pedido);
       const response = await api.post("/pedidos", pedido);
       console.log("Resposta da API ao criar pedido:", response);
+      console.log("Tipo da resposta:", typeof response);
+      console.log("ID do pedido:", response?.id);
 
-      const pedidoSalvo = response.data;
+      // A API retorna o pedido diretamente
+      const pedidoSalvo = response;
 
-      if (!pedidoSalvo.id) {
+      console.log("Pedido salvo:", pedidoSalvo);
+      console.log("ID existe?", !!pedidoSalvo?.id);
+
+      if (!pedidoSalvo || !pedidoSalvo.id) {
+        console.error("Pedido inválido ou sem ID:", pedidoSalvo);
         throw new Error("ID do pedido criado não retornado pela API.");
       }
 
+      console.log("Definindo novoPedidoId como:", pedidoSalvo.id);
       setNovoPedidoId(pedidoSalvo.id);
-      localStorage.setItem("idNovoPedido", pedidoSalvo.id);
+      localStorage.setItem("idNovoPedido", pedidoSalvo.id.toString());
       showModal(`Novo pedido criado (#${pedidoSalvo.id})!`, "success");
     } catch (error) {
       console.error("Erro ao criar pedido:", error);
-      showModal("Erro ao criar pedido.", "danger");
+      showModal(`Erro ao criar pedido: ${error.message}`, "danger");
     }
   };
 
   const buscarInsumo = async () => {
-    if (!idBusca.trim()) return setErro("Digite um ID válido");
+    if (!idBusca.trim()) {
+      showModal("Digite um ID válido para buscar.", "warning");
+      setErro("Digite um ID válido");
+      return;
+    }
 
     try {
+      console.log("Buscando insumo com ID:", idBusca);
       const insumo = await api.get(`/insumo/${idBusca}`);
+      console.log("Resposta da API ao buscar insumo:", insumo);
+      
+      if (!insumo || !insumo.id) {
+        console.error("Insumo inválido ou sem ID:", insumo);
+        throw new Error("Insumo não encontrado");
+      }
+      
       setInsumoPesq(insumo);
       setErro("");
-    } catch {
+      showModal(`Insumo "${insumo.nome}" encontrado!`, "success");
+    } catch (error) {
+      console.error("Erro ao buscar insumo:", error);
+      setInsumoPesq(null);
       setErro("Insumo não encontrado.");
+      showModal("Insumo não encontrado. Verifique o ID e tente novamente.", "danger");
     }
   };
 
   const adicionarInsumo = async () => {
+    // Validação: verificar se existe um pedido criado
+    if (!novoPedidoId) {
+      showModal("Você precisa criar um pedido primeiro.", "warning");
+      return;
+    }
+
+    // Validação: verificar se um insumo foi encontrado
+    if (!insumoPesq) {
+      showModal("Busque um insumo válido primeiro.", "warning");
+      return;
+    }
+
+    // Validação: verificar quantidade
     const quantidade = parseInt(quant);
-    if (!insumoPesq || isNaN(quantidade) || quantidade <= 0)
-      return setErro("Quantidade inválida");
+    if (!quant.trim() || isNaN(quantidade) || quantidade <= 0) {
+      showModal("Digite uma quantidade válida (maior que 0).", "warning");
+      return;
+    }
 
     try {
       const body = {
@@ -96,23 +144,37 @@ export default function Compras() {
         insumo: { id: insumoPesq.id },
         pedidoCompra: { id: parseInt(novoPedidoId) },
       };
+      
       console.log("Enviando para /pedido-insumos:", body);
 
       const res = await api.post("/pedido-insumos", body);
+      console.log("Resposta da API ao adicionar item:", res);
+      
+      if (!res || !res.id) {
+        console.error("Resposta inválida da API:", res);
+        throw new Error("Resposta inválida da API");
+      }
+
       const novoItem = {
         ...insumoPesq,
         quantidade,
-        idRelacao: res.data.id,
+        idRelacao: res.id,
       };
 
       const atualizados = [...vetor, novoItem];
       setVetor(atualizados);
       localStorage.setItem("vetorInsumos", JSON.stringify(atualizados));
+      
+      // Limpar formulário após sucesso
       setInsumoPesq(null);
       setQuant("");
       setIdBusca("");
       setErro("");
-    } catch {
+      
+      showModal(`Insumo "${insumoPesq.nome}" adicionado com sucesso!`, "success");
+    } catch (error) {
+      console.error("Erro ao adicionar item:", error);
+      showModal("Erro ao adicionar item. Verifique os dados e tente novamente.", "danger");
       setErro("Erro ao adicionar item.");
     }
   };
@@ -204,10 +266,24 @@ export default function Compras() {
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       })
       .from(conteudo)
-      .save()
-      .then(() => {
-        localStorage.removeItem("vetorInsumos");
-        window.location.href = "/estoque";
+      .outputPdf('blob')
+      .then((pdfBlob) => {
+        // Cria uma URL para o blob do PDF
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        
+        // Abre o PDF em uma nova aba
+        window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+        
+        // Limpa o localStorage e redireciona após um pequeno delay
+        setTimeout(() => {
+          localStorage.removeItem("vetorInsumos");
+          localStorage.removeItem("idNovoPedido");
+          window.location.href = "/estoque";
+        }, 1000); // 1 segundo de delay para garantir que a nova aba abriu
+      })
+      .catch((error) => {
+        console.error("Erro ao gerar PDF:", error);
+        showModal("Erro ao gerar PDF.", "danger");
       });
   };
 
@@ -283,9 +359,18 @@ export default function Compras() {
                   <input
                     className="form-control"
                     value={quant}
-                    onChange={(e) => setQuant(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // Permite apenas números positivos
+                      if (value === '' || (/^\d+$/.test(value) && parseInt(value) > 0)) {
+                        setQuant(value);
+                        setErro(""); // Limpa erro quando o usuário digita
+                      }
+                    }}
                     placeholder="Quantidade"
                     type="number"
+                    min="1"
+                    required
                   />
                 </div>
                 <div className="col-md-1">
