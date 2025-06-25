@@ -12,7 +12,7 @@ export default function FastInsumo() {
     try {
       const data = await api.get(`/insumo/${id}`);
       setInsumo(data);
-    } catch (err) {
+    } catch {
       alert("Insumo não encontrado.");
     }
   };
@@ -37,7 +37,7 @@ export default function FastInsumo() {
       setInsumo(null);
       setId("");
       setQuant("");
-    } catch (err) {
+    } catch {
       alert("Erro ao atualizar estoque.");
     }
   };
