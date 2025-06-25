@@ -40,7 +40,7 @@ export default function Compras() {
       <div className="container text-center py-5 w-50">
       <div className="card glass-div rounded p-3">
         <h3 className="mb-4">Compras – Sugestões</h3>
-        <button className="btn btn-primary mb-3" onClick={handleNovoPedido}>
+        <button className="btn btn-design btn-blue mb-3" onClick={handleNovoPedido}>
           Novo Pedido
         </button>
         <table className="table table-striped">

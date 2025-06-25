@@ -67,7 +67,7 @@ export default function Pesquisa() {
                   <input
                     type="text"
                     id="descricao"
-                    className="form-control"
+                    className="form-control rounded-pill mt-3"
                     placeholder="Digite aqui..."
                     value={filtro}
                     onChange={(e) => setFiltro(e.target.value)}
@@ -75,13 +75,13 @@ export default function Pesquisa() {
                 </div>
                 <div className="d-flex gap-3 mt-3">
                   <button
-                    className={`btn ${modoAtual === "insumos" ? "btn-success" : "btn-outline-success"} w-50`}
+                    className={`btn btn-design ${modoAtual === "insumos" ? "btn-green-submit" : "btn-green-outlined"} w-50`}
                     onClick={() => setModoAtual("insumos")}
                   >
                     Insumos
                   </button>
                   <button
-                    className={`btn ${modoAtual === "equipamentos" ? "btn-success" : "btn-outline-success"} w-50`}
+                    className={`btn btn-design ${modoAtual === "equipamentos" ? "btn-green-submit" : "btn-green-outlined"} w-50`}
                     onClick={() => setModoAtual("equipamentos")}
                   >
                     Equipamentos

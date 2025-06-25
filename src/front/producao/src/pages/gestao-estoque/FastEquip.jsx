@@ -59,7 +59,7 @@ export default function FastEquip() {
               value={id}
               onChange={(e) => setId(e.target.value)}
             />
-            <button className="btn btn-primary mt-2" onClick={handleBuscar}>
+            <button className="btn btn-design btn-blue mt-2" onClick={handleBuscar}>
               Buscar
             </button>
           </div>
@@ -99,9 +99,14 @@ export default function FastEquip() {
                   Saída
                 </label>
               </div>
-              <button className="btn btn-success" onClick={handleUpdate}>
-                Atualizar Estoque
-              </button>
+              <div className="d-flex justify-content-center">
+                <button
+                  className="btn btn-design btn-green-submit"
+                  onClick={handleUpdate}
+                >
+                  Atualizar Estoque
+                </button>
+              </div>
             </>
           )}
         </div>

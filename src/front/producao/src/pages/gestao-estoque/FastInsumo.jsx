@@ -45,63 +45,65 @@ export default function FastInsumo() {
   return (
     <PageLayout>
       <div className="container text-center py-5 w-50">
-      <div className="card glass-div rounded p-3">
-        <h3 className="mb-4">Fast In/Out – Insumo</h3>
-        <div className="mb-3">
-          <label htmlFor="idBusca">ID do Insumo</label>
-          <input
-            type="text"
-            id="idBusca"
-            className="form-control"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-          <button className="btn btn-primary mt-2" onClick={handleBuscar}>
-            Buscar
-          </button>
-        </div>
-        {insumo && (
-          <>
-            <p>Nome: {insumo.nome}</p>
-            <p>Estoque atual: {insumo.quantidade}</p>
-            <div className="mb-3">
-              <label htmlFor="quant">Quantidade</label>
-              <input
-                type="number"
-                id="quant"
-                className="form-control"
-                value={quant}
-                onChange={(e) => setQuant(e.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <label>
-                <input
-                  type="radio"
-                  name="operation"
-                  value="entrada"
-                  checked={operation === "entrada"}
-                  onChange={() => setOperation("entrada")}
-                />
-                Entrada
-              </label>
-              <label className="ms-3">
-                <input
-                  type="radio"
-                  name="operation"
-                  value="saida"
-                  checked={operation === "saida"}
-                  onChange={() => setOperation("saida")}
-                />
-                Saída
-              </label>
-            </div>
-            <button className="btn btn-success" onClick={handleUpdate}>
-              Atualizar Estoque
+        <div className="card glass-div rounded p-3">
+          <h3 className="mb-4">Fast In/Out – Insumo</h3>
+          <div className="mb-3">
+            <label htmlFor="idBusca">ID do Insumo</label>
+            <input
+              type="text"
+              id="idBusca"
+              className="form-control"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
+            <button className="btn btn-design btn-blue mt-2" onClick={handleBuscar}>
+              Buscar
             </button>
-          </>
-        )}
-      </div>
+          </div>
+          {insumo && (
+            <>
+              <p>Nome: {insumo.nome}</p>
+              <p>Estoque atual: {insumo.quantidade}</p>
+              <div className="mb-3">
+                <label htmlFor="quant">Quantidade</label>
+                <input
+                  type="number"
+                  id="quant"
+                  className="form-control"
+                  value={quant}
+                  onChange={(e) => setQuant(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label>
+                  <input
+                    type="radio"
+                    name="operation"
+                    value="entrada"
+                    checked={operation === "entrada"}
+                    onChange={() => setOperation("entrada")}
+                  />
+                  Entrada
+                </label>
+                <label className="ms-3">
+                  <input
+                    type="radio"
+                    name="operation"
+                    value="saida"
+                    checked={operation === "saida"}
+                    onChange={() => setOperation("saida")}
+                  />
+                  Saída
+                </label>
+              </div>
+              <div className="d-flex justify-content-center">
+                <button className="btn btn-design btn-green-submit" onClick={handleUpdate}>
+                  Atualizar Estoque
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </PageLayout>
   );

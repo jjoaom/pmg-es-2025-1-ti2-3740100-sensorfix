@@ -112,7 +112,7 @@ export default function Movimentacao() {
               onChange={handleChange}
             />
           </div>
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-blue" type="submit">
             Salvar
           </button>
         </form>

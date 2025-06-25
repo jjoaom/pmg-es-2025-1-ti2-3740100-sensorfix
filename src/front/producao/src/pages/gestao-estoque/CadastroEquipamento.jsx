@@ -91,10 +91,10 @@ export default function CadastroEquipamento() {
           </div>
         </div>
         <div className="d-flex gap-2">
-          <button className="btn btn-primary" onClick={handleSubmit}>
+          <button className="btn btn-design btn-blue" onClick={handleSubmit}>
             Cadastrar
           </button>
-          <button className="btn btn-secondary">Nova Entrada</button>
+          <button className="btn btn-design btn-silver">Nova Entrada</button>
         </div>
       </div>
     </PageLayout>

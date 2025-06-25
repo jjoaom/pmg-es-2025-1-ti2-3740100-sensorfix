@@ -8,18 +8,18 @@ const urlDemandas = "/api/demandas";
 const urlFalhas = "/falhas/todas_falhas";
 
 const meses = [
-  "Janeiro",
-  "Fevereiro",
-  "Março",
-  "Abril",
-  "Maio",
-  "Junho",
-  "Julho",
-  "Agosto",
-  "Setembro",
-  "Outubro",
-  "Novembro",
-  "Dezembro",
+  "JAN",
+  "FEV",
+  "MAR",
+  "ABR",
+  "MAI",
+  "JUN",
+  "JUL",
+  "AGO",
+  "SET",
+  "OUT",
+  "NOV",
+  "DEZ",
 ];
 
 function parseDateArray(value) {
@@ -176,6 +176,13 @@ export default function Indicator() {
     setFalhaFiltroAtivo(false);
   }, [falhas]);
 
+  function createGlassGradient(ctx, color1, color2) {
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, `${color1}AA`);
+    gradient.addColorStop(1, `${color2}88`);
+    return gradient;
+  }
+
   useEffect(() => {
     if (!depEquipRef.current || !depositos.length) return;
 
@@ -189,12 +196,12 @@ export default function Indicator() {
 
     if (chartDepRef.current) chartDepRef.current.destroy();
 
-    const glassyColors = [
-      "rgba(0, 255, 255, 0.4)",
-      "rgba(0, 128, 255, 0.4)",
-      "rgba(144, 238, 144, 0.4)",
-      "rgba(255, 105, 180, 0.4)",
-      "rgba(173, 216, 230, 0.4)",
+    const gradients = [
+      createGlassGradient(ctx, "#43a047", "#2e7d32"),
+      createGlassGradient(ctx, "#29b6f6", "#0288d1"),
+      createGlassGradient(ctx, "#ff4081", "#f50057"),
+      createGlassGradient(ctx, "#ba68c8", "#8e24aa"),
+      createGlassGradient(ctx, "#ffd54f", "#ffb300"),
     ];
 
     chartDepRef.current = new Chart(ctx, {
@@ -205,8 +212,8 @@ export default function Indicator() {
           {
             label: "Quantidade",
             data: quantidades,
-            backgroundColor: glassyColors,
-            borderColor: "rgba(114, 114, 114, 0.6)",
+            backgroundColor: gradients,
+            borderColor: "rgba(255, 255, 255, 0.3)",
             borderWidth: 2,
           },
         ],
@@ -240,38 +247,124 @@ export default function Indicator() {
     });
   }, [depositos]);
 
-  useEffect(() => {
-    if (!falhasRef.current) return;
-    if (chartFalhasRef.current) chartFalhasRef.current.destroy();
-    const totalFalhas = dadosFalhas.data.reduce((a, b) => a + b, 0);
-    chartFalhasRef.current = new Chart(falhasRef.current, {
-      type: "bar",
-      data: {
-        labels: dadosFalhas.labels,
-        datasets: [
-          {
-            label: falhaFiltroAtivo
-              ? `Ocorrências de Falhas (filtrado) - Total: ${totalFalhas}`
-              : `Ocorrências de Falhas - Total: ${totalFalhas}`,
-            data: dadosFalhas.data,
-            backgroundColor: "rgba(99, 193, 255, 0.7)",
-            borderColor: "rgb(99, 195, 255)",
-            borderWidth: 1,
-          },
-        ],
+useEffect(() => {
+  if (!falhasRef.current) return;
+
+  const ctx = falhasRef.current.getContext("2d");
+
+  // Destroi gráfico anterior
+  if (chartFalhasRef.current) chartFalhasRef.current.destroy();
+
+  // Calcula total de falhas
+  const totalFalhas = dadosFalhas.data.reduce((a, b) => a + b, 0);
+
+  // Gradiente vertical aplicado às barras
+  const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, "rgba(99, 193, 255, 0.9)");
+  gradient.addColorStop(0.5, "rgba(99, 193, 255, 0.6)");
+  gradient.addColorStop(1, "rgba(50, 150, 255, 0.3)");
+
+  chartFalhasRef.current = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: dadosFalhas.labels,
+      datasets: [
+        {
+          label: falhaFiltroAtivo
+            ? `Ocorrências de Falhas (filtrado) - Total: ${totalFalhas}`
+            : `Ocorrências de Falhas - Total: ${totalFalhas}`,
+          data: dadosFalhas.data,
+          backgroundColor: gradient,
+          borderColor: "rgba(99, 161, 255, 0.9)",
+          borderWidth: 1.5,
+          borderRadius: 5,
+          barThickness: 35,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      animation: {
+        duration: 800,
+        easing: "easeOutQuart",
       },
-      options: {
-        responsive: true,
-        scales: {
-          x: { title: { display: true, text: "Falha Encontrada" } },
-          y: {
-            beginAtZero: true,
-            title: { display: true, text: "Ocorrências" },
+      plugins: {
+        legend: {
+          labels: {
+            color: "#8ba8b3",
+            font: {
+              family: "Segoe UI, sans-serif",
+              size: 14,
+            },
+          },
+        },
+        title: {
+          display: true,
+          text: "Ocorrências de Falhas",
+          color: "#8ba8b3",
+          font: {
+            family: "Segoe UI, sans-serif",
+            size: 20,
+            weight: "600",
+          },
+        },
+        tooltip: {
+          backgroundColor: "rgba(20, 30, 40, 0.95)",
+          titleFont: {
+            family: "Segoe UI",
+            size: 14,
+            weight: "600",
+          },
+          bodyFont: {
+            family: "Segoe UI",
+            size: 13,
+          },
+          padding: 10,
+          cornerRadius: 6,
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: "#7199a8",
+            font: { family: "Segoe UI", size: 12 },
+          },
+          title: {
+            display: true,
+            text: "Falha Encontrada",
+            color: "#8ba8b3",
+            font: {
+              family: "Segoe UI",
+              size: 14,
+              weight: "500",
+            },
+          },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: "#a3c5d2",
+            font: { family: "Segoe UI", size: 12 },
+          },
+          grid: {
+            color: "rgba(255, 255, 255, 0.05)",
+          },
+          title: {
+            display: true,
+            text: "Ocorrências",
+            color: "#8ba8b3",
+            font: {
+              family: "Segoe UI",
+              size: 14,
+              weight: "500",
+            },
           },
         },
       },
-    });
-  }, [dadosFalhas, falhaFiltroAtivo]);
+    },
+  });
+}, [dadosFalhas, falhaFiltroAtivo]);
+
 
   // Handlers filtro demandas
   function handleAnoFiltro(e) {
@@ -339,27 +432,25 @@ export default function Indicator() {
     <PageLayout>
       <div className="container py-2">
         <h1 className="mb-4 text-primary">Indicadores de Desempenho</h1>
-        <div className="row g-2">
-          {/* Gráfico Depósitos */}
-          <div className="col-lg-5 col-md-6">
+        <div className="row g-3">
+          {/* Linha 1: Gráfico Depósitos e Média de Demora lado a lado */}
+          <div className="col-12 col-lg-6">
             <div className="card glass-div h-100">
               <div className="card-body">
                 <canvas ref={depEquipRef} />
               </div>
             </div>
           </div>
-
-          {/* Média de Demora de Produção */}
-          <div className="col-lg-3 col-md-6">
+          <div className="col-12 col-lg-6">
             <div className="card glass-div h-100">
               <div className="card-body">
                 <h2 className="card-title fs-5 mb-3">
                   Média de Demora de Produção
                 </h2>
                 <form className="mb-3">
-                  <div className="mb-2">
-                    <label htmlFor="ano" className="form-label">
-                      Escolha o ano:
+                  <div className="mb-2 d-flex align-items-center gap-2">
+                    <label htmlFor="ano" className="form-label mb-0">
+                      Ano:
                     </label>
                     <input
                       type="number"
@@ -370,7 +461,9 @@ export default function Indicator() {
                       max="2100"
                       value={anoFiltro}
                       onChange={handleAnoFiltro}
-                      className="form-control"
+                      className="form-control form-control-sm"
+                      style={{ width: 100 }}
+                      placeholder="Ano"
                     />
                     <datalist id="anos">
                       {anosDemandas.map((ano) => (
@@ -403,10 +496,10 @@ export default function Indicator() {
                       ))}
                     </div>
                   </div>
-                  <div className="d-flex gap-2">
+                  <div className="d-flex justify-content-center mt-3 gap-2">
                     <button
                       type="button"
-                      className="btn btn-primary btn-sm"
+                      className="btn btn-design btn-blue btn-sm"
                       id="btnAplicarFiltro"
                       onClick={aplicarFiltroDemandas}
                     >
@@ -414,7 +507,7 @@ export default function Indicator() {
                     </button>
                     <button
                       type="button"
-                      className="btn btn-outline-secondary btn-sm"
+                      className="btn btn-design btn-silver btn-sm"
                       id="btnLimparFiltro"
                       onClick={limparFiltroDemandas}
                     >
@@ -437,18 +530,17 @@ export default function Indicator() {
               </div>
             </div>
           </div>
-
-          {/* Apuração de defeitos por revisão */}
-          <div className="col-lg-4 col-md-12">
-            <div className="card glass-div h-100">
+          {/* Linha 2: Apuração de defeitos ocupa toda a largura */}
+          <div className="col-12">
+            <div className="card glass-div h-100 mt-2">
               <div className="card-body">
                 <h2 className="card-title fs-5 mb-3">
                   Apuração de defeitos por revisão
                 </h2>
-                <form className="mb-3">
-                  <div className="mb-2">
-                    <label htmlFor="anoRevisoes" className="form-label">
-                      Escolha o ano:
+                <form className="mb-3 d-flex align-items-end gap-3 flex-wrap">
+                  <div>
+                    <label htmlFor="anoRevisoes" className="form-label mb-1">
+                      Ano:
                     </label>
                     <input
                       type="number"
@@ -459,7 +551,9 @@ export default function Indicator() {
                       max="2100"
                       value={anoFalhaFiltro}
                       onChange={handleAnoFalhaFiltro}
-                      className="form-control"
+                      className="form-control form-control-sm"
+                      style={{ width: 90 }}
+                      placeholder="Ano"
                     />
                     <datalist id="anosRevisoes">
                       {anosFalhas.map((ano) => (
@@ -467,27 +561,26 @@ export default function Indicator() {
                       ))}
                     </datalist>
                   </div>
-                  <div className="mb-2">
-                    <label className="form-label">Meses:</label>
-                    <div className="row row-cols-3 g-1">
+                  <div>
+                    <label className="form-label mb-1">Meses:</label>
+                    <div className="d-flex flex-wrap gap-1">
                       {meses.map((mes, i) => (
-                        <div className="col" key={i}>
-                          <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id={`mes_rev_${i + 1}`}
-                              value={i + 1}
-                              checked={mesesFalhaFiltro.includes(i + 1)}
-                              onChange={handleMesFalhaFiltro}
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor={`mes_rev_${i + 1}`}
-                            >
-                              {mes}
-                            </label>
-                          </div>
+                        <div className="form-check form-check-inline" key={i}>
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id={`mes_rev_${i + 1}`}
+                            value={i + 1}
+                            checked={mesesFalhaFiltro.includes(i + 1)}
+                            onChange={handleMesFalhaFiltro}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor={`mes_rev_${i + 1}`}
+                            style={{ fontSize: 13 }}
+                          >
+                            {mes}
+                          </label>
                         </div>
                       ))}
                     </div>
@@ -495,7 +588,7 @@ export default function Indicator() {
                   <div className="d-flex gap-2">
                     <button
                       type="button"
-                      className="btn btn-primary btn-sm"
+                      className="btn btn-design btn-blue btn-sm"
                       id="btnAplicarFiltroRevisoes"
                       onClick={aplicarFiltroFalhas}
                     >
@@ -503,7 +596,7 @@ export default function Indicator() {
                     </button>
                     <button
                       type="button"
-                      className="btn btn-outline-secondary btn-sm"
+                      className="btn btn-design btn-silver btn-sm"
                       id="btnLimparFiltroRevisoes"
                       onClick={limparFiltroFalhas}
                     >

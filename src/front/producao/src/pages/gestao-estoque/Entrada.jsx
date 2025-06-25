@@ -64,10 +64,10 @@ function ModalCadastro({ show, onClose, onCadastrar, id }) {
             />
           </div>
           <div className="modal-footer">
-            <button className="btn btn-secondary" onClick={onClose}>
+            <button className="btn btn-design btn-secondary" onClick={onClose}>
               Cancelar
             </button>
-            <button className="btn btn-primary" onClick={handleSubmit}>
+            <button className="btn btn-design btn-blue" onClick={handleSubmit}>
               Cadastrar
             </button>
           </div>
@@ -119,7 +119,6 @@ export default function Entrada() {
       setShowCadastro(false);
     } catch {
       setAlert({ message: "Insumo não encontrado.", type: "danger" });
-      setShowCadastro(true); // abre o modal de cadastro
     }
   };
 
@@ -172,8 +171,14 @@ export default function Entrada() {
               value={id}
               onChange={(e) => setId(e.target.value)}
             />
-            <button className="btn btn-primary mt-2" onClick={handleBuscar}>
+            <button className="btn btn-design btn-blue mt-2" onClick={handleBuscar}>
               Buscar
+            </button>
+            <button
+              className="btn btn-silver mt-2 ms-2"
+              onClick={() => setShowCadastro(true)}
+            >
+              Criar insumo
             </button>
           </div>
           {insumo && (

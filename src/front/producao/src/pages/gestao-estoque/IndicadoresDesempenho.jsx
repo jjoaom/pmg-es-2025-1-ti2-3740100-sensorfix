@@ -149,7 +149,7 @@ export default function IndicadoresDesempenho() {
                 </label>
               ))}
             </div>
-            <button className="btn btn-primary" onClick={aplicarFiltro}>
+            <button className="btn btn-design btn-blue" onClick={aplicarFiltro}>
               Aplicar Filtro
             </button>
           </div>

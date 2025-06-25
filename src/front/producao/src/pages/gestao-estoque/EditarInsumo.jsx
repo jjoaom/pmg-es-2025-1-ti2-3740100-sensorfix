@@ -74,7 +74,7 @@ export default function EditarInsumo() {
               value={id}
               onChange={(e) => setId(e.target.value)}
             />
-            <button className="btn btn-primary mt-2" onClick={handleSearch}>
+            <button className="btn btn-design btn-blue mt-2" onClick={handleSearch}>
               Buscar
             </button>
           </div>
@@ -133,10 +133,10 @@ export default function EditarInsumo() {
                 </div>
               </div>
               <div className="d-flex gap-2">
-                <button className="btn btn-primary" onClick={handleSave}>
+                <button className="btn btn-design btn-blue" onClick={handleSave}>
                   Salvar
                 </button>
-                <button className="btn btn-danger" onClick={handleDelete}>
+                <button className="btn btn-red-submit" onClick={handleDelete}>
                   Excluir
                 </button>
               </div>
