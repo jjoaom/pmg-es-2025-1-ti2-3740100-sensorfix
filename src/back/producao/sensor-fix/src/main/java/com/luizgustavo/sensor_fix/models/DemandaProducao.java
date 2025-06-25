@@ -21,7 +21,7 @@ public class DemandaProducao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
-    private long id;
+    private Long id;
 
     @Column(name = "data_hora_criacao", columnDefinition = "DATETIME2")
     private LocalDateTime dataHoraCriacao;

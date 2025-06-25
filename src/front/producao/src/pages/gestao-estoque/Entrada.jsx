@@ -171,15 +171,17 @@ export default function Entrada() {
               value={id}
               onChange={(e) => setId(e.target.value)}
             />
-            <button className="btn btn-design btn-blue mt-2" onClick={handleBuscar}>
-              Buscar
-            </button>
-            <button
-              className="btn btn-silver mt-2 ms-2"
-              onClick={() => setShowCadastro(true)}
-            >
-              Criar insumo
-            </button>
+            <div className="d-flex justify-content-center mt-2">
+              <button className="btn btn-design btn-blue" onClick={handleBuscar}>
+                Buscar
+              </button>
+              <button
+                className="btn btn-silver ms-2"
+                onClick={() => setShowCadastro(true)}
+              >
+                Criar insumo
+              </button>
+            </div>
           </div>
           {insumo && (
             <>
@@ -195,9 +197,11 @@ export default function Entrada() {
                   onChange={(e) => setEntrada(e.target.value)}
                 />
               </div>
-              <button className="btn btn-success" onClick={handleEntrada}>
-                Dar Entrada
-              </button>
+              <div className="d-flex justify-content-center">
+                <button className="btn btn design btn-green-submit" onClick={handleEntrada}>
+                  Dar Entrada
+                </button>
+              </div>
             </>
           )}
         </div>

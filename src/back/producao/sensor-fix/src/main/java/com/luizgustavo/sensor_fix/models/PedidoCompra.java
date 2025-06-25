@@ -19,7 +19,7 @@ public class PedidoCompra {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id",unique = true)
-    private long id;
+    private Long id;
 
     @Column(name = "id_fornecedor")
     private int idfornecedor;

@@ -19,7 +19,7 @@ public class EquipamentoInsumos {
     @Id
     @Column(name = "id",unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     
 

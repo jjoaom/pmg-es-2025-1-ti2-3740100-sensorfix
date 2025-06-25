@@ -139,14 +139,20 @@ export default function Compras() {
               </tr>
             </thead>
             <tbody>
-              {(sugestoes || []).map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.nome}</td>
-                  <td>{item.quantidade}</td>
-                  <td>{item.estoqueMin}</td>
+              {Array.isArray(sugestoes) && sugestoes.length > 0 ? (
+                sugestoes.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.nome}</td>
+                    <td>{item.quantidade}</td>
+                    <td>{item.estoqueMin}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={4}>Nenhuma sugestão disponível</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
           <hr />
@@ -185,7 +191,7 @@ export default function Compras() {
                 </div>
                 <div className="col-md-1">
                   <button
-                    className="btn btn-success w-100"
+                    className="btn btn-design btn-green-submit w-100"
                     onClick={adicionarInsumo}
                   >
                     Agregar
