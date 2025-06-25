@@ -6,7 +6,6 @@ import Home from "./pages/Home.jsx";
 import Producao from "./pages/producao/Producao.jsx";
 
 import Estoque from './pages/gestao-estoque/Estoque.jsx';
-import CadastroEquipamento from "./pages/gestao-estoque/CadastroEquipamento.jsx";
 import Pesquisa from "./pages/gestao-estoque/Pesquisa.jsx";
 import Compras from "./pages/gestao-estoque/Compras.jsx";
 import EditarEquipamento from "./pages/gestao-estoque/EditarEquipamento.jsx";
@@ -54,7 +53,6 @@ export default function App() {
               <Route path="/estoque/compras" element={<PrivateRoute><Compras /></PrivateRoute>} />
               <Route path="/estoque/fastEquipamento" element={<PrivateRoute><FastEquip /></PrivateRoute>} />
               <Route path="/estoque/fastInsumo" element={<PrivateRoute><FastInsumo /></PrivateRoute>} />
-              <Route path="/estoque/cadastrarEquipamento" element={<PrivateRoute><CadastroEquipamento /></PrivateRoute>} />
               <Route path="/estoque/editarEquipamento" element={<PrivateRoute><EditarEquipamento /></PrivateRoute>} />
               <Route path="/estoque/editarInsumo" element={<PrivateRoute><EditarInsumo /></PrivateRoute>} />
 

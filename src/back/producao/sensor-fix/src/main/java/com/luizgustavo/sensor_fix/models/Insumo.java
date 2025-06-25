@@ -48,7 +48,6 @@ public class Insumo {
 
    @Column(name= "deposito", nullable=false)
    @NotNull
-   
    private int deposito;
 
     public Insumo() {
