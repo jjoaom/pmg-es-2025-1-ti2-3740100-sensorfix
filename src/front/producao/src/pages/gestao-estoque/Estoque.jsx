@@ -8,9 +8,14 @@ export default function Estoque() {
       <div className="container text-center py-5 w-50">
         <h1 className="display-5 text-blue">Depósito</h1>
         <div className="p-3 card h-100 glass-div rounded">
-          <Link to="/estoque/entrada" className="mb-2">
+          <Link to="/estoque/entrada-insumo" className="mb-2">
             <button className="btn btn-design hover-blue shiny">
               Entrada de insumos
+            </button>
+          </Link>
+          <Link to="/estoque/entrada-equipamento" className="mb-2">
+            <button className="btn btn-design hover-blue shiny">
+              Entrada de Equipamentos
             </button>
           </Link>
           <div className="mb-2">
