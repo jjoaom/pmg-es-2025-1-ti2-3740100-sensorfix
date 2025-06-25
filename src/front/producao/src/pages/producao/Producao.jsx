@@ -449,7 +449,7 @@ function DemandaAberta({ demanda, onClose, onDemandaUpdated }) {
               aria-label="Quantidade"
             />
             <button
-              className="btn btn-outline-primary"
+              className="btn btn-design btn-outline-primary "
               onClick={handleAddPeca}
               disabled={
                 !pecaSelecionada ||
@@ -812,7 +812,7 @@ function FormCriarDemanda({ onCreated }) {
               aria-label="Quantidade"
             />
             <button
-              className="btn btn-outline-primary"
+              className="btn btn-design btn-outline-primary"
               type="button"
               onClick={handleAddPeca}
               disabled={!pecaSelecionada || !quantidadeSelecionada || loading}
@@ -865,8 +865,8 @@ function FormCriarDemanda({ onCreated }) {
       </div>
       <div className="row mb-3">
         <div className="col-12">
-          <button type="submit" className="btn color-blue" disabled={loading}>
-            <FaSave /> <small>Salvar</small>
+          <button type="submit" className="btn btn-design btn-blue" disabled={loading}>
+            <FaSave /> <span>Salvar</span>
           </button>
         </div>
       </div>

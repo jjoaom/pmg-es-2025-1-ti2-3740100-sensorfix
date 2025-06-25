@@ -126,7 +126,7 @@ export default function Movimentacao() {
                     return (
                       <li className="mb-2" key={label}>
                         <button
-                          className={`btn btn-design btn-light hover-blue w-100${
+                          className={`btn btn-design btn-light shiny hover-blue w-100${
                             isActive ? " active btn-silver" : ""
                           }`}
                           style={{ minWidth: 100, minHeight: 40 }}
@@ -194,7 +194,7 @@ export default function Movimentacao() {
                     <div className="col-12 col-sm-6 col-md-2">
                       <button
                         type="button"
-                        className="btn btn-design btn-primary w-100 mt-2 mt-md-0"
+                        className="btn btn-design btn-blue w-100 mt-2 mt-md-0"
                         onClick={() => setShowModal(true)}
                       >
                         Nova movimentação
@@ -391,14 +391,14 @@ export default function Movimentacao() {
                   <div className="d-flex justify-content-end gap-2 mt-4">
                     <button
                       type="button"
-                      className="btn btn-design btn-outline-secondary"
+                      className="btn btn-design btn-silver"
                       onClick={() => setShowModal(false)}
                     >
                       Cancelar
                     </button>
                     <button
                       type="submit"
-                      className="btn btn-design btn-success px-4"
+                      className="btn btn-design btn-green-submit px-4"
                     >
                       Salvar
                     </button>

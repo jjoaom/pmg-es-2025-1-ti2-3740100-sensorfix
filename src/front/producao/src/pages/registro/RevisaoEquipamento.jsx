@@ -277,12 +277,12 @@ return (
                             </div>
                             <div className="d-flex gap-2">
                                 <button
-                                    className="btn btn-design btn-outline-success"
+                                    className="btn btn-design btn-green-submit"
                                     onClick={handleAddFalha}
                                 >
                                     Adicionar Falha
                                 </button>
-                                <button className="btn btn-design btn-primary ms-auto" onClick={handleSave}>
+                                <button className="btn btn-design btn-blue ms-auto" onClick={handleSave}>
                                     Guardar Dados
                                 </button>
                             </div>
