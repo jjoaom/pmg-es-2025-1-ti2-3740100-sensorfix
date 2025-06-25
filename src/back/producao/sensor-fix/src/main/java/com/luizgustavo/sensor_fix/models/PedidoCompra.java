@@ -30,17 +30,17 @@ public class PedidoCompra {
     public PedidoCompra() {
     }
 
-    public PedidoCompra(long id, int idfornecedor, LocalDate data) {
+    public PedidoCompra(Long id, int idfornecedor, LocalDate data) {
         this.id = id;
         this.idfornecedor = idfornecedor;
         this.data = data;
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,7 +60,7 @@ public class PedidoCompra {
         this.data = data;
     }
 
-    public PedidoCompra id(long id) {
+    public PedidoCompra id(Long id) {
         setId(id);
         return this;
     }

@@ -28,17 +28,17 @@ public class Fornecedor {
     public Fornecedor() {
     }
 
-    public Fornecedor(long id, String nome, String tel) {
+    public Fornecedor(Long id, String nome, String tel) {
         this.id = id;
         this.nome = nome;
         this.tel = tel;
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,7 +58,7 @@ public class Fornecedor {
         this.tel = tel;
     }
 
-    public Fornecedor id(long id) {
+    public Fornecedor id(Long id) {
         setId(id);
         return this;
     }

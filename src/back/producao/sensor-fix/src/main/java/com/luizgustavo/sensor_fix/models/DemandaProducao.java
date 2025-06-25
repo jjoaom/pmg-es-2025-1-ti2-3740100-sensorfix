@@ -89,7 +89,7 @@ public class DemandaProducao {
     @Column(name = "status_demanda")
     private StatusDemanda statusDemanda;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -129,7 +129,7 @@ public class DemandaProducao {
         return statusDemanda;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
