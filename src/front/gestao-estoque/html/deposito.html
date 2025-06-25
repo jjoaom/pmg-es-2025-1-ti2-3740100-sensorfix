@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Movimentação de Depósitos</title>
   <link rel="stylesheet" href="../css/styledeposito.css" />
 </head>
+
 <body>
-    <header>
-        <div class="logo">
-          <img src="../images/logo1.png" alt="SensorFix" />
-          
-        </div>
-      
-        <nav class="nav-links">
-          <a href="#">Home</a>
-          <a href="#">Produção</a>
-          <a href="#">Estoque</a>
-          <a href="#">Manutenção</a>
-          <a href="#" class="active">Movimentação</a>
-        </nav>
-      
-        <div class="user-icons">
-          <button title="Usuário">👤</button>
-          <button title="Sair">🔓</button>
-        </div>
-      </header>
+  <header>
+    <div class="logo">
+      <img src="../images/logo1.png" alt="SensorFix" />
+
+    </div>
+
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Produção</a>
+      <a href="#">Estoque</a>
+      <a href="#">Manutenção</a>
+      <a href="#" class="active">Movimentação</a>
+    </nav>
+
+    <div class="user-icons">
+      <button title="Usuário">👤</button>
+      <button title="Sair">🔓</button>
+    </div>
+  </header>
 
   <div class="container">
     <aside class="sidebar">
-      <nav>        
-          <li>Ativação</li>
-          <li>Ativo</li>
-          <li>Danificado</li>
-          <li>Estoque</li>
-          <li>Manutenção</li>
+      <nav>
+        <li>Ativação</li>
+        <li>Ativo</li>
+        <li>Danificado</li>
+        <li>Estoque</li>
+        <li>Manutenção</li>
         </ul>
       </nav>
     </aside>
@@ -60,7 +62,7 @@
           Período
           <input type="date" id="filter-date" />
         </label>
-       
+
         <button id="nova-movimentacao-btn">Nova movimentação</button>
 
       </section>
@@ -84,57 +86,58 @@
     </main>
   </div>
 
-<!-- Modal para Nova Movimentação -->
-<div id="movimentacao-modal" class="modal">
-  <div class="modal-content">
-    <span class="close-button">&times;</span>
-    <h2>Nova Movimentação</h2>
-    <form id="form-movimentacao">
-      <label>
-        ID DO PRODUTO :
-        <input type="number" name="descricao" required id="inputIdEquip"/>
-        <button type="button" id="btnBuscarEquip">Buscar</button>
-      </label>
-      
-      <label>
-        Nome:
-        <input id= "nomeProduto" type="text" name="descricao" required readonly/>
-        
-      </label>
-      <label>
-  Depósito Inicial:
-  <select name="deposito" required id="selectOrigem">
-    
-    <option value="1">Ativação</option>
-    <option value="2">Ativo</option>
-    <option value="3">Danificado</option>
-    <option value="4">Estoque</option>
-    <option value="5">Manutenção</option>
-  </select>
-</label>
+  <!-- Modal para Nova Movimentação -->
+  <div id="movimentacao-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Nova Movimentação</h2>
+      <form id="form-movimentacao">
+        <label>
+          ID DO PRODUTO :
+          <input type="number" name="descricao" required id="inputIdEquip" />
+          <button type="button" id="btnBuscarEquip">Buscar</button>
+        </label>
 
-<label>
-  Depósito de destino:
-  <select name="deposito" required id="selectDestino">
-    <option value="1">Ativação</option>
-    <option value="2">Ativo</option>
-    <option value="3">Danificado</option>
-    <option value="4">Estoque</option>
-    <option value="5">Manutenção</option>
-  </select>
-</label>
+        <label>
+          Nome:
+          <input id="nomeProduto" type="text" name="descricao" required readonly />
 
-      <label>
-        Quantidade:
-        <input type="number" name="quantidade" required  id="quantidade"/>
-      </label>
-      
-      <button type="submit" id="btnSalvarMovimentacao">Salvar</button>
-    </form>
+        </label>
+        <label>
+          Depósito Inicial:
+          <select name="deposito" required id="selectOrigem">
+
+            <option value="1">Ativação</option>
+            <option value="2">Ativo</option>
+            <option value="3">Danificado</option>
+            <option value="4">Estoque</option>
+            <option value="5">Manutenção</option>
+          </select>
+        </label>
+
+        <label>
+          Depósito de destino:
+          <select name="deposito" required id="selectDestino">
+            <option value="1">Ativação</option>
+            <option value="2">Ativo</option>
+            <option value="3">Danificado</option>
+            <option value="4">Estoque</option>
+            <option value="5">Manutenção</option>
+          </select>
+        </label>
+
+        <label>
+          Quantidade:
+          <input type="number" name="quantidade" required id="quantidade" />
+        </label>
+
+        <button type="submit" id="btnSalvarMovimentacao">Salvar</button>
+      </form>
+    </div>
   </div>
-</div>
 
 
   <script src="../js/deposito.js"></script>
 </body>
+
 </html>
