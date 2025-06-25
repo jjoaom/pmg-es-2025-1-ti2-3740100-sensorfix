@@ -3,6 +3,7 @@ import { api } from "../../utils/api";
 import PageLayout from "../../components/PageLayout";
 import { isAdmin, getUsername } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
+import { ModalAlert } from "../../components/ModalAlert";
 
 export default function Usuarios() {
   const navigate = useNavigate();
@@ -13,6 +14,27 @@ export default function Usuarios() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("USER");
   const [editandoId, setEditandoId] = useState(null);
+  const [modalAlert, setModalAlert] = useState({
+    show: false,
+    message: "",
+    type: "success"
+  });
+
+  const showModal = (message, type = "success") => {
+    setModalAlert({
+      show: true,
+      message,
+      type
+    });
+  };
+
+  const closeModal = () => {
+    setModalAlert({
+      show: false,
+      message: "",
+      type: "success"
+    });
+  };
 
   const carregarUsuarios = async () => {
     try {
@@ -27,7 +49,7 @@ export default function Usuarios() {
     e.preventDefault();
     try {
       if (!username.trim()) {
-        alert("Username é obrigatório");
+        showModal("Username é obrigatório", "danger");
         return;
       }
 
@@ -40,7 +62,7 @@ export default function Usuarios() {
         await api.put(`/users/${editandoId}`, usuario);
       } else {
         if (!password) {
-          alert("Senha é obrigatória no cadastro");
+          showModal("Senha é obrigatória no cadastro", "danger");
           return;
         }
         await api.post("/users", usuario);
@@ -50,7 +72,7 @@ export default function Usuarios() {
       carregarUsuarios();
     } catch (error) {
       console.error("Erro ao salvar usuário:", error);
-      alert("Erro ao salvar usuário");
+      showModal("Erro ao salvar usuário", "danger");
     }
   };
 
@@ -64,7 +86,7 @@ export default function Usuarios() {
   const handleDeletar = async (id, userName) => {
     const userLogado = getUsername();
     if (userName === userLogado) {
-      alert("Você não pode excluir seu próprio usuário.");
+      showModal("Você não pode excluir seu próprio usuário.", "warning");
       return;
     }
 
@@ -74,7 +96,7 @@ export default function Usuarios() {
         carregarUsuarios();
       } catch (error) {
         console.error("Erro ao deletar usuário:", error);
-        alert("Erro ao deletar usuário");
+        showModal("Erro ao deletar usuário", "danger");
       }
     }
   };
@@ -88,12 +110,12 @@ export default function Usuarios() {
 
   useEffect(() => {
     if (!isAdmin()) {
-      alert("Acesso não autorizado!");
+      showModal("Acesso não autorizado!", "danger");
       navigate("/");
       return;
     }
     carregarUsuarios();
-  }, []);
+  }, [navigate]);
 
   return (
     <PageLayout>
@@ -213,6 +235,12 @@ export default function Usuarios() {
             </div>
           </div>
         </div>
+        <ModalAlert
+          show={modalAlert.show}
+          message={modalAlert.message}
+          type={modalAlert.type}
+          onClose={closeModal}
+        />
       </div>
     </PageLayout>
   );

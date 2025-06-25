@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
 import html2pdf from "html2pdf.js";
 import { api } from "../../utils/api";
+import { ModalAlert } from "../../components/ModalAlert";
 
 export default function Compras() {
   const [sugestoes, setSugestoes] = useState([]);
@@ -12,6 +13,27 @@ export default function Compras() {
   const [vetor, setVetor] = useState([]);
   const [erro, setErro] = useState("");
   const pdfRef = useRef();
+  const [modalAlert, setModalAlert] = useState({
+    show: false,
+    message: "",
+    type: "success"
+  });
+
+  const showModal = (message, type = "success") => {
+    setModalAlert({
+      show: true,
+      message,
+      type
+    });
+  };
+
+  const closeModal = () => {
+    setModalAlert({
+      show: false,
+      message: "",
+      type: "success"
+    });
+  };
 
   useEffect(() => {
     async function loadData() {
@@ -44,10 +66,10 @@ export default function Compras() {
 
       setNovoPedidoId(pedidoSalvo.id);
       localStorage.setItem("idNovoPedido", pedidoSalvo.id);
-      alert(`Novo pedido criado (#${pedidoSalvo.id})!`);
+      showModal(`Novo pedido criado (#${pedidoSalvo.id})!`, "success");
     } catch (error) {
       console.error("Erro ao criar pedido:", error);
-      alert("Erro ao criar pedido.");
+      showModal("Erro ao criar pedido.", "danger");
     }
   };
 
@@ -102,7 +124,7 @@ export default function Compras() {
       setVetor(atualizados);
       localStorage.setItem("vetorInsumos", JSON.stringify(atualizados));
     } catch {
-      alert("Erro ao excluir item");
+      showModal("Erro ao excluir item", "danger");
     }
   };
 
@@ -350,6 +372,12 @@ export default function Compras() {
             <p>Gerado em: {new Date().toLocaleString()}</p>
           </div>
         </div>
+        <ModalAlert
+          show={modalAlert.show}
+          message={modalAlert.message}
+          type={modalAlert.type}
+          onClose={closeModal}
+        />
       </div>
     </PageLayout>
   );

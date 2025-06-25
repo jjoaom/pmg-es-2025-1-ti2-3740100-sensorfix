@@ -1,19 +1,41 @@
 import React, { useState } from "react";
 import PageLayout from "../../components/PageLayout";
 import { api } from "../../utils/api";
+import { ModalAlert } from "../../components/ModalAlert";
 
 export default function FastInsumo() {
   const [id, setId] = useState("");
   const [insumo, setInsumo] = useState(null);
   const [quant, setQuant] = useState("");
   const [operation, setOperation] = useState("saida");
+  const [modalAlert, setModalAlert] = useState({
+    show: false,
+    message: "",
+    type: "success"
+  });
+
+  const showModal = (message, type = "success") => {
+    setModalAlert({
+      show: true,
+      message,
+      type
+    });
+  };
+
+  const closeModal = () => {
+    setModalAlert({
+      show: false,
+      message: "",
+      type: "success"
+    });
+  };
 
   const handleBuscar = async () => {
     try {
       const data = await api.get(`/insumo/${id}`);
       setInsumo(data);
     } catch {
-      alert("Insumo não encontrado.");
+      showModal("Insumo não encontrado.", "danger");
     }
   };
 
@@ -26,19 +48,19 @@ export default function FastInsumo() {
       newQty = current + change;
     } else if (operation === "saida") {
       if (change > current) {
-        alert("Quantidade de saída superior ao estoque.");
+        showModal("Quantidade de saída superior ao estoque.", "danger");
         return;
       }
       newQty = current - change;
     }
     try {
       await api.put(`/insumo/${insumo.id}`, { ...insumo, quantidade: newQty });
-      alert("Estoque atualizado!");
+      showModal("Estoque atualizado com sucesso!", "success");
       setInsumo(null);
       setId("");
       setQuant("");
     } catch {
-      alert("Erro ao atualizar estoque.");
+      showModal("Erro ao atualizar estoque.", "danger");
     }
   };
 
@@ -104,6 +126,12 @@ export default function FastInsumo() {
             </>
           )}
         </div>
+        <ModalAlert
+          show={modalAlert.show}
+          message={modalAlert.message}
+          type={modalAlert.type}
+          onClose={closeModal}
+        />
       </div>
     </PageLayout>
   );

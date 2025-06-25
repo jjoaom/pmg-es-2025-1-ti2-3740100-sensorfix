@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PageLayout from "../../components/PageLayout";
 import { api } from "../../utils/api";
+import { ModalAlert } from "../../components/ModalAlert";
 
 export default function EditarInsumo() {
   const [id, setId] = useState("");
@@ -11,6 +12,27 @@ export default function EditarInsumo() {
     total: "",
     endereco: "",
   });
+  const [modalAlert, setModalAlert] = useState({
+    show: false,
+    message: "",
+    type: "success"
+  });
+
+  const showModal = (message, type = "success") => {
+    setModalAlert({
+      show: true,
+      message,
+      type
+    });
+  };
+
+  const closeModal = () => {
+    setModalAlert({
+      show: false,
+      message: "",
+      type: "success"
+    });
+  };
 
   const handleSearch = async () => {
     try {
@@ -22,8 +44,8 @@ export default function EditarInsumo() {
         total: data.quantidade,
         endereco: data.endereco,
       });
-    } catch (err) {
-      alert("Insumo não encontrado.");
+    } catch {
+      showModal("Insumo não encontrado.", "danger");
     }
   };
 
@@ -43,20 +65,20 @@ export default function EditarInsumo() {
     };
     try {
       await api.put(`/insumo/${id}`, insumo);
-      alert("Insumo atualizado com sucesso!");
-    } catch (err) {
-      alert("Erro ao atualizar insumo.");
+      showModal("Insumo atualizado com sucesso!", "success");
+    } catch {
+      showModal("Erro ao atualizar insumo.", "danger");
     }
   };
 
   const handleDelete = async () => {
     try {
       await api.delete(`/insumo/${id}`);
-      alert("Insumo deletado com sucesso!");
+      showModal("Insumo deletado com sucesso!", "success");
       setId("");
       setForm({ descricao: "", peso: "", estMin: "", total: "", endereco: "" });
-    } catch (err) {
-      alert("Insumo não pode ser deletado.");
+    } catch {
+      showModal("Insumo não pode ser deletado.", "danger");
     }
   };
 
@@ -143,6 +165,12 @@ export default function EditarInsumo() {
             </>
           )}
         </div>
+        <ModalAlert
+          show={modalAlert.show}
+          message={modalAlert.message}
+          type={modalAlert.type}
+          onClose={closeModal}
+        />
       </div>
     </PageLayout>
   );

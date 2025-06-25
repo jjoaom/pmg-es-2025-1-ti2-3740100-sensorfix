@@ -1,19 +1,41 @@
 import React, { useState } from "react";
 import PageLayout from "../../components/PageLayout";
 import { api } from "../../utils/api";
+import { ModalAlert } from "../../components/ModalAlert";
 
 export default function FastEquip() {
   const [id, setId] = useState("");
   const [equip, setEquip] = useState(null);
   const [quant, setQuant] = useState("");
   const [operation, setOperation] = useState("saida");
+  const [modalAlert, setModalAlert] = useState({
+    show: false,
+    message: "",
+    type: "success"
+  });
+
+  const showModal = (message, type = "success") => {
+    setModalAlert({
+      show: true,
+      message,
+      type
+    });
+  };
+
+  const closeModal = () => {
+    setModalAlert({
+      show: false,
+      message: "",
+      type: "success"
+    });
+  };
 
   const handleBuscar = async () => {
     try {
       const data = await api.get(`/equipamentos/${id}`);
       setEquip(data);
-    } catch (err) {
-      alert("Equipamento não encontrado.");
+    } catch {
+      showModal("Equipamento não encontrado.", "danger");
     }
   };
 
@@ -26,7 +48,7 @@ export default function FastEquip() {
       newQty = current + change;
     } else if (operation === "saida") {
       if (change > current) {
-        alert("Quantidade de saída superior ao estoque.");
+        showModal("Quantidade de saída superior ao estoque.", "danger");
         return;
       }
       newQty = current - change;
@@ -36,12 +58,12 @@ export default function FastEquip() {
         ...equip,
         quantidade: newQty,
       });
-      alert("Estoque atualizado!");
+      showModal("Estoque atualizado com sucesso!", "success");
       setEquip(null);
       setId("");
       setQuant("");
-    } catch (err) {
-      alert("Erro ao atualizar estoque.");
+    } catch {
+      showModal("Erro ao atualizar estoque.", "danger");
     }
   };
 
@@ -110,6 +132,12 @@ export default function FastEquip() {
             </>
           )}
         </div>
+        <ModalAlert
+          show={modalAlert.show}
+          message={modalAlert.message}
+          type={modalAlert.type}
+          onClose={closeModal}
+        />
       </div>
     </PageLayout>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PageLayout from "../../components/PageLayout";
 import { api } from "../../utils/api";
+import { ModalAlert } from "../../components/ModalAlert";
 
 export default function EditarEquipamento() {
   const [id, setId] = useState("");
@@ -11,6 +12,27 @@ export default function EditarEquipamento() {
     total: "",
     endereco: "",
   });
+  const [modalAlert, setModalAlert] = useState({
+    show: false,
+    message: "",
+    type: "success"
+  });
+
+  const showModal = (message, type = "success") => {
+    setModalAlert({
+      show: true,
+      message,
+      type
+    });
+  };
+
+  const closeModal = () => {
+    setModalAlert({
+      show: false,
+      message: "",
+      type: "success"
+    });
+  };
 
   const handleSearch = async () => {
     try {
@@ -22,8 +44,8 @@ export default function EditarEquipamento() {
         total: data.quantidade,
         endereco: data.endereco,
       });
-    } catch (err) {
-      alert("Equipamento não encontrado.");
+    } catch {
+      showModal("Equipamento não encontrado.", "danger");
     }
   };
 
@@ -43,20 +65,20 @@ export default function EditarEquipamento() {
     };
     try {
       await api.put(`/equipamentos/${id}`, equipamento);
-      alert("Equipamento atualizado com sucesso!");
-    } catch (err) {
-      alert("Erro ao atualizar equipamento.");
+      showModal("Equipamento atualizado com sucesso!", "success");
+    } catch {
+      showModal("Erro ao atualizar equipamento.", "danger");
     }
   };
 
   const handleDelete = async () => {
     try {
       await api.delete(`/equipamentos/${id}`);
-      alert("Equipamento deletado com sucesso!");
+      showModal("Equipamento deletado com sucesso!", "success");
       setId("");
       setForm({ descricao: "", peso: "", estMin: "", total: "", endereco: "" });
-    } catch (err) {
-      alert("Equipamento não pode ser deletado.");
+    } catch {
+      showModal("Equipamento não pode ser deletado.", "danger");
     }
   };
 
@@ -143,6 +165,12 @@ export default function EditarEquipamento() {
             </>
           )}
         </div>
+        <ModalAlert
+          show={modalAlert.show}
+          message={modalAlert.message}
+          type={modalAlert.type}
+          onClose={closeModal}
+        />
       </div>
     </PageLayout>
   );
