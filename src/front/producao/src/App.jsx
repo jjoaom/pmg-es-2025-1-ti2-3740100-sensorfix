@@ -8,11 +8,11 @@ import Producao from "./pages/producao/Producao.jsx";
 import Estoque from './pages/gestao-estoque/Estoque.jsx';
 import CadastroEquipamento from "./pages/gestao-estoque/CadastroEquipamento.jsx";
 import Pesquisa from "./pages/gestao-estoque/Pesquisa.jsx";
-import CadastroInsumo from "./pages/gestao-estoque/CadastroInsumo.jsx";
 import Compras from "./pages/gestao-estoque/Compras.jsx";
 import EditarEquipamento from "./pages/gestao-estoque/EditarEquipamento.jsx";
 import EditarInsumo from "./pages/gestao-estoque/EditarInsumo.jsx";
-import Entrada  from "./pages/gestao-estoque/Entrada.jsx";
+import EntradaInsumo  from "./pages/gestao-estoque/EntradaInsumo.jsx";
+import EntradaEquipamento from "./pages/gestao-estoque/EntradaEquipamento.jsx";
 import FastEquip from "./pages/gestao-estoque/FastEquip.jsx";
 import FastInsumo from "./pages/gestao-estoque/FastInsumo.jsx";
 
@@ -48,13 +48,13 @@ export default function App() {
               <Route path="/indicadores" element={<PrivateRoute><Indicator /></PrivateRoute>} />
 
               <Route path="/estoque" element={<PrivateRoute><Estoque /></PrivateRoute>} />
-              <Route path="/estoque/entrada" element={<PrivateRoute><Entrada /></PrivateRoute>} />
+              <Route path="/estoque/entrada-insumo" element={<PrivateRoute><EntradaInsumo /></PrivateRoute>} />
+              <Route path="/estoque/entrada-equipamento" element={<PrivateRoute><EntradaEquipamento /></PrivateRoute>} />
               <Route path="/estoque/buscar" element={<PrivateRoute><Pesquisa /></PrivateRoute>} />
               <Route path="/estoque/compras" element={<PrivateRoute><Compras /></PrivateRoute>} />
               <Route path="/estoque/fastEquipamento" element={<PrivateRoute><FastEquip /></PrivateRoute>} />
               <Route path="/estoque/fastInsumo" element={<PrivateRoute><FastInsumo /></PrivateRoute>} />
               <Route path="/estoque/cadastrarEquipamento" element={<PrivateRoute><CadastroEquipamento /></PrivateRoute>} />
-              <Route path="/estoque/cadastroInsumo" element={<PrivateRoute><CadastroInsumo /></PrivateRoute>} />
               <Route path="/estoque/editarEquipamento" element={<PrivateRoute><EditarEquipamento /></PrivateRoute>} />
               <Route path="/estoque/editarInsumo" element={<PrivateRoute><EditarInsumo /></PrivateRoute>} />
 

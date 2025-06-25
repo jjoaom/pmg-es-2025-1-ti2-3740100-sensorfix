@@ -33,13 +33,20 @@ export default function Compras() {
         idfornecedor: 0,
         data: new Date().toISOString().split("T")[0],
       };
-      const novoPedido = await api.post("/pedidos", pedido);
-      const pedidoSalvo = novoPedido.data;
+      const response = await api.post("/pedidos", pedido);
+      console.log("Resposta da API ao criar pedido:", response);
+
+      const pedidoSalvo = response.data;
+
+      if (!pedidoSalvo.id) {
+        throw new Error("ID do pedido criado não retornado pela API.");
+      }
 
       setNovoPedidoId(pedidoSalvo.id);
       localStorage.setItem("idNovoPedido", pedidoSalvo.id);
       alert(`Novo pedido criado (#${pedidoSalvo.id})!`);
-    } catch {
+    } catch (error) {
+      console.error("Erro ao criar pedido:", error);
       alert("Erro ao criar pedido.");
     }
   };

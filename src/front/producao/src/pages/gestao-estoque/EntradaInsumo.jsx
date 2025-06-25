@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PageLayout from "../../components/PageLayout";
 import { api } from "../../utils/api";
 
-function ModalCadastro({ show, onClose, onCadastrar, id }) {
+function ModalCadastro({ show, onClose, onCadastrar }) {
   const [nome, setNome] = useState("");
   const [peso, setPeso] = useState("");
   const [estoqueMin, setEstoqueMin] = useState("");
@@ -64,7 +64,7 @@ function ModalCadastro({ show, onClose, onCadastrar, id }) {
             />
           </div>
           <div className="modal-footer">
-            <button className="btn btn-design btn-secondary" onClick={onClose}>
+            <button className="btn btn-design btn-silver" onClick={onClose}>
               Cancelar
             </button>
             <button className="btn btn-design btn-blue" onClick={handleSubmit}>

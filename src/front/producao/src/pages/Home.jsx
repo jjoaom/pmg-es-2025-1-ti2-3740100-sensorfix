@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { FaTools } from "react-icons/fa";
 import { MdPrecisionManufacturing } from "react-icons/md";
@@ -13,29 +12,30 @@ export default function Home() {
         <div className="d-flex flex-column align-items-center">
           <ul class="nav p-5">
             <div className="m-2 btn glass-div btn-design shiny">
-                <Link className="nav-link" to="/producao">
-                  <MdPrecisionManufacturing size={30} color="color-blue" /> Produção{" "}
-                </Link>
+              <Link className="nav-link" to="/producao">
+                <MdPrecisionManufacturing size={30} color="color-blue" />{" "}
+                Produção{" "}
+              </Link>
             </div>
             <div className="m-2 btn glass-div btn-design shiny">
-                <Link className="nav-link" to="/estoque">
-                  <BsBoxSeam size={30} color="color-blue" /> Estoque{" "}
-                </Link>
+              <Link className="nav-link" to="/estoque">
+                <BsBoxSeam size={30} color="color-blue" /> Estoque{" "}
+              </Link>
             </div>
             <div className="m-2 btn glass-div btn-design shiny">
-                <Link className="nav-link" to="/manutencao">
-                  <FaTools size={30} color="color-blue" /> Manutenção{" "}
-                </Link>
-            </div>
-             <div className="m-2 btn glass-div btn-design shiny">
-                <Link className="nav-link" to="/movimentacao">
-                  <FaDollyFlatbed size={30} color="color-blue" /> Movimentação{" "}
-                </Link>
+              <Link className="nav-link" to="/manutencao">
+                <FaTools size={30} color="color-blue" /> Manutenção{" "}
+              </Link>
             </div>
             <div className="m-2 btn glass-div btn-design shiny">
-                <Link className="nav-link" to="/indicadores">
-                  <BiBarChartAlt2 size={30} color="color-blue" /> Indicadores{" "}
-                </Link>
+              <Link className="nav-link" to="/movimentacao">
+                <FaDollyFlatbed size={30} color="color-blue" /> Movimentação{" "}
+              </Link>
+            </div>
+            <div className="m-2 btn glass-div btn-design shiny">
+              <Link className="nav-link" to="/indicadores">
+                <BiBarChartAlt2 size={30} color="color-blue" /> Indicadores{" "}
+              </Link>
             </div>
           </ul>
         </div>
