@@ -34,8 +34,16 @@ public class PedidoInsumoController {
     }
 
     @PostMapping
-    public PedidoInsumo create(@RequestBody PedidoInsumo item) {
-        return service.save(item);
+    public ResponseEntity<?> create(@RequestBody PedidoInsumo item) {
+        try {
+            PedidoInsumo salvo = service.save(item);
+            return ResponseEntity.ok(salvo);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Erro de dados: " + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace(); // ou log.error(...);
+            return ResponseEntity.status(500).body("Erro interno: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")

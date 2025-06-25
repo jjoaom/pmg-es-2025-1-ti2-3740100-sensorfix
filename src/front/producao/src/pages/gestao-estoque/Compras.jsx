@@ -34,9 +34,11 @@ export default function Compras() {
         data: new Date().toISOString().split("T")[0],
       };
       const novoPedido = await api.post("/pedidos", pedido);
-      setNovoPedidoId(novoPedido.id);
-      localStorage.setItem("idNovoPedido", novoPedido.id);
-      alert("Novo pedido criado!");
+      const pedidoSalvo = novoPedido.data;
+
+      setNovoPedidoId(pedidoSalvo.id);
+      localStorage.setItem("idNovoPedido", pedidoSalvo.id);
+      alert(`Novo pedido criado (#${pedidoSalvo.id})!`);
     } catch {
       alert("Erro ao criar pedido.");
     }
@@ -65,6 +67,7 @@ export default function Compras() {
         insumo: { id: insumoPesq.id },
         pedidoCompra: { id: parseInt(novoPedidoId) },
       };
+      console.log("Enviando para /pedido-insumos:", body);
 
       const res = await api.post("/pedido-insumos", body);
       const novoItem = {
@@ -97,14 +100,81 @@ export default function Compras() {
   };
 
   const gerarPDF = () => {
-    const el = pdfRef.current;
+    // Cria o container principal do PDF com classes Bootstrap
+    const conteudo = document.createElement("div");
+    conteudo.className = "container p-4";
+    conteudo.style.fontFamily = "Arial, sans-serif";
+    conteudo.style.background = "#fff";
+
+    // Cabeçalho com logo e título
+    conteudo.innerHTML = `
+      <div class="d-flex align-items-center border-bottom pb-3 mb-4">
+        <img src="${
+          import.meta.env.VITE_PUBLIC_URL
+            ? import.meta.env.VITE_PUBLIC_URL + "/logo1.png"
+            : "/logo1.png"
+        }" alt="Logo" style="height: 60px; margin-right: 20px;">
+        <div>
+          <h2 class="mb-0">Pedido de Compra</h2>
+          <small class="text-muted">#${novoPedidoId || "N/A"}</small>
+        </div>
+      </div>
+      <h4 class="mb-3">Itens do Pedido</h4>
+    `;
+
+    // Cria a tabela com classes Bootstrap
+    const tabela = document.createElement("table");
+    tabela.className = "table table-bordered table-striped";
+    tabela.style.marginTop = "10px";
+    tabela.innerHTML = `
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Peso (kg)</th>
+          <th>Quantidade</th>
+        </tr>
+      </thead>
+    `;
+
+    // Corpo da tabela
+    const corpo = document.createElement("tbody");
+    vetor.forEach((item) => {
+      const linha = document.createElement("tr");
+      linha.innerHTML = `
+        <td>${item.id || item.insumo?.id || ""}</td>
+        <td>${item.nome || item.insumo?.nome || ""}</td>
+        <td>${(item.peso || item.insumo?.peso || 0).toFixed(2)}</td>
+        <td>${item.quantidade}</td>
+      `;
+      corpo.appendChild(linha);
+    });
+    tabela.appendChild(corpo);
+
+    // Adiciona a tabela ao conteúdo
+    conteudo.appendChild(tabela);
+
+    // Rodapé estilizado
+    const rodape = document.createElement("div");
+    rodape.className = "border-top pt-3 mt-4 text-center text-secondary";
+    rodape.innerHTML = `
+      <p class="mb-1">Solicito ao setor financeiro que aprove e envie para faturamento.</p>
+      <small>Documento gerado em: ${new Date().toLocaleString()}</small>
+    `;
+    conteudo.appendChild(rodape);
+
+    // Gera o nome do PDF dinamicamente
+    const nomePDF = `pedido_compra_${novoPedidoId || "N/A"}.pdf`;
+
+    // Gera o PDF
     html2pdf()
       .set({
-        margin: 10,
-        filename: "pedido_compra.pdf",
+        margin: [10, 10, 10, 10],
+        filename: nomePDF,
+        html2canvas: { scale: 1.5 },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       })
-      .from(el)
+      .from(conteudo)
       .save()
       .then(() => {
         localStorage.removeItem("vetorInsumos");
