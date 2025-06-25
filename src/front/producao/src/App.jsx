@@ -8,7 +8,6 @@ import Producao from "./pages/producao/Producao.jsx";
 import Estoque from './pages/gestao-estoque/Estoque.jsx';
 import CadastroEquipamento from "./pages/gestao-estoque/CadastroEquipamento.jsx";
 import Pesquisa from "./pages/gestao-estoque/Pesquisa.jsx";
-import IndicadoresDesempenho from "./pages/gestao-estoque/IndicadoresDesempenho.jsx";
 import CadastroInsumo from "./pages/gestao-estoque/CadastroInsumo.jsx";
 import Compras from "./pages/gestao-estoque/Compras.jsx";
 import EditarEquipamento from "./pages/gestao-estoque/EditarEquipamento.jsx";
@@ -16,7 +15,6 @@ import EditarInsumo from "./pages/gestao-estoque/EditarInsumo.jsx";
 import Entrada  from "./pages/gestao-estoque/Entrada.jsx";
 import FastEquip from "./pages/gestao-estoque/FastEquip.jsx";
 import FastInsumo from "./pages/gestao-estoque/FastInsumo.jsx";
-
 
 import Movimentacao from "./pages/movimentacao/Movimentacao.jsx";
 
@@ -52,7 +50,6 @@ export default function App() {
               <Route path="/estoque" element={<PrivateRoute><Estoque /></PrivateRoute>} />
               <Route path="/estoque/entrada" element={<PrivateRoute><Entrada /></PrivateRoute>} />
               <Route path="/estoque/buscar" element={<PrivateRoute><Pesquisa /></PrivateRoute>} />
-              <Route path="/estoque/indicadoresDesempenho" element={<PrivateRoute><IndicadoresDesempenho /></PrivateRoute>} />
               <Route path="/estoque/compras" element={<PrivateRoute><Compras /></PrivateRoute>} />
               <Route path="/estoque/fastEquipamento" element={<PrivateRoute><FastEquip /></PrivateRoute>} />
               <Route path="/estoque/fastInsumo" element={<PrivateRoute><FastInsumo /></PrivateRoute>} />

@@ -433,7 +433,7 @@ useEffect(() => {
       <div className="container py-2">
         <h1 className="mb-4 text-primary">Indicadores de Desempenho</h1>
         <div className="row g-3">
-          {/* Linha 1: Gráfico Depósitos e Média de Demora lado a lado */}
+          {/* Gráfico Depósitos e Média de Demora lado a lado */}
           <div className="col-12 col-lg-6">
             <div className="card glass-div h-100">
               <div className="card-body">
@@ -530,7 +530,7 @@ useEffect(() => {
               </div>
             </div>
           </div>
-          {/* Linha 2: Apuração de defeitos ocupa toda a largura */}
+          {/* Apuração de defeitos ocupa toda a largura */}
           <div className="col-12">
             <div className="card glass-div h-100 mt-2">
               <div className="card-body">
