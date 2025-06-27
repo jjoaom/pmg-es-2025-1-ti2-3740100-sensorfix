@@ -1,42 +1,36 @@
 cff-version: 1.0.1
-message: Please cite this software using these metadata.
+message: Este trabalho foi desenvolvido como parte do curso de Engenharia de Software da PUC Minas e faz parte do projeto SensorFix. Caso utilize este software em trabalhos acadêmicos, pesquisas ou aplicações, por favor, cite-o utilizando as informações de autoria e versão fornecidas neste arquivo. O SensorFix é uma solução para gerenciamento logístico com foco em IoT, controle de estoque e manutenção de equipamentos, implementada com tecnologias como React, Java, Spring Boot e Azure. Para mais informações ou contribuições, acesse o repositório oficial.
 title: SensorFix 
 authors:
-  - family-names: Leal
-    given-names: Caio Gabriel de Lima
-  - family-names: Carvalho
-    given-names: Erick Guedes de
-  - family-names: Costa
-    given-names: Ian Nycolas Fernandes
-  - family-names: Gonçalves
-    given-names: João Marcos de Aquino
+  - family-names: Lima Leal
+    given-names: Caio Gabriel 
+  - family-names: Guedes de Carvalho
+    given-names: Erick 
+  - family-names: Fernandes Costa
+    given-names: Ian Nycolas 
+  - family-names: Aquino Gonçalves
+    given-names: João Marcos 
   - family-names: Tolentino
     given-names: João Vitor
-  - family-names: Teixeira
-    given-names: Luiz Gustavo Fagundes
+  - family-names: Fagundes Teixeira
+    given-names: Luiz Gustavo 
   - family-names: Maia Filho
-    given-names: Danilo De Quadros
-  - family-names: Andrade
-    given-names: Michelle Hanne Soares De
+    given-names: Danilo Quadros
+  - family-names: Soares De Andrade
+    given-names: Michelle Hanne
+- family-names: Rieiro de Souza
+    given-names: Joana Gabriela
     name-suffix: Professora
     affiliation: PUC Minas
 keywords:
   - IoT
-  - Logística
-  - Gestão de Processos
   - Controle de Estoque
   - Manutenção de Equipamentos
   - Gerenciamento de Depósitos
-  - Solução Web
-  - SensorFix
-  - PUC Minas
-  - React
-  - Java
-  - Springboot
-  - Azure
-  - CI/CD
-  - Azure
-  - Netlify
+  - Java Springboot
+  
+
+  
 repository-code: https://github.com/ICEI-PUC-Minas-PMGES-TI/pmg-es-2025-1-ti2-3740100-sensorfix.git
 license: CC-BY-4.0
 version: 1.0.0
