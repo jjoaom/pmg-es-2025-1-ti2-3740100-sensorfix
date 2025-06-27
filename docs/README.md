@@ -31,13 +31,11 @@ Professores:
 
 _Curso de Engenharia de Software_
 
-_Instituto de Informática e Ciências Exatas – Pontifícia Universidade Católica de Minas Gerais (PUC MINAS), Belo Horizonte – MG – Brasil_
+Instituto de Informática e Ciências Exatas – Pontifícia Universidade Católica de Minas Gerais (PUC MINAS), Belo Horizonte – MG – Brasil_
 
 ---
 
-_**Resumo**. Escrever aqui o resumo. O resumo deve contextualizar rapidamente o trabalho, descrever seu objetivo e, ao final, 
-mostrar algum resultado relevante do trabalho (até 10 linhas)._
-
+_Este trabalho apresenta o desenvolvimento da SensorFix, uma solução web voltada à otimização da gestão de manufatura e manutenção de sensores de segurança utilizados por empresas de IoT. O sistema foi idealizado para atender a uma demanda crescente por processos logísticos mais eficientes, especialmente no que se refere à estocagem, classificação e reutilização de dispositivos retornados do campo. A proposta busca aumentar a rastreabilidade dos equipamentos, reduzir desperdícios e melhorar a eficiência operacional por meio da automação e do controle detalhado de depósitos e fluxos internos. Como resultado, a SensorFix oferece melhorias significativas na gestão de ativos tecnológicos, contribuindo para o crescimento sustentável do setor de IoT no Brasil._
 ---
 
 
