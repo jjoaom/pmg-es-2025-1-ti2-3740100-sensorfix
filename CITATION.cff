@@ -1,5 +1,5 @@
 cff-version: 1.0.1
-message: Este trabalho foi desenvolvido como parte do curso de Engenharia de Software da PUC Minas e faz parte do projeto SensorFix. Caso utilize este software em trabalhos acadêmicos, pesquisas ou aplicações, por favor, cite-o utilizando as informações de autoria e versão fornecidas neste arquivo. O SensorFix é uma solução para gerenciamento logístico com foco em IoT, controle de estoque e manutenção de equipamentos, implementada com tecnologias como React, Java, Spring Boot e Azure. Para mais informações ou contribuições, acesse o repositório oficial.
+message: SensorFix é uma solução para gerenciamento logístico com foco em IoT, controle de estoque e manutenção de equipamentos.
 title: SensorFix
 authors:
   - family-names: Lima Leal
@@ -14,13 +14,18 @@ authors:
     given-names: João Vitor
   - family-names: Fagundes Teixeira
     given-names: Luiz Gustavo
-  - family-names: Maia Filho
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: Maia Filho
     given-names: Danilo Quadros
-  - family-names: Soares De Andrade
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: Soares De Andrade
     given-names: Michelle Hanne
-  - family-names: Rieiro de Souza
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: Rieiro de Souza
     given-names: Joana Gabriela
-    affiliation: PUC Minas (Professora)
 keywords:
   - IoT
   - Controle de Estoque
